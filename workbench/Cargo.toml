@@ -4,9 +4,6 @@ version = "0.0.1"
 edition = "2018"
 license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
-description = "The package provides a font toolbox."
-homepage = "https://github.com/bodoni/workbench"
-repository = "https://github.com/bodoni/workspace"
 
 [[bin]]
 name = "draw"
