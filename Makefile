@@ -1,6 +1,6 @@
 crates := font opentype postscript truetype
 
-all:
+all: test
 
 clean:
 	git submodule foreach git checkout .
@@ -13,4 +13,7 @@ setup:
 		done \
 	done
 
-.PHONY: all clean setup
+test:
+	RUST_BACKTRACE=1 cargo run --bin scan -- --path tests/fixtures/google-fonts
+
+.PHONY: all clean setup test
