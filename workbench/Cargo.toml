@@ -1,0 +1,26 @@
+[package]
+name = "workbench"
+version = "0.0.1"
+edition = "2018"
+license = "Apache-2.0/MIT"
+authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
+description = "The package provides a font toolbox."
+homepage = "https://github.com/bodoni/workbench"
+repository = "https://github.com/bodoni/workspace"
+
+[[bin]]
+name = "draw"
+path = "src/draw.rs"
+
+[[bin]]
+name = "scan"
+path = "src/scan.rs"
+
+[dependencies]
+font = { path = "../font" }
+opentype = { path = "../opentype" }
+postscript = { path = "../postscript" }
+truetype = { path = "../truetype" }
+
+arguments = "0.6"
+svg = "0.9"
