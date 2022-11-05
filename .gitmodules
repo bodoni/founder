@@ -1,12 +1,12 @@
 [submodule "font"]
 	path = font
-	url = https://github.com/bodoni/font.git
+	url = git@github.com:bodoni/font.git
 [submodule "opentype"]
 	path = opentype
-	url = https://github.com/bodoni/opentype.git
-[submodule "truetype"]
-	path = truetype
-	url = https://github.com/bodoni/truetype.git
+	url = git@github.com:bodoni/opentype.git
 [submodule "postscript"]
 	path = postscript
-	url = https://github.com/bodoni/postscript.git
+	url = git@github.com:bodoni/postscript.git
+[submodule "truetype"]
+	path = truetype
+	url = git@github.com:bodoni/truetype.git
