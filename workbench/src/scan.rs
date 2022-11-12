@@ -1,21 +1,44 @@
 extern crate arguments;
 extern crate font;
+extern crate futures;
 
 use font::Font;
+use futures::channel::mpsc;
+use futures::executor;
+use futures::executor::ThreadPool;
+use futures::StreamExt;
 use std::fs;
 use std::io;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let path = match arguments.get::<String>("path") {
-        Some(path) => path,
+    let path: PathBuf = match arguments.get::<String>("path") {
+        Some(path) => path.into(),
         _ => {
             println!("Error: --path should be given.");
             return;
         }
     };
-    list(Path::new(&path), process).unwrap();
+
+    let pool = ThreadPool::new().unwrap();
+    let (tx, mut rx) = mpsc::unbounded::<PathBuf>();
+    let futures = async {
+        let result = async move {
+            list(&path, |path| Ok(tx.unbounded_send(path.into()).unwrap())).unwrap();
+        };
+        pool.spawn_ok(result);
+        let mut pending = vec![];
+        while let Some(path) = rx.next().await {
+            pending.push(process(&path));
+        }
+        pending
+    };
+    let values: Vec<io::Result<()>> = executor::block_on(futures);
+    let (successes, failures): (Vec<_>, Vec<_>) = values.into_iter().partition(Result::is_ok);
+    println!("Successes: {}", successes.len());
+    println!("Failures: {}", failures.len());
+    assert_eq!(failures.len(), 0);
 }
 
 fn list<F>(path: &Path, callback: F) -> io::Result<()>

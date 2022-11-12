@@ -20,4 +20,5 @@ postscript = { path = "../postscript" }
 truetype = { path = "../truetype" }
 
 arguments = "0.6"
+futures = { version = "0.3", features = ["thread-pool"] }
 svg = "0.9"
