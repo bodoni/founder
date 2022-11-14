@@ -1,15 +1,14 @@
 extern crate arguments;
 extern crate font;
 extern crate futures;
+extern crate walkdir;
 
 use font::Font;
-use futures::channel::mpsc;
-use futures::executor;
-use futures::executor::ThreadPool;
-use futures::StreamExt;
-use std::fs;
+use futures::executor::block_on;
+use futures::future::join_all;
 use std::io;
 use std::path::{Path, PathBuf};
+use walkdir::WalkDir;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
@@ -20,22 +19,23 @@ fn main() {
             return;
         }
     };
-
-    let pool = ThreadPool::new().unwrap();
-    let (tx, mut rx) = mpsc::unbounded::<PathBuf>();
-    let futures = async {
-        let result = async move {
-            list(&path, |path| Ok(tx.unbounded_send(path.into()).unwrap())).unwrap();
-        };
-        pool.spawn_ok(result);
-        let mut pending = vec![];
-        while let Some(path) = rx.next().await {
-            let result = process(&path);
-            pending.push((path, result));
+    let mut futures = vec![];
+    for entry in WalkDir::new(&path).into_iter().map(|entry| entry.unwrap()) {
+        if entry.file_type().is_dir() {
+            continue;
         }
-        pending
-    };
-    let values: Vec<(PathBuf, io::Result<()>)> = executor::block_on(futures);
+        match entry
+            .path()
+            .extension()
+            .and_then(|extension| extension.to_str())
+        {
+            Some("otf") | Some("ttf") => {}
+            _ => continue,
+        }
+        println!("Registering {:?}...", entry.path());
+        futures.push(register(entry.path().into()));
+    }
+    let values = block_on(join_all(futures));
     let (successes, failures): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     println!("Successes: {}", successes.len());
@@ -46,30 +46,13 @@ fn main() {
     assert_eq!(failures.len(), 0);
 }
 
-fn list<F>(path: &Path, callback: F) -> io::Result<()>
-where
-    F: Fn(&Path) -> io::Result<()> + Copy,
-{
-    if !path.is_dir() {
-        return Ok(());
-    }
-    for entry in fs::read_dir(path)? {
-        let path = entry?.path();
-        if path.is_dir() {
-            list(&path, callback)?;
-            continue;
-        }
-        match path.extension().and_then(|extension| extension.to_str()) {
-            Some("otf") => callback(&path)?,
-            Some("ttf") => callback(&path)?,
-            _ => {}
-        }
-    }
-    Ok(())
-}
-
 fn process(path: &Path) -> io::Result<()> {
     println!("Processing {:?}...", path);
     Font::open(path)?;
     Ok(())
+}
+
+async fn register(path: PathBuf) -> (PathBuf, io::Result<()>) {
+    let result = process(&path);
+    (path, result)
 }
