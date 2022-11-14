@@ -30,14 +30,19 @@ fn main() {
         pool.spawn_ok(result);
         let mut pending = vec![];
         while let Some(path) = rx.next().await {
-            pending.push(process(&path));
+            let result = process(&path);
+            pending.push((path, result));
         }
         pending
     };
-    let values: Vec<io::Result<()>> = executor::block_on(futures);
-    let (successes, failures): (Vec<_>, Vec<_>) = values.into_iter().partition(Result::is_ok);
+    let values: Vec<(PathBuf, io::Result<()>)> = executor::block_on(futures);
+    let (successes, failures): (Vec<_>, Vec<_>) =
+        values.into_iter().partition(|(_, result)| result.is_ok());
     println!("Successes: {}", successes.len());
     println!("Failures: {}", failures.len());
+    for (path, result) in failures.iter() {
+        println!("{:?}: {:?}", path, result);
+    }
     assert_eq!(failures.len(), 0);
 }
 
