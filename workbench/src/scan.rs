@@ -19,22 +19,19 @@ fn main() {
             return;
         }
     };
-    let mut futures = vec![];
-    for entry in WalkDir::new(&path).into_iter().map(|entry| entry.unwrap()) {
-        if entry.file_type().is_dir() {
-            continue;
-        }
-        match entry
-            .path()
-            .extension()
-            .and_then(|extension| extension.to_str())
-        {
-            Some("otf") | Some("ttf") => {}
-            _ => continue,
-        }
-        println!("Registering {:?}...", entry.path());
-        futures.push(register(entry.path().into()));
-    }
+    let futures = WalkDir::new(&path)
+        .into_iter()
+        .map(|entry| entry.unwrap())
+        .filter(|entry| !entry.file_type().is_dir())
+        .filter(|entry| {
+            entry
+                .path()
+                .extension()
+                .and_then(|extension| extension.to_str())
+                .map(|extension| extension == "otf" || extension == "ttf")
+                .unwrap_or(false)
+        })
+        .map(|entry| register(entry.path().into()));
     let values = block_on(join_all(futures));
     let (successes, failures): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
