@@ -38,6 +38,10 @@ fn main() {
     let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
         // https://github.com/google/fonts/issues/5551
         path.to_str().unwrap().contains("ubuntu")
+        // https://github.com/google/fonts/issues/5553
+        || path.to_str().unwrap().contains("gruppo")
+        || path.to_str().unwrap().contains("iceland")
+        || path.to_str().unwrap().contains("kaushanscript")
     });
     println!("Successes: {}", successes.len());
     println!("Failures: {}", failures.len());
