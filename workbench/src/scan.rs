@@ -33,12 +33,20 @@ fn main() {
         })
         .map(|entry| register(entry.path().into()));
     let values = block_on(join_all(futures));
-    let (successes, failures): (Vec<_>, Vec<_>) =
+    let (successes, other): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
+    let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
+        // https://github.com/google/fonts/issues/5551
+        path.to_str().unwrap().contains("ubuntu")
+    });
     println!("Successes: {}", successes.len());
     println!("Failures: {}", failures.len());
     for (path, result) in failures.iter() {
-        println!("{:?}: {:?}", path, result);
+        println!("{:?}: {}", path, result.as_ref().err().unwrap());
+    }
+    println!("Ignores: {}", ignores.len());
+    for (path, result) in ignores.iter() {
+        println!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
     assert_eq!(failures.len(), 0);
 }
