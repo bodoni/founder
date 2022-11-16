@@ -19,6 +19,7 @@ fn main() {
             return;
         }
     };
+    let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     let futures = WalkDir::new(&path)
         .into_iter()
         .map(|entry| entry.unwrap())
@@ -36,12 +37,8 @@ fn main() {
     let (successes, other): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
-        // https://github.com/google/fonts/issues/5551
-        path.to_str().unwrap().contains("ubuntu")
-        // https://github.com/google/fonts/issues/5553
-        || path.to_str().unwrap().contains("gruppo")
-        || path.to_str().unwrap().contains("iceland")
-        || path.to_str().unwrap().contains("kaushanscript")
+        let path = path.to_str().unwrap();
+        ignores.iter().any(|name| path.contains(name))
     });
     println!("Successes: {}", successes.len());
     println!("Failures: {}", failures.len());

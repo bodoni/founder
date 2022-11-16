@@ -21,20 +21,22 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
+        with: {submodules: true}
       - run: make setup
         shell: bash
-      - uses: actions-rs/cargo@v1
-        with: {command: run, args: --bin scan -- --path tests/fixtures/google-fonts}
+      - uses: actions-rs/toolchain@v1
+        with: {toolchain: stable}
+      - run: make tests
+        shell: bash
 
   ubuntu:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
+        with: {submodules: true}
       - run: make setup
         shell: bash
-      - uses: actions-rs/cargo@v1
-        with: {command: run, args: --bin scan -- --path tests/fixtures/google-fonts}
+      - uses: actions-rs/toolchain@v1
+        with: {toolchain: stable}
+      - run: make tests
+        shell: bash

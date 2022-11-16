@@ -19,7 +19,7 @@ opentype = { path = "../opentype" }
 postscript = { path = "../postscript" }
 truetype = { path = "../truetype" }
 
-arguments = "0.6"
-futures = { version = "0.3", features = ["thread-pool"] }
+arguments = "0.7"
+futures = "0.3"
 svg = "0.9"
 walkdir = "2.3"
