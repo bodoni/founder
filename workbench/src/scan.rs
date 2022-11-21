@@ -53,9 +53,16 @@ fn main() {
 }
 
 fn process(path: &Path) -> io::Result<()> {
-    println!("Processing {:?}...", path);
-    Font::open(path)?;
-    Ok(())
+    match Font::open(path) {
+        Ok(_) => {
+            println!("[success] {:?}", path);
+            Ok(())
+        }
+        Err(error) => {
+            println!("[failure] {:?} ({:?})", path, error);
+            Err(error)
+        }
+    }
 }
 
 async fn register(path: PathBuf) -> (PathBuf, io::Result<()>) {
