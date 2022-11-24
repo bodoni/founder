@@ -16,9 +16,11 @@ setup:
 tests:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
+	# https://github.com/google/fonts/issues/5620
 	$(MAKE) -C tests/fixtures
 	RUST_BACKTRACE=1 cargo run --bin scan -- \
 		--path tests/fixtures \
+		--ignore Noto_Sans_JP \
 		--ignore gruppo \
 		--ignore iceland \
 		--ignore kaushanscript \
