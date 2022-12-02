@@ -1,4 +1,4 @@
-crates := font opentype postscript truetype
+crates := font opentype postscript truetype typeface
 
 all: tests
 

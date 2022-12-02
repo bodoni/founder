@@ -4,5 +4,6 @@ members = [
     "opentype",
     "postscript",
     "truetype",
+    "typeface",
     "workbench",
 ]
