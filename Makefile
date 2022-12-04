@@ -22,6 +22,7 @@ tests:
 		--ignore gruppo \
 		--ignore iceland \
 		--ignore kaushanscript \
-		--ignore ubuntu
+		--ignore ubuntu \
+		--workers 4
 
 .PHONY: all clean setup tests

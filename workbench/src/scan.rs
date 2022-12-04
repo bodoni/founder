@@ -1,13 +1,13 @@
 extern crate arguments;
 extern crate font;
-extern crate futures;
 extern crate walkdir;
 
 use font::Font;
-use futures::executor::block_on;
-use futures::future::join_all;
 use std::io;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
+use std::sync::mpsc;
+use std::sync::{Arc, Mutex};
+use std::thread;
 use walkdir::WalkDir;
 
 fn main() {
@@ -20,7 +20,24 @@ fn main() {
         }
     };
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let futures = WalkDir::new(&path)
+    let workers = arguments.get::<usize>("workers").unwrap_or(1);
+
+    let (forward_sender, forward_receiver) = mpsc::channel::<PathBuf>();
+    let (backward_sender, backward_receiver) = mpsc::channel::<(PathBuf, io::Result<()>)>();
+    let forward_receiver = Arc::new(Mutex::new(forward_receiver));
+
+    let _: Vec<_> = (0..workers)
+        .map(|_| {
+            let forward_receiver = forward_receiver.clone();
+            let backward_sender = backward_sender.clone();
+            thread::spawn(move || loop {
+                let path = forward_receiver.lock().unwrap().recv().unwrap();
+                backward_sender.send(process(path)).unwrap();
+            })
+        })
+        .collect();
+    let mut count = 0;
+    for entry in WalkDir::new(&path)
         .into_iter()
         .map(|entry| entry.unwrap())
         .filter(|entry| !entry.file_type().is_dir())
@@ -32,8 +49,13 @@ fn main() {
                 .map(|extension| extension == "otf" || extension == "ttf")
                 .unwrap_or(false)
         })
-        .map(|entry| register(entry.path().into()));
-    let values = block_on(join_all(futures));
+    {
+        forward_sender.send(entry.path().into()).unwrap();
+        count += 1;
+    }
+    let values: Vec<(PathBuf, io::Result<()>)> = (0..count)
+        .map(|_| backward_receiver.recv().unwrap())
+        .collect();
     let (successes, other): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
@@ -52,8 +74,8 @@ fn main() {
     assert_eq!(failures.len(), 0);
 }
 
-fn process(path: &Path) -> io::Result<()> {
-    match Font::open(path) {
+fn process(path: PathBuf) -> (PathBuf, io::Result<()>) {
+    let result = match Font::open(&path) {
         Ok(_) => {
             println!("[success] {:?}", path);
             Ok(())
@@ -62,10 +84,6 @@ fn process(path: &Path) -> io::Result<()> {
             println!("[failure] {:?} ({:?})", path, error);
             Err(error)
         }
-    }
-}
-
-async fn register(path: PathBuf) -> (PathBuf, io::Result<()>) {
-    let result = process(&path);
+    };
     (path, result)
 }
