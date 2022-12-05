@@ -1,6 +1,6 @@
 all: tests
 
-tests: tests-scan
+tests: tests-draw tests-scan tests-sign
 
 tests-draw:
 	RUST_BACKTRACE=full cargo run --bin draw --features drawing -- \
