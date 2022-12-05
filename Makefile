@@ -1,11 +1,11 @@
 crates := font opentype postscript truetype typeface
 
-all: tests
+all:
 
 clean:
 	git submodule foreach git checkout .
 
-setup:
+configure:
 	for manifest in */Cargo.toml; do \
 		for crate in ${crates}; do \
 			cp "$${manifest}" /tmp/Cargo.toml && cat /tmp/Cargo.toml | \
@@ -13,16 +13,7 @@ setup:
 		done \
 	done
 
-tests:
-	# https://github.com/google/fonts/issues/5551
-	# https://github.com/google/fonts/issues/5553
-	$(MAKE) -C tests/fixtures
-	RUST_BACKTRACE=1 cargo run --bin scan --features scanning -- \
-		--path tests/fixtures \
-		--ignore gruppo \
-		--ignore iceland \
-		--ignore kaushanscript \
-		--ignore ubuntu \
-		--workers 4
+%:
+	$(MAKE) -C workbench $@
 
-.PHONY: all clean setup tests
+.PHONY: all clean configure

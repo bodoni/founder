@@ -18,13 +18,17 @@ pub fn draw(glyph: &Glyph) -> Group {
                     a += b;
                     data = data.line_by(vec![b.0, b.1]);
                 }
+                &Segment::Quadratic(b, mut c) => {
+                    c += b;
+                    a += c;
+                    data = data.quadratic_curve_by(vec![b.0, b.1, c.0, c.1]);
+                },
                 &Segment::Cubic(b, mut c, mut d) => {
                     c += b;
                     d += c;
                     a += d;
                     data = data.cubic_curve_by(vec![b.0, b.1, c.0, c.1, d.0, d.1]);
                 }
-                _ => unreachable!(),
             }
         }
         data = data.close();

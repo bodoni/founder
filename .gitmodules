@@ -10,9 +10,9 @@
 [submodule "truetype"]
 	path = truetype
 	url = git@github.com:bodoni/truetype.git
-[submodule "tests/fixtures/google-fonts"]
-	path = tests/fixtures/google-fonts
-	url = https://github.com/google/fonts.git
 [submodule "typeface"]
 	path = typeface
 	url = git@github.com:bodoni/typeface.git
+[submodule "workbench/tests/fixtures/google-fonts"]
+	path = workbench/tests/fixtures/google-fonts
+	url = https://github.com/google/fonts.git

@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with: {submodules: true}
-      - run: make setup
+      - run: make configure
         shell: bash
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with: {submodules: true}
-      - run: make setup
+      - run: make configure
         shell: bash
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
