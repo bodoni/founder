@@ -22,7 +22,7 @@ pub fn draw(glyph: &Glyph) -> Group {
                     c += b;
                     a += c;
                     data = data.quadratic_curve_by(vec![b.0, b.1, c.0, c.1]);
-                },
+                }
                 &Segment::Cubic(b, mut c, mut d) => {
                     c += b;
                     d += c;

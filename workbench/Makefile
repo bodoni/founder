@@ -22,4 +22,14 @@ tests-scan:
 		--ignore ubuntu \
 		--workers 4
 
+tests-sign:
+	$(MAKE) -C tests/fixtures
+	RUST_BACKTRACE=full cargo run --bin sign --features drawing,scanning -- \
+		--path tests/fixtures \
+		--ignore gruppo \
+		--ignore iceland \
+		--ignore kaushanscript \
+		--ignore ubuntu \
+		--workers 4
+
 .PHONY: tests tests-scan

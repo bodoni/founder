@@ -24,7 +24,6 @@ fn main() {
             return;
         }
     };
-
     let font = Font::open(font).unwrap();
     let glyph = font.draw(glyph).unwrap().unwrap();
     let (width, height) = (glyph.advance_width(), glyph.height() + 2.0 * 50.0);

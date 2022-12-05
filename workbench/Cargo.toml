@@ -15,6 +15,11 @@ name = "scan"
 path = "src/scan.rs"
 required-features = ["scanning"]
 
+[[bin]]
+name = "sign"
+path = "src/sign.rs"
+required-features = ["drawing", "scanning"]
+
 [features]
 drawing = ["svg"]
 scanning = ["walkdir"]
@@ -24,6 +29,7 @@ font = { path = "../font" }
 opentype = { path = "../opentype" }
 postscript = { path = "../postscript" }
 truetype = { path = "../truetype" }
+typeface = { path = "../typeface" }
 
 arguments = "0.7"
 svg = { version = "0.9", optional = true }

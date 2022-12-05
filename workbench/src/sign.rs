@@ -1,12 +1,18 @@
 extern crate arguments;
 extern crate font;
+extern crate svg;
+#[macro_use(raise)]
+extern crate typeface;
 extern crate walkdir;
 
 use std::io::Result;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use font::Font;
+use svg::node::element::Style;
+use svg::Document;
 
+mod drawing;
 mod scanning;
 
 fn main() {
@@ -40,7 +46,7 @@ fn main() {
 }
 
 fn process(path: PathBuf) -> (PathBuf, Result<()>) {
-    let result = match Font::open(&path) {
+    let result = match draw(&path) {
         Ok(_) => {
             println!("[success] {:?}", path);
             Ok(())
@@ -51,4 +57,22 @@ fn process(path: PathBuf) -> (PathBuf, Result<()>) {
         }
     };
     (path, result)
+}
+
+fn draw(path: &Path) -> Result<()> {
+    let font = Font::open(path)?;
+    let glyph = match font.draw('&')? {
+        Some(glyph) => glyph,
+        _ => raise!("failed to find the glyph"),
+    };
+    let (width, height) = (glyph.advance_width(), glyph.height() + 2.0 * 50.0);
+    let transform = format!("translate(0, {}) scale(1, -1)", glyph.bounding_box.3 + 50.0);
+    let glyph = drawing::draw(&glyph).set("transform", transform);
+    let style = Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
+    let _ = Document::new()
+        .set("width", width)
+        .set("height", height)
+        .add(style)
+        .add(glyph);
+    Ok(())
 }
