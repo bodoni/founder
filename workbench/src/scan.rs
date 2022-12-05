@@ -1,5 +1,6 @@
 extern crate arguments;
 extern crate font;
+extern crate svg;
 extern crate walkdir;
 
 use font::Font;
@@ -20,7 +21,7 @@ fn main() {
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     let workers = arguments.get::<usize>("workers").unwrap_or(1);
 
-    let values = support::process(&path, process, workers);
+    let values = support::scan(&path, process, workers);
     let (successes, other): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
