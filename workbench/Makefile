@@ -23,6 +23,8 @@ tests-scan:
 		--workers 4
 
 tests-sign:
+	# https://github.com/google/fonts/issues/5551
+	# https://github.com/google/fonts/issues/5553
 	$(MAKE) -C tests/fixtures
 	RUST_BACKTRACE=full cargo run --bin sign --features drawing,scanning -- \
 		--path tests/fixtures \
