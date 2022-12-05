@@ -8,10 +8,16 @@ authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
 [[bin]]
 name = "draw"
 path = "src/draw.rs"
+required-features = ["drawing"]
 
 [[bin]]
 name = "scan"
 path = "src/scan.rs"
+required-features = ["scanning"]
+
+[features]
+drawing = ["svg"]
+scanning = ["walkdir"]
 
 [dependencies]
 font = { path = "../font" }
@@ -20,5 +26,5 @@ postscript = { path = "../postscript" }
 truetype = { path = "../truetype" }
 
 arguments = "0.7"
-svg = "0.9"
-walkdir = "2.3"
+svg = { version = "0.9", optional = true }
+walkdir = { version = "2.3", optional = true }

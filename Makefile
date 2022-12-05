@@ -17,7 +17,7 @@ tests:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
 	$(MAKE) -C tests/fixtures
-	RUST_BACKTRACE=1 cargo run --bin scan -- \
+	RUST_BACKTRACE=1 cargo run --bin scan --features scanning -- \
 		--path tests/fixtures \
 		--ignore gruppo \
 		--ignore iceland \

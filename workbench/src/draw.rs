@@ -1,13 +1,12 @@
 extern crate arguments;
 extern crate font;
 extern crate svg;
-extern crate walkdir;
 
 use font::Font;
 use svg::node::element::Style;
 use svg::Document;
 
-mod support;
+mod drawing;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
@@ -30,7 +29,7 @@ fn main() {
     let glyph = font.draw(glyph).unwrap().unwrap();
     let (width, height) = (glyph.advance_width(), glyph.height() + 2.0 * 50.0);
     let transform = format!("translate(0, {}) scale(1, -1)", glyph.bounding_box.3 + 50.0);
-    let glyph = support::draw(&glyph).set("transform", transform);
+    let glyph = drawing::draw(&glyph).set("transform", transform);
     let style = Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
     let document = Document::new()
         .set("width", width)
