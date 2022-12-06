@@ -61,7 +61,7 @@ fn process(path: PathBuf) -> (PathBuf, Result<()>) {
 
 fn draw(path: &Path) -> Result<()> {
     let font = Font::open(path)?;
-    let glyph = match font.draw('&')? {
+    let glyph = match font.draw('a')? {
         Some(glyph) => glyph,
         _ => raise!("failed to find the glyph"),
     };

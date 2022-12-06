@@ -19,7 +19,10 @@ where
             let forward_receiver = forward_receiver.clone();
             let backward_sender = backward_sender.clone();
             thread::spawn(move || loop {
-                let path = forward_receiver.lock().unwrap().recv().unwrap();
+                let path = match forward_receiver.lock().unwrap().recv() {
+                    Ok(path) => path,
+                    Err(_) => break,
+                };
                 backward_sender.send(process(path)).unwrap();
             })
         })
