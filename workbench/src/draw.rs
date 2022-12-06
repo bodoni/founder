@@ -26,7 +26,7 @@ fn main() {
     };
     let font = Font::open(font).unwrap();
     let glyph = font.draw(glyph).unwrap().unwrap();
-    let (width, height) = (glyph.advance_width(), glyph.height() + 2.0 * 50.0);
+    let (width, height) = (glyph.advance_width, glyph.height() + 2.0 * 50.0);
     let transform = format!("translate(0, {}) scale(1, -1)", glyph.bounding_box.3 + 50.0);
     let glyph = drawing::draw(&glyph).set("transform", transform);
     let style = Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
