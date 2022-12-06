@@ -26,7 +26,9 @@ jobs:
         shell: bash
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
-      - run: make tests
+      - run: make tests-draw
+        shell: bash
+      - run: make tests-scan
         shell: bash
 
   ubuntu:
@@ -38,5 +40,7 @@ jobs:
         shell: bash
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
-      - run: make tests
+      - run: make tests-draw
+        shell: bash
+      - run: make tests-scan
         shell: bash
