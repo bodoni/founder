@@ -11,7 +11,8 @@ pub fn draw(glyph: &Glyph) -> Group {
     let mut a = Offset::default();
     for contour in glyph.iter() {
         a += contour.offset;
-        let mut data = Data::new().move_to(vec![a.0, a.1]);
+        let mut data = Data::new();
+        data = data.move_to(vec![a.0, a.1]);
         for segment in contour.iter() {
             match segment {
                 &Segment::Linear(b) => {
