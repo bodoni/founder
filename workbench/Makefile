@@ -3,12 +3,13 @@ all: tests
 tests: tests-draw tests-scan tests-sign
 
 tests-draw:
-	RUST_BACKTRACE=full cargo run --bin draw --features drawing -- \
+	cargo run --bin draw --features drawing --quiet -- \
 		--font ../font/tests/fixtures/SourceSerifPro-Regular.otf \
-		--glyph "&"
-	RUST_BACKTRACE=full cargo run --bin draw --features drawing -- \
+		--glyph "&" > assets/glyph-otf.svg
+	cargo run --bin draw --features drawing --quiet -- \
 		--font ../font/tests/fixtures/OpenSans-Italic.ttf \
-		--glyph "&"
+		--glyph "&" > assets/glyph-ttf.svg
+	[[ "$$(git diff assets | wc -l | xargs)" == 0 ]] || exit 1
 
 tests-scan:
 	# https://github.com/google/fonts/issues/5551
