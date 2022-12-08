@@ -9,7 +9,7 @@ tests-draw:
 	cargo run --bin draw --features drawing --quiet -- \
 		--font ../font/tests/fixtures/OpenSans-Italic.ttf \
 		--glyph "&" > assets/glyph-ttf.svg
-	[ "$$(git diff assets | wc -l | xargs)" == 0 ] || exit 1
+	[ "$$(git diff assets | wc -l | xargs)" = 0 ] || exit 1
 
 tests-scan:
 	# https://github.com/google/fonts/issues/5551
