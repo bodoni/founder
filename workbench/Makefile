@@ -4,11 +4,14 @@ tests: tests-draw tests-scan tests-sign
 
 tests-draw:
 	cargo run --bin draw --features drawing --quiet -- \
-		--font ../font/tests/fixtures/SourceSerifPro-Regular.otf \
-		--glyph "&" > assets/glyph-otf.svg
-	cargo run --bin draw --features drawing --quiet -- \
 		--font ../font/tests/fixtures/OpenSans-Italic.ttf \
-		--glyph "&" > assets/glyph-ttf.svg
+		--glyph "&" > assets/OpenSans-Italic.svg
+	cargo run --bin draw --features drawing --quiet -- \
+		--font ../font/tests/fixtures/SourceSerifPro-Regular.otf \
+		--glyph "ö" > assets/SourceSerifPro-Regular.svg
+	cargo run --bin draw --features drawing --quiet -- \
+		--font ../font/tests/fixtures/VesperLibre-Regular.ttf \
+		--glyph "å" > assets/VesperLibre-Regular.svg
 	[ "$$(git diff assets | wc -l | xargs)" = 0 ] || exit 1
 
 tests-scan:
