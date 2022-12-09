@@ -9,7 +9,7 @@ use std::io::Result;
 use std::path::{Path, PathBuf};
 
 use font::Font;
-use svg::node::element::Style;
+use svg::node::element;
 use svg::Document;
 
 mod drawing;
@@ -65,14 +65,19 @@ fn draw(path: &Path) -> Result<()> {
         Some(glyph) => glyph,
         _ => raise!("failed to find the glyph"),
     };
-    let (width, height) = (glyph.advance_width(), glyph.height() + 2.0 * 50.0);
-    let transform = format!("translate(0, {}) scale(1, -1)", glyph.bounding_box.3 + 50.0);
+    let (width, height) = (glyph.advance_width, font.ascender - font.descender);
+    let background = element::Rectangle::new()
+        .set("width", width)
+        .set("height", height)
+        .set("fill", "#eee");
+    let transform = format!("translate(0, {}) scale(1, -1)", font.ascender);
     let glyph = drawing::draw(&glyph).set("transform", transform);
-    let style = Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
+    let style = element::Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
     let _ = Document::new()
         .set("width", width)
         .set("height", height)
         .add(style)
+        .add(background)
         .add(glyph);
     Ok(())
 }

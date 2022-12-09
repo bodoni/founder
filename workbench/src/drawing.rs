@@ -1,17 +1,13 @@
-use font::Glyph;
-use svg::node::element::Group;
+use font::{Glyph, Offset, Segment};
+use svg::node::Node;
+use svg::node::element;
 
-pub fn draw(glyph: &Glyph) -> Group {
-    use font::{Offset, Segment};
-    use svg::node::element::path::Data;
-    use svg::node::element::Path;
-    use svg::node::Node;
-
-    let mut group = Group::new();
+pub fn draw(glyph: &Glyph) -> element::Group {
+    let mut group = element::Group::new();
     let mut a = Offset::default();
     for contour in glyph.iter() {
         a += contour.offset;
-        let mut data = Data::new();
+        let mut data = element::path::Data::new();
         data = data.move_to(vec![a.0, a.1]);
         for segment in contour.iter() {
             match segment {
@@ -33,7 +29,7 @@ pub fn draw(glyph: &Glyph) -> Group {
             }
         }
         data = data.close();
-        group.append(Path::new().set("d", data));
+        group.append(element::Path::new().set("d", data));
     }
     group
 }

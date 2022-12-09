@@ -3,7 +3,7 @@ extern crate font;
 extern crate svg;
 
 use font::Font;
-use svg::node::element::Style;
+use svg::node::element;
 use svg::Document;
 
 mod drawing;
@@ -27,13 +27,18 @@ fn main() {
     let font = Font::open(font).unwrap();
     let glyph = font.draw(glyph).unwrap().unwrap();
     let (width, height) = (glyph.advance_width, font.ascender - font.descender);
+    let background = element::Rectangle::new()
+        .set("width", width)
+        .set("height", height)
+        .set("fill", "#eee");
     let transform = format!("translate(0, {}) scale(1, -1)", font.ascender);
     let glyph = drawing::draw(&glyph).set("transform", transform);
-    let style = Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
+    let style = element::Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
     let document = Document::new()
         .set("width", width)
         .set("height", height)
         .add(style)
+        .add(background)
         .add(glyph);
     print!("{}", document);
 }
