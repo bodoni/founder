@@ -1,8 +1,6 @@
 extern crate arguments;
 extern crate font;
 extern crate svg;
-#[macro_use(raise)]
-extern crate typeface;
 extern crate walkdir;
 
 use std::io::Result;
@@ -27,29 +25,33 @@ fn main() {
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     let workers = arguments.get::<usize>("workers").unwrap_or(1);
     let values = scanning::scan(&path, process, workers);
-    let (successes, other): (Vec<_>, Vec<_>) =
+    let (succeeded, other): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
-    let (ignores, failures): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
+    let (found, missing): (Vec<_>, Vec<_>) = succeeded
+        .into_iter()
+        .partition(|(_, result)| result.as_ref().unwrap().is_some());
+    let (ignored, failed): (Vec<_>, Vec<_>) = other.into_iter().partition(|(path, _)| {
         let path = path.to_str().unwrap();
         ignores.iter().any(|name| path.contains(name))
     });
-    println!("Successes: {}", successes.len());
-    println!("Failures: {}", failures.len());
-    for (path, result) in failures.iter() {
+    println!("Found: {}", found.len());
+    println!("Missing: {}", missing.len());
+    println!("Failed: {}", failed.len());
+    for (path, result) in failed.iter() {
         println!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
-    println!("Ignores: {}", ignores.len());
-    for (path, result) in ignores.iter() {
+    println!("Ignored: {}", ignored.len());
+    for (path, result) in ignored.iter() {
         println!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
-    assert_eq!(failures.len(), 0);
+    assert_eq!(failed.len(), 0);
 }
 
-fn process(path: PathBuf) -> (PathBuf, Result<()>) {
+fn process(path: PathBuf) -> (PathBuf, Result<Option<()>>) {
     let result = match draw(&path) {
-        Ok(_) => {
+        Ok(option) => {
             println!("[success] {:?}", path);
-            Ok(())
+            Ok(option)
         }
         Err(error) => {
             println!("[failure] {:?} ({:?})", path, error);
@@ -59,11 +61,11 @@ fn process(path: PathBuf) -> (PathBuf, Result<()>) {
     (path, result)
 }
 
-fn draw(path: &Path) -> Result<()> {
+fn draw(path: &Path) -> Result<Option<()>> {
     let font = Font::open(path)?;
     let glyph = match font.draw('a')? {
         Some(glyph) => glyph,
-        _ => raise!("failed to find the glyph"),
+        _ => return Ok(None),
     };
     let (width, height) = (glyph.advance_width, font.ascender - font.descender);
     let background = element::Rectangle::new()
@@ -79,5 +81,5 @@ fn draw(path: &Path) -> Result<()> {
         .add(style)
         .add(background)
         .add(glyph);
-    Ok(())
+    Ok(Some(()))
 }

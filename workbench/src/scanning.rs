@@ -6,12 +6,13 @@ use std::thread;
 
 use walkdir::WalkDir;
 
-pub fn scan<F>(path: &Path, process: F, workers: usize) -> Vec<(PathBuf, io::Result<()>)>
+pub fn scan<F, T>(path: &Path, process: F, workers: usize) -> Vec<(PathBuf, io::Result<T>)>
 where
-    F: Fn(PathBuf) -> (PathBuf, io::Result<()>) + Copy + Send + 'static,
+    F: Fn(PathBuf) -> (PathBuf, io::Result<T>) + Copy + Send + 'static,
+    T: Send + 'static,
 {
     let (forward_sender, forward_receiver) = mpsc::channel::<PathBuf>();
-    let (backward_sender, backward_receiver) = mpsc::channel::<(PathBuf, io::Result<()>)>();
+    let (backward_sender, backward_receiver) = mpsc::channel::<(PathBuf, io::Result<T>)>();
     let forward_receiver = Arc::new(Mutex::new(forward_receiver));
 
     let _: Vec<_> = (0..workers)
