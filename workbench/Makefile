@@ -4,6 +4,9 @@ tests: tests-draw tests-scan tests-sign
 
 tests-draw:
 	cargo run --bin draw --features drawing --quiet -- \
+		--font ../font/tests/fixtures/AdobeBlank-Regular.ttf \
+		--glyph "a" > assets/AdobeBlank-Regular.svg
+	cargo run --bin draw --features drawing --quiet -- \
 		--font ../font/tests/fixtures/Numans-Regular.ttf \
 		--glyph "a" > assets/Numans-Regular.svg
 	cargo run --bin draw --features drawing --quiet -- \
