@@ -13,9 +13,6 @@ concurrency:
   group: ${{ github.head_ref || 'main' }}
   cancel-in-progress: true
 
-env:
-  RUST_BACKTRACE: 1
-
 jobs:
   macos:
     runs-on: macos-latest
