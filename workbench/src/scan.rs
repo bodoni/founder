@@ -2,12 +2,12 @@ extern crate arguments;
 extern crate font;
 extern crate walkdir;
 
+mod scanning;
+
 use std::io::Result;
 use std::path::PathBuf;
 
 use font::Font;
-
-mod scanning;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();

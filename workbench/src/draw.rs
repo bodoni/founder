@@ -2,11 +2,11 @@ extern crate arguments;
 extern crate font;
 extern crate svg;
 
+mod drawing;
+
 use font::Font;
 use svg::node::element;
 use svg::Document;
-
-mod drawing;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();

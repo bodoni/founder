@@ -3,15 +3,15 @@ extern crate font;
 extern crate svg;
 extern crate walkdir;
 
+mod drawing;
+mod scanning;
+
 use std::io::Result;
 use std::path::{Path, PathBuf};
 
 use font::Font;
 use svg::node::element;
 use svg::Document;
-
-mod drawing;
-mod scanning;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
