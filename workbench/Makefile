@@ -23,8 +23,11 @@ tests-draw:
 tests-scan:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
+	# https://github.com/google/fonts/issues/5724
 	RUST_BACKTRACE=full cargo run --bin scan --features scanning -- \
 		--path tests/fixtures \
+		--ignore bungeecolor \
+		--ignore bungeespice \
 		--ignore gruppo \
 		--ignore iceland \
 		--ignore kaushanscript \
@@ -34,8 +37,11 @@ tests-scan:
 tests-sign:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
+	# https://github.com/google/fonts/issues/5724
 	RUST_BACKTRACE=full cargo run --bin sign --features drawing,scanning -- \
 		--path tests/fixtures \
+		--ignore bungeecolor \
+		--ignore bungeespice \
 		--ignore gruppo \
 		--ignore iceland \
 		--ignore kaushanscript \
