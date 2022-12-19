@@ -74,7 +74,7 @@ fn draw(path: &Path) -> Result<Option<()>> {
         .set("fill", "#eee");
     let transform = format!("translate(0, {}) scale(1, -1)", font.ascender);
     let glyph = drawing::draw(&glyph).set("transform", transform);
-    let style = element::Style::new("path { fill: none; stroke: black; stroke-width: 3; }");
+    let style = element::Style::new("path { fill: black; fill-rule: nonzero }");
     let _ = Document::new()
         .set("width", width)
         .set("height", height)

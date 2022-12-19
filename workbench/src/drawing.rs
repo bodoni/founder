@@ -4,10 +4,10 @@ use svg::node::Node;
 
 pub fn draw(glyph: &Glyph) -> element::Group {
     let mut group = element::Group::new();
+    let mut data = element::path::Data::new();
     let mut a = Offset::default();
     for contour in glyph.iter() {
         a += contour.offset;
-        let mut data = element::path::Data::new();
         data = data.move_to(vec![a.0, a.1]);
         for segment in contour.iter() {
             match segment {
@@ -29,6 +29,8 @@ pub fn draw(glyph: &Glyph) -> element::Group {
             }
         }
         data = data.close();
+    }
+    if !data.is_empty() {
         group.append(element::Path::new().set("d", data));
     }
     group
