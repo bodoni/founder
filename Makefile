@@ -13,7 +13,4 @@ configure:
 		done \
 	done
 
-%:
-	$(MAKE) -C workbench $@
-
 .PHONY: all clean configure
