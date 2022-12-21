@@ -21,14 +21,8 @@ jobs:
         with: {submodules: true}
       - run: make configure
         shell: bash
-      - uses: actions-rs/toolchain@v1
-        with: {toolchain: stable}
-      - run: make tests-draw
-        shell: bash
-      - run: make tests-scan
-        shell: bash
-      - run: make tests-sign
-        shell: bash
+      - uses: actions-rs/cargo@v1
+        with: {command: test}
 
   ubuntu:
     runs-on: ubuntu-latest
@@ -37,11 +31,5 @@ jobs:
         with: {submodules: true}
       - run: make configure
         shell: bash
-      - uses: actions-rs/toolchain@v1
-        with: {toolchain: stable}
-      - run: make tests-draw
-        shell: bash
-      - run: make tests-scan
-        shell: bash
-      - run: make tests-sign
-        shell: bash
+      - uses: actions-rs/cargo@v1
+        with: {command: test}
