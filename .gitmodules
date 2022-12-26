@@ -16,3 +16,4 @@
 [submodule "workbench/tests/fixtures/google-fonts"]
 	path = workbench/tests/fixtures/google-fonts
 	url = https://github.com/google/fonts.git
+	shallow = true
