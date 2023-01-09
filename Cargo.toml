@@ -8,6 +8,7 @@ description = "The package provides a font toolbox."
 documentation = "https://docs.rs/founder"
 homepage = "https://github.com/bodoni/founder"
 repository = "https://github.com/bodoni/founder"
+exclude = ["tests/fixtures/*"]
 
 [lib]
 name = "founder"
