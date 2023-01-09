@@ -114,12 +114,12 @@ fn draw(path: &Path, characters: &[char], document_size: f32) -> Result<Option<e
             Some(glyph) => glyph,
             _ => return Ok(None),
         };
-        let i = index % columns;
-        let j = index / columns;
+        let x = index % columns;
+        let y = index / columns;
         let transform = format!(
             "translate({:.2}, {:.2}) scale({:.2}) translate({:.2}, {:.2}) scale(1, -1)",
-            i as f32 * offset,
-            j as f32 * offset,
+            x as f32 * offset,
+            y as f32 * offset,
             scale,
             (glyph_size - glyph.advance_width) / 2.0,
             metrics.ascender,
