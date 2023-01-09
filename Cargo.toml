@@ -1,6 +1,7 @@
 [workspace]
 members = [
     "font",
+    "founder",
     "opentype",
     "postscript",
     "truetype",
