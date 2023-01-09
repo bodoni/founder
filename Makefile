@@ -1,26 +1,5 @@
 all: tests
 
-prepare: prepare-png
-	mkdir -p assets/png
-	qlmanage -t -s 224 -o asserts/png assets/svg
-
-prepare-png: prepare-svg
-	mkdir -p assets/png
-
-prepare-svg:
-	mkdir -p assets/svg
-	cargo run --bin founder-sign -- \
-		--input tests/fixtures \
-		--output assets/svg \
-		--characters anop \
-		--ignore google-fonts/ofl/bungeecolor \
-		--ignore google-fonts/ofl/bungeespice \
-		--ignore google-fonts/ofl/gruppo \
-		--ignore google-fonts/ofl/iceland \
-		--ignore google-fonts/ofl/kaushanscript \
-		--ignore google-fonts/ufl/ubuntu \
-		--workers 4
-
 tests: tests-draw-selected tests-name-selected tests-sign-selected
 tests: tests-scan tests-sign
 
@@ -105,5 +84,3 @@ tests-sign:
 .PHONY: tests-unit
 .PHONY: tests-draw-selected tests-name-selected tests-sign-selected
 .PHONY: tests-scan tests-sign
-
-.PHONY: prepare prepare-png prepare-svg
