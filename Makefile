@@ -81,6 +81,5 @@ tests-sign:
 		--workers 4
 
 .PHONY: tests
-.PHONY: tests-unit
 .PHONY: tests-draw-selected tests-name-selected tests-sign-selected
 .PHONY: tests-scan tests-sign
