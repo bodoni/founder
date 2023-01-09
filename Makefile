@@ -40,7 +40,7 @@ tests-scan:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	RUST_BACKTRACE=full cargo run --bin founder-scan -- \
-		--path tests/fixtures \
+		--input tests/fixtures \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
 		--ignore google-fonts/ofl/gruppo \

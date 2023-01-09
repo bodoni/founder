@@ -2,6 +2,17 @@
 
 The package provides a font toolbox.
 
+## Usage
+
+```shell
+cargo install founder
+
+founder-draw --font <path> --character <character>
+founder-name --font <path>
+founder-scan --input <path>
+founder-sign --input <path> --characters <string> --output <path>
+```
+
 ## Contribution
 
 Your contribution is highly appreciated. Do not hesitate to open an issue or a
