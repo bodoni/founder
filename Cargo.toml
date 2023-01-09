@@ -31,6 +31,6 @@ path = "src/bin/sign.rs"
 
 [dependencies]
 arguments = "0.7"
-font = "0.9"
+font = "0.10"
 svg = "0.9"
 walkdir = "2.3"
