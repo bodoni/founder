@@ -5,28 +5,28 @@ tests: tests-scan tests-sign
 
 tests-draw-selected:
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/AdobeBlank-Regular.ttf \
+		--path tests/fixtures/selected-fonts/AdobeBlank-Regular.ttf \
 		--character "a" > assets/draw/AdobeBlank-Regular.svg
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/CrimsonText-Regular.ttf \
+		--path tests/fixtures/selected-fonts/CrimsonText-Regular.ttf \
 		--character "Q" > assets/draw/CrimsonText-Regular.svg
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/Numans-Regular.ttf \
+		--path tests/fixtures/selected-fonts/Numans-Regular.ttf \
 		--character "a" > assets/draw/Numans-Regular.svg
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/OpenSans-Italic.ttf \
+		--path tests/fixtures/selected-fonts/OpenSans-Italic.ttf \
 		--character "&" > assets/draw/OpenSans-Italic.svg
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/SourceSerifPro-Regular.otf \
+		--path tests/fixtures/selected-fonts/SourceSerifPro-Regular.otf \
 		--character "ö" > assets/draw/SourceSerifPro-Regular.svg
 	cargo run --bin founder-draw --quiet -- \
-		--font tests/fixtures/selected-fonts/VesperLibre-Regular.ttf \
+		--path tests/fixtures/selected-fonts/VesperLibre-Regular.ttf \
 		--character "å" > assets/draw/VesperLibre-Regular.svg
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
 tests-name-selected:
 	cargo run --bin founder-name --quiet -- \
-		--font tests/fixtures/web-platform-tests/fonts/CSSTest/csstest-ascii.ttf
+		--path tests/fixtures/web-platform-tests/fonts/CSSTest/csstest-ascii.ttf
 
 tests-sign-selected:
 	RUST_BACKTRACE=full cargo run --bin founder-sign -- \
