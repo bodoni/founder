@@ -8,3 +8,29 @@ description = "The package provides a font toolbox."
 documentation = "https://docs.rs/founder"
 homepage = "https://github.com/bodoni/founder"
 repository = "https://github.com/bodoni/founder"
+
+[lib]
+name = "founder"
+path = "src/lib.rs"
+
+[[bin]]
+name = "founder-draw"
+path = "src/bin/draw.rs"
+
+[[bin]]
+name = "founder-name"
+path = "src/bin/name.rs"
+
+[[bin]]
+name = "founder-scan"
+path = "src/bin/scan.rs"
+
+[[bin]]
+name = "founder-sign"
+path = "src/bin/sign.rs"
+
+[dependencies]
+arguments = "0.7"
+font = "0.9"
+svg = "0.9"
+walkdir = "2.3"
