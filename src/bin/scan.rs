@@ -11,16 +11,16 @@ use font::File;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let input: PathBuf = match arguments.get::<String>("input") {
-        Some(input) => input.into(),
+    let path: PathBuf = match arguments.get::<String>("path") {
+        Some(path) => path.into(),
         _ => {
-            println!("Error: --input should be given.");
+            println!("Error: --path should be given.");
             return;
         }
     };
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     let workers = arguments.get::<usize>("workers").unwrap_or(1);
-    let values = support::scanning::scan(&input, process, (), workers);
+    let values = support::scanning::scan(&path, process, (), workers);
     let (successes, negatives): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (ignored, failures): (Vec<_>, Vec<_>) = negatives.into_iter().partition(|(path, _)| {

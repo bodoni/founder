@@ -13,10 +13,10 @@ use svg::node::{element, Node};
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let input: PathBuf = match arguments.get::<String>("input") {
-        Some(input) => input.into(),
+    let path: PathBuf = match arguments.get::<String>("path") {
+        Some(path) => path.into(),
         _ => {
-            println!("Error: --input should be given.");
+            println!("Error: --path should be given.");
             return;
         }
     };
@@ -33,7 +33,7 @@ fn main() {
     };
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     let workers = arguments.get::<usize>("workers").unwrap_or(1);
-    let values = support::scanning::scan(&input, process, (characters, output), workers);
+    let values = support::scanning::scan(&path, process, (characters, output), workers);
     let (positives, negatives): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (successes, missing): (Vec<_>, Vec<_>) = positives

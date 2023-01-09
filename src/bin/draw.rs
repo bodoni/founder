@@ -10,10 +10,10 @@ use svg::Document;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let font = match arguments.get::<String>("font") {
-        Some(font) => font,
+    let path = match arguments.get::<String>("path") {
+        Some(path) => path,
         _ => {
-            println!("Error: --font should be given.");
+            println!("Error: --path should be given.");
             return;
         }
     };
@@ -24,7 +24,7 @@ fn main() {
             return;
         }
     };
-    let File { mut fonts } = File::open(font).unwrap();
+    let File { mut fonts } = File::open(path).unwrap();
     let metrics = fonts[0].metrics().unwrap();
     let glyph = fonts[0].draw(character).unwrap().unwrap();
     let (width, height) = (

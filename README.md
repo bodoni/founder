@@ -4,13 +4,13 @@ The package provides a font toolbox.
 
 ## Usage
 
-```shell
+```
 cargo install founder
 
-founder-draw --font <path> --character <character>
-founder-name --font <path>
-founder-scan --input <path>
-founder-sign --input <path> --characters <string> --output <path>
+founder-draw --path <file> --character <character>
+founder-name --path <file>
+founder-scan --path <directory>
+founder-sign --path <directory> --characters <string> --output <directory>
 ```
 
 ## Contribution

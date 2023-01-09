@@ -30,7 +30,7 @@ tests-name-selected:
 
 tests-sign-selected:
 	RUST_BACKTRACE=full cargo run --bin founder-sign -- \
-		--input tests/fixtures/selected-fonts \
+		--path tests/fixtures/selected-fonts \
 		--output assets/sign \
 		--characters anop
 	[ "$$(git diff assets/sign | wc -l | xargs)" = 0 ] || exit 1
@@ -40,7 +40,7 @@ tests-scan:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	RUST_BACKTRACE=full cargo run --bin founder-scan -- \
-		--input tests/fixtures \
+		--path tests/fixtures \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
 		--ignore google-fonts/ofl/gruppo \
@@ -60,7 +60,7 @@ tests-sign:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	RUST_BACKTRACE=full cargo run --bin founder-sign -- \
-		--input tests/fixtures \
+		--path tests/fixtures \
 		--output assets/sign \
 		--characters anop \
 		--ignore google-fonts/ofl/bungeecolor \
