@@ -18,32 +18,20 @@ fn main() {
             return;
         }
     };
-    let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let workers = arguments.get::<usize>("workers").unwrap_or(1);
-    let values = support::scanning::scan(&path, process, (), workers);
-    let (successes, negatives): (Vec<_>, Vec<_>) =
-        values.into_iter().partition(|(_, result)| result.is_ok());
-    let (ignored, failures): (Vec<_>, Vec<_>) = negatives.into_iter().partition(|(path, _)| {
-        let path = path.to_str().unwrap();
-        ignores.iter().any(|name| path.contains(name))
-    });
-    println!("Successes: {}", successes.len());
-    println!("Ignored: {}", ignored.len());
-    for (path, result) in ignored.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    println!("Failures: {}", failures.len());
-    for (path, result) in failures.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    assert_eq!(failures.len(), 0);
+    support::scanning::scan_summarize(
+        &path,
+        process,
+        (),
+        arguments.get::<usize>("workers").unwrap_or(1),
+        &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
+    );
 }
 
-fn process(path: PathBuf, _: ()) -> (PathBuf, Result<()>) {
+fn process(path: PathBuf, _: ()) -> (PathBuf, Result<Option<()>>) {
     let result = match File::open(&path) {
         Ok(_) => {
             println!("[success] {:?}", path);
-            Ok(())
+            Ok(Some(()))
         }
         Err(error) => {
             println!("[failure] {:?} ({:?})", path, error);

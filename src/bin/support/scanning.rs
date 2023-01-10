@@ -59,3 +59,41 @@ where
         .map(|_| backward_receiver.recv().unwrap())
         .collect();
 }
+
+#[allow(dead_code)]
+pub fn scan_summarize<F, T, U>(
+    path: &Path,
+    process: F,
+    parameter: T,
+    workers: usize,
+    ignores: &[String],
+) where
+    F: Fn(PathBuf, T) -> (PathBuf, io::Result<Option<U>>) + Copy + Send + 'static,
+    T: Clone + Send + 'static,
+    U: Send + 'static,
+{
+    let values = scan(path, process, parameter, workers);
+    let (positives, negatives): (Vec<_>, Vec<_>) =
+        values.into_iter().partition(|(_, result)| result.is_ok());
+    let (complete, incomplete): (Vec<_>, Vec<_>) = positives
+        .into_iter()
+        .partition(|(_, result)| result.as_ref().unwrap().is_some());
+    let (ignored, failed): (Vec<_>, Vec<_>) = negatives.into_iter().partition(|(path, _)| {
+        let path = path.to_str().unwrap();
+        ignores.iter().any(|name| path.contains(name))
+    });
+    println!("Complete: {}", complete.len());
+    println!("Incomplete: {}", incomplete.len());
+    for (path, _) in incomplete.iter() {
+        println!("{:?}", path);
+    }
+    println!("Ignored: {}", ignored.len());
+    for (path, result) in ignored.iter() {
+        println!("{:?}: {}", path, result.as_ref().err().unwrap());
+    }
+    println!("Failed: {}", failed.len());
+    for (path, result) in failed.iter() {
+        println!("{:?}: {}", path, result.as_ref().err().unwrap());
+    }
+    assert_eq!(failed.len(), 0);
+}

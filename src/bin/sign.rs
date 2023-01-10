@@ -20,10 +20,6 @@ fn main() {
             return;
         }
     };
-    let output: Option<PathBuf> = match arguments.get::<String>("output") {
-        Some(output) => Some(output.into()),
-        _ => None,
-    };
     let characters: Vec<_> = match arguments.get::<String>("characters") {
         Some(characters) => characters.chars().collect(),
         _ => {
@@ -31,32 +27,17 @@ fn main() {
             return;
         }
     };
-    let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let workers = arguments.get::<usize>("workers").unwrap_or(1);
-    let values = support::scanning::scan(&path, process, (characters, output), workers);
-    let (positives, negatives): (Vec<_>, Vec<_>) =
-        values.into_iter().partition(|(_, result)| result.is_ok());
-    let (successes, missing): (Vec<_>, Vec<_>) = positives
-        .into_iter()
-        .partition(|(_, result)| result.as_ref().unwrap().is_some());
-    let (ignored, failures): (Vec<_>, Vec<_>) = negatives.into_iter().partition(|(path, _)| {
-        let path = path.to_str().unwrap();
-        ignores.iter().any(|name| path.contains(name))
-    });
-    println!("Successes: {}", successes.len());
-    println!("Missing: {}", missing.len());
-    for (path, _) in missing.iter() {
-        println!("{:?}", path);
-    }
-    println!("Ignored: {}", ignored.len());
-    for (path, result) in ignored.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    println!("Failures: {}", failures.len());
-    for (path, result) in failures.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    assert_eq!(failures.len(), 0);
+    let output: Option<PathBuf> = match arguments.get::<String>("output") {
+        Some(output) => Some(output.into()),
+        _ => None,
+    };
+    support::scanning::scan_summarize(
+        &path,
+        process,
+        (characters, output),
+        arguments.get::<usize>("workers").unwrap_or(1),
+        &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
+    );
 }
 
 fn process(
