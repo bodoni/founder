@@ -11,7 +11,7 @@ tests-draw-selected:
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
 tests-name-selected:
-	cargo run --bin founder-name --quiet -- \
+	cargo run --bin founder-name -- \
 		--path tests/fixtures/selected-fonts \
 		--output assets/name
 	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
