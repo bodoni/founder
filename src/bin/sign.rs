@@ -75,7 +75,7 @@ fn process(
         }
         Ok(Some(group)) => group,
     };
-    let style = element::Style::new("path { fill: black; fill-rule: nonzero }");
+    let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
     let document = element::SVG::new()
         .set("width", DOCUMENT_SIZE)
         .set("height", DOCUMENT_SIZE)
@@ -117,7 +117,7 @@ fn draw(path: &Path, characters: &[char], document_size: f32) -> Result<Option<e
         let x = index % columns;
         let y = index / columns;
         let transform = format!(
-            "translate({:.2}, {:.2}) scale({:.2}) translate({:.2}, {:.2}) scale(1, -1)",
+            "translate({}, {}) scale({}) translate({}, {}) scale(1, -1)",
             x as f32 * offset,
             y as f32 * offset,
             scale,

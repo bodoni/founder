@@ -33,7 +33,7 @@ fn main() {
     );
     let transform = format!("translate(0, {}) scale(1, -1)", metrics.ascender);
     let glyph = support::drawing::draw(&glyph).set("transform", transform);
-    let style = element::Style::new("path { fill: black; fill-rule: nonzero }");
+    let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
     let document = Document::new()
         .set("width", width)
         .set("height", height)

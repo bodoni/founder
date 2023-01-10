@@ -1,0 +1,31 @@
+CopyrightNotice           en    Copyright (c) SIL International, 2003-2008.
+FontFamilyName            en    CSSTest ASCII
+FontSubfamilyName         en    Regular
+UniqueFontID              en    Mozilla: CSSTest ASCII: 2008
+FullFontName              en    CSSTest ASCII
+VersionString             en    Version 1.100
+PostScriptFontName        en    CSSTestASCII
+Trademark                 en    Gentium is a trademark of SIL International.
+ManufacturerName          en    SIL International
+DesignerName              en    Original by J. Victor Gaultney and Annie Olsen, mo…
+Description               en    Gentium Basic modified by John Daggett (Mozilla) f…
+VendorURL                 en    http://scripts.sil.org/
+DesignerURL               en    http://www.sil.org/~gaultney
+LicenseDescription        en    Copyright (c) 2003-2008, SIL International (http:/…
+LicenseURL                en    http://scripts.sil.org/OFL
+CompatibleFullFontName    en    CSSTest ASCII
+CopyrightNotice           en    Copyright (c) SIL International, 2003-2008.
+FontFamilyName            en    CSSTest ASCII
+FontSubfamilyName         en    Regular
+UniqueFontID              en    Mozilla: CSSTest ASCII: 2008
+FullFontName              en    CSSTest ASCII
+VersionString             en    Version 1.100
+PostScriptFontName        en    CSSTestASCII
+Trademark                 en    Gentium is a trademark of SIL International.
+ManufacturerName          en    SIL International
+DesignerName              en    Original by J. Victor Gaultney and Annie Olsen, mo…
+Description               en    Gentium Basic modified by John Daggett (Mozilla) f…
+VendorURL                 en    http://scripts.sil.org/
+DesignerURL               en    http://www.sil.org/~gaultney
+LicenseDescription        en    Copyright (c) 2003-2008, SIL International (http:/…
+LicenseURL                en    http://scripts.sil.org/OFL

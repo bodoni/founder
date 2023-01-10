@@ -26,7 +26,9 @@ tests-draw-selected:
 
 tests-name-selected:
 	cargo run --bin founder-name --quiet -- \
-		--path tests/fixtures/web-platform-tests/fonts/CSSTest/csstest-ascii.ttf
+		--path tests/fixtures/web-platform-tests/fonts/CSSTest/csstest-ascii.ttf \
+		> assets/name/csstest-ascii.txt
+	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
 
 tests-sign-selected:
 	RUST_BACKTRACE=full cargo run --bin founder-sign -- \
