@@ -12,7 +12,7 @@
 	url = https://github.com/bodoni/truetype.git
 [submodule "typeface"]
 	path = typeface
-	url = https://github.com:bodoni/typeface.git
+	url = https://github.com/bodoni/typeface.git
 [submodule "tests/fixtures/google-fonts"]
 	path = tests/fixtures/google-fonts
 	url = https://github.com/google/fonts.git
