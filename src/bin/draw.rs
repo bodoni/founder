@@ -38,14 +38,11 @@ fn main() {
     );
 }
 
-fn process(
-    path: PathBuf,
-    (character, output): (char, Option<PathBuf>),
-) -> (PathBuf, Result<Option<()>>) {
+fn process(path: &Path, (character, output): (char, Option<PathBuf>)) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
-    let result = match subprocess(&path, character) {
+    match subprocess(path, character) {
         Ok(Some(result)) => match output {
             Some(output) => {
                 let output = output.join(path.file_stem().unwrap()).with_extension("svg");
@@ -60,8 +57,7 @@ fn process(
         },
         Ok(None) => Ok(None),
         Err(error) => Err(error),
-    };
-    (path, result)
+    }
 }
 
 fn subprocess(path: &Path, character: char) -> Result<Option<element::SVG>> {

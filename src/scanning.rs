@@ -1,4 +1,4 @@
-use std::io;
+use std::io::Result;
 use std::path::{Path, PathBuf};
 use std::sync::mpsc;
 use std::sync::{Arc, Mutex};
@@ -11,14 +11,14 @@ pub fn scan<F, T, U>(
     process: F,
     parameter: T,
     workers: usize,
-) -> Vec<(PathBuf, io::Result<U>)>
+) -> Vec<(PathBuf, Result<U>)>
 where
-    F: Fn(PathBuf, T) -> (PathBuf, io::Result<U>) + Copy + Send + 'static,
+    F: Fn(&Path, T) -> Result<U> + Copy + Send + 'static,
     T: Clone + Send + 'static,
     U: Send + 'static,
 {
     let (forward_sender, forward_receiver) = mpsc::channel::<PathBuf>();
-    let (backward_sender, backward_receiver) = mpsc::channel::<(PathBuf, io::Result<U>)>();
+    let (backward_sender, backward_receiver) = mpsc::channel::<(PathBuf, Result<U>)>();
     let forward_receiver = Arc::new(Mutex::new(forward_receiver));
 
     let _: Vec<_> = (0..workers)
@@ -32,7 +32,7 @@ where
                     Err(_) => break,
                 };
                 backward_sender
-                    .send(process(path, parameter.clone()))
+                    .send(wrap(path, process, parameter.clone()))
                     .unwrap();
             })
         })
@@ -66,7 +66,7 @@ pub fn scan_summarize<F, T, U>(
     workers: usize,
     ignores: &[String],
 ) where
-    F: Fn(PathBuf, T) -> (PathBuf, io::Result<Option<U>>) + Copy + Send + 'static,
+    F: Fn(&Path, T) -> Result<Option<U>> + Copy + Send + 'static,
     T: Clone + Send + 'static,
     U: Send + 'static,
 {
@@ -94,4 +94,14 @@ pub fn scan_summarize<F, T, U>(
         println!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
     assert_eq!(failed.len(), 0);
+}
+
+fn wrap<F, T, U>(path: PathBuf, process: F, parameter: T) -> (PathBuf, Result<U>)
+where
+    F: Fn(&Path, T) -> Result<U> + Copy + Send + 'static,
+    T: Clone + Send + 'static,
+    U: Send + 'static,
+{
+    let result = process(&path, parameter);
+    (path, result)
 }

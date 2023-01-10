@@ -27,11 +27,11 @@ fn main() {
     );
 }
 
-fn process(path: PathBuf, output: Option<PathBuf>) -> (PathBuf, Result<Option<()>>) {
+fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
-    let result = match subprocess(&path) {
+    match subprocess(path) {
         Ok(result) => match output {
             Some(output) => {
                 let output = output.join(path.file_stem().unwrap()).with_extension("txt");
@@ -45,8 +45,7 @@ fn process(path: PathBuf, output: Option<PathBuf>) -> (PathBuf, Result<Option<()
             }
         },
         Err(error) => Err(error),
-    };
-    (path, result)
+    }
 }
 
 fn subprocess(path: &Path) -> Result<String> {

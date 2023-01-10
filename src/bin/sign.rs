@@ -39,19 +39,16 @@ fn main() {
     );
 }
 
-fn process(
-    path: PathBuf,
-    (characters, output): (Vec<char>, Option<PathBuf>),
-) -> (PathBuf, Result<Option<()>>) {
+fn process(path: &Path, (characters, output): (Vec<char>, Option<PathBuf>)) -> Result<Option<()>> {
     const DOCUMENT_SIZE: f32 = 512.0;
     let group = match subprocess(&path, &characters, DOCUMENT_SIZE) {
         Ok(None) => {
             println!("[missing] {:?}", path);
-            return (path, Ok(None));
+            return Ok(None);
         }
         Err(error) => {
             println!("[failure] {:?} ({:?})", path, error);
-            return (path, Err(error));
+            return Err(error);
         }
         Ok(Some(group)) => group,
     };
@@ -64,7 +61,7 @@ fn process(
     let output = match output {
         None => {
             println!("[success] {:?}", path);
-            return (path, Ok(Some(())));
+            return Ok(Some(()));
         }
         Some(output) => output,
     };
@@ -72,11 +69,11 @@ fn process(
     match svg::save(&output, &document) {
         Ok(_) => {
             println!("[success] {:?}", path);
-            return (path, Ok(Some(())));
+            Ok(Some(()))
         }
         Err(error) => {
             println!("[failure] {:?} ({:?})", path, error);
-            return (path, Err(error));
+            Err(error)
         }
     }
 }

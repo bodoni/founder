@@ -4,7 +4,7 @@ extern crate founder;
 extern crate walkdir;
 
 use std::io::Result;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use font::File;
 
@@ -26,8 +26,8 @@ fn main() {
     );
 }
 
-fn process(path: PathBuf, _: ()) -> (PathBuf, Result<Option<()>>) {
-    let result = match File::open(&path) {
+fn process(path: &Path, _: ()) -> Result<Option<()>> {
+    match File::open(&path) {
         Ok(_) => {
             println!("[success] {:?}", path);
             Ok(Some(()))
@@ -36,6 +36,5 @@ fn process(path: PathBuf, _: ()) -> (PathBuf, Result<Option<()>>) {
             println!("[failure] {:?} ({:?})", path, error);
             Err(error)
         }
-    };
-    (path, result)
+    }
 }
