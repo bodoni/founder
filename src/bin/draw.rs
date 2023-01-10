@@ -46,8 +46,8 @@ fn process(path: &Path, (character, output): (char, Option<PathBuf>)) -> Result<
         Ok(Some(result)) => match output {
             Some(output) => {
                 let output = output.join(path.file_stem().unwrap()).with_extension("svg");
-                let mut file = File::create(output).unwrap();
-                write!(file, "{}", result).unwrap();
+                let mut file = File::create(output)?;
+                write!(file, "{}", result)?;
                 Ok(Some(()))
             }
             _ => {
