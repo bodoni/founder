@@ -80,18 +80,18 @@ pub fn scan_summarize<F, T, U>(
         let path = path.to_str().unwrap();
         ignores.iter().any(|name| path.contains(name))
     });
-    println!("Complete: {}", complete.len());
-    println!("Incomplete: {}", incomplete.len());
+    eprintln!("Complete: {}", complete.len());
+    eprintln!("Incomplete: {}", incomplete.len());
     for (path, _) in incomplete.iter() {
-        println!("{:?}", path);
+        eprintln!("{:?}", path);
     }
-    println!("Ignored: {}", ignored.len());
+    eprintln!("Ignored: {}", ignored.len());
     for (path, result) in ignored.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
+        eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
-    println!("Failed: {}", failed.len());
+    eprintln!("Failed: {}", failed.len());
     for (path, result) in failed.iter() {
-        println!("{:?}: {}", path, result.as_ref().err().unwrap());
+        eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
     assert_eq!(failed.len(), 0);
 }
