@@ -7,20 +7,20 @@ tests: tests-scan tests-sign
 
 tests-draw-selected:
 	cargo run --bin founder-draw -- \
-		--path tests/fixtures/selected-fonts \
+		--path tests/fixtures \
 		--character a \
 		--output assets/draw
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
 tests-name-selected:
 	cargo run --bin founder-name -- \
-		--path tests/fixtures/selected-fonts \
+		--path tests/fixtures \
 		--output assets/name
 	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
 
 tests-sign-selected:
 	cargo run --bin founder-sign -- \
-		--path tests/fixtures/selected-fonts \
+		--path tests/fixtures \
 		--characters anop \
 		--output assets/sign
 	[ "$$(git diff assets/sign | wc -l | xargs)" = 0 ] || exit 1
@@ -30,7 +30,7 @@ tests-scan:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	cargo run --bin founder-scan -- \
-		--path tests/fixtures \
+		--path ../tests/fixtures \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
 		--ignore google-fonts/ofl/gruppo \
@@ -50,7 +50,7 @@ tests-sign:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	cargo run --bin founder-sign -- \
-		--path tests/fixtures \
+		--path ../tests/fixtures \
 		--output assets/sign \
 		--characters anop \
 		--ignore google-fonts/ofl/bungeecolor \
