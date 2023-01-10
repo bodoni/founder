@@ -7,10 +7,10 @@ The package provides a font toolbox.
 ```
 cargo install founder
 
-founder-draw --path <file> --character <character>
-founder-name --path <file>
-founder-scan --path <directory>
-founder-sign --path <directory> --characters <string> --output <directory>
+founder-draw --path <path> --character <character> --output <path>
+founder-name --path <path> --output <path>
+founder-scan --path <path>
+founder-sign --path <path> --characters <string> --output <path>
 ```
 
 ## Contribution
