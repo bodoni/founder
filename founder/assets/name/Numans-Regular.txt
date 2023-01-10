@@ -1,0 +1,32 @@
+CopyrightNotice           en    Copyright (c) 2011 by Jovanny Lemonad. All rights …
+FontFamilyName            en    Numans
+FontSubfamilyName         en    Regular
+UniqueFontID              en    FontForge 2.0 : Numans : 12-8-2011
+FullFontName              en    Numans
+VersionString             en    Version 001.001
+PostScriptFontName        en    Numans-Regular
+Trademark                 en    Numans is a trademark of Jovanny Lemonad.
+ManufacturerName          en    Jovanny Lemonad
+DesignerName              en    Jovanny Lemonad
+Description               en    Copyright (c) 2011 by Jovanny Lemonad. All rights …
+VendorURL                 en    http://www.jovanny.ru/
+DesignerURL               en    http://www.jovanny.ru/
+LicenseDescription        en    Copyright (c) August 1, 2011, Jovanny Lemonad (lem…
+LicenseURL                en    http://scripts.sil.org/OFL
+CompatibleFullFontName    en    Numans
+CopyrightNotice           en    Copyright (c) 2011 by Jovanny Lemonad. All rights …
+FontFamilyName            en    Numans
+FontSubfamilyName         en    Regular
+UniqueFontID              en    FontForge 2.0 : Numans : 12-8-2011
+FullFontName              en    Numans
+VersionString             en    Version 001.001
+PostScriptFontName        en    Numans-Regular
+Trademark                 en    Numans is a trademark of Jovanny Lemonad.
+ManufacturerName          en    Jovanny Lemonad
+DesignerName              en    Jovanny Lemonad
+Description               en    Copyright (c) 2011 by Jovanny Lemonad. All rights …
+VendorURL                 en    http://www.jovanny.ru/
+DesignerURL               en    http://www.jovanny.ru/
+LicenseDescription        en    Copyright (c) August 1, 2011, Jovanny Lemonad (lem…
+LicenseURL                en    http://scripts.sil.org/OFL
+CompatibleFullFontName    en    Numans

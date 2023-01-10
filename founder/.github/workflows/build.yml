@@ -1,0 +1,58 @@
+name: build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.head_ref || 'main' }}
+  cancel-in-progress: true
+
+jobs:
+  agnostic:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions-rs/cargo@v1
+        with: {command: fmt, args: --all -- --check}
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v1
+        with: {submodules: true}
+      - uses: actions-rs/toolchain@v1
+        with: {toolchain: stable}
+      - run: make tests-draw-selected
+        shell: bash
+      - run: make tests-name-selected
+        shell: bash
+      - run: make tests-sign-selected
+        shell: bash
+      - run: make tests-scan
+        shell: bash
+      - run: make tests-sign
+        shell: bash
+
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+        with: {submodules: true}
+      - uses: actions-rs/toolchain@v1
+        with: {toolchain: stable}
+      - run: make tests-draw-selected
+        shell: bash
+      - run: make tests-name-selected
+        shell: bash
+      - run: make tests-sign-selected
+        shell: bash
+      - run: make tests-scan
+        shell: bash
+      - run: make tests-sign
+        shell: bash

@@ -1,0 +1,26 @@
+CopyrightNotice           en    Copyright 2014 Adobe Systems Incorporated. All Rig…
+FontFamilyName            en    Source Serif Pro
+FontSubfamilyName         en    Regular
+UniqueFontID              en    1.017;ADBE;SourceSerifPro-Regular;ADOBE
+FullFontName              en    Source Serif Pro
+VersionString             en    Version 1.017;PS 1.0;hotconv 1.0.79;makeotf.lib2.5…
+PostScriptFontName        en    SourceSerifPro-Regular
+Trademark                 en    Source is a trademark of Adobe Systems Incorporate…
+ManufacturerName          en    Adobe Systems Incorporated
+DesignerName              en    Frank Grießhammer
+VendorURL                 en    http://www.adobe.com/type
+LicenseDescription        en    Copyright 2014 Adobe Systems Incorporated (http://…
+LicenseURL                en    http://www.adobe.com/type/legal.html
+CopyrightNotice           en    Copyright 2014 Adobe Systems Incorporated. All Rig…
+FontFamilyName            en    Source Serif Pro
+FontSubfamilyName         en    Regular
+UniqueFontID              en    1.017;ADBE;SourceSerifPro-Regular;ADOBE
+FullFontName              en    Source Serif Pro
+VersionString             en    Version 1.017;PS 1.0;hotconv 1.0.79;makeotf.lib2.5…
+PostScriptFontName        en    SourceSerifPro-Regular
+Trademark                 en    Source is a trademark of Adobe Systems Incorporate…
+ManufacturerName          en    Adobe Systems Incorporated
+DesignerName              en    Frank Grießhammer
+VendorURL                 en    http://www.adobe.com/type
+LicenseDescription        en    Copyright 2014 Adobe Systems Incorporated (http://…
+LicenseURL                en    http://www.adobe.com/type/legal.html

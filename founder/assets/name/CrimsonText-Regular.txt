@@ -1,0 +1,14 @@
+CopyrightNotice           en    Copyright 2010 The Crimson Text Project Authors (h…
+FontFamilyName            en    Crimson Text
+FontSubfamilyName         en    Regular
+UniqueFontID              en    1.100;PfEd;CrimsonText-Regular
+FullFontName              en    Crimson Text Regular
+VersionString             en    Version 1.100; ttfautohint (v1.8.4)
+PostScriptFontName        en    CrimsonText-Regular
+Trademark                 en    Crimson is a trademark of Sebastian Kosch.
+ManufacturerName          en    Sebastian Kosch
+DesignerName              en    Sebastian Kosch
+VendorURL                 en    https://aldusleaf.org/
+DesignerURL               en    https://aldusleaf.org/
+LicenseDescription        en    This Font Software is licensed under the SIL Open …
+LicenseURL                en    https://scripts.sil.org/OFL
