@@ -1,18 +1,18 @@
 [submodule "font"]
 	path = font
-	url = git@github.com:bodoni/font.git
+	url = https://github.com/bodoni/font.git
 [submodule "opentype"]
 	path = opentype
-	url = git@github.com:bodoni/opentype.git
+	url = https://github.com/bodoni/opentype.git
 [submodule "postscript"]
 	path = postscript
-	url = git@github.com:bodoni/postscript.git
+	url = https://github.com/bodoni/postscript.git
 [submodule "truetype"]
 	path = truetype
-	url = git@github.com:bodoni/truetype.git
+	url = https://github.com/bodoni/truetype.git
 [submodule "typeface"]
 	path = typeface
-	url = git@github.com:bodoni/typeface.git
+	url = https://github.com:bodoni/typeface.git
 [submodule "tests/fixtures/google-fonts"]
 	path = tests/fixtures/google-fonts
 	url = https://github.com/google/fonts.git
