@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.head_ref || 'main' }}
+  group: ${{ format('build-{0}', github.head_ref || 'main') }}
   cancel-in-progress: true
 
 jobs:
