@@ -1,9 +1,6 @@
 [submodule "font"]
 	path = font
 	url = git@github.com:bodoni/font.git
-[submodule "founder"]
-	path = founder
-	url = git@github.com:bodoni/founder.git
 [submodule "opentype"]
 	path = opentype
 	url = git@github.com:bodoni/opentype.git
