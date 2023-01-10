@@ -1,0 +1,26 @@
+CopyrightNotice           en    Digitized data copyright © 2010-2011, Google Corpo…
+FontFamilyName            en    Open Sans
+FontSubfamilyName         en    Italic
+UniqueFontID              en    Ascender - Open Sans Italic Build 100
+FullFontName              en    Open Sans Italic
+VersionString             en    Version 1.10
+PostScriptFontName        en    OpenSans-Italic
+Trademark                 en    Open Sans is a trademark of Google and may be regi…
+ManufacturerName          en    Ascender Corporation
+VendorURL                 en    http://www.ascendercorp.com/
+DesignerURL               en    http://www.ascendercorp.com/typedesigners.html
+LicenseDescription        en    Licensed under the Apache License, Version 2.0
+LicenseURL                en    http://www.apache.org/licenses/LICENSE-2.0
+CopyrightNotice           en    Digitized data copyright © 2010-2011, Google Corpo…
+FontFamilyName            en    Open Sans
+FontSubfamilyName         en    Italic
+UniqueFontID              en    Ascender - Open Sans Italic Build 100
+FullFontName              en    Open Sans Italic
+VersionString             en    Version 1.10
+PostScriptFontName        en    OpenSans-Italic
+Trademark                 en    Open Sans is a trademark of Google and may be regi…
+ManufacturerName          en    Ascender Corporation
+VendorURL                 en    http://www.ascendercorp.com/
+DesignerURL               en    http://www.ascendercorp.com/typedesigners.html
+LicenseDescription        en    Licensed under the Apache License, Version 2.0
+LicenseURL                en    http://www.apache.org/licenses/LICENSE-2.0

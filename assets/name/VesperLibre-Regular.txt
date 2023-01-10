@@ -1,0 +1,13 @@
+FontFamilyName            en    Vesper Libre
+FontSubfamilyName         en    Regular
+UniqueFontID              en    1.058;MOTA;VesperLibre-Regular
+FullFontName              en    Vesper Libre
+VersionString             en    Version 1.058
+PostScriptFontName        en    VesperLibre-Regular
+Trademark                 en    Vesper is a trademark of Robert Keller.
+ManufacturerName          en    Mota Italic
+DesignerName              en    Robert Keller & Kimya Gandhi
+VendorURL                 en    www.motaitalic.com
+DesignerURL               en    www.motaitalic.com
+LicenseDescription        en    This Font Software is licensed under the SIL Open …
+LicenseURL                en    http://scripts.sil.org/OFL

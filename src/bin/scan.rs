@@ -1,8 +1,7 @@
 extern crate arguments;
 extern crate font;
+extern crate founder;
 extern crate walkdir;
-
-mod support;
 
 use std::io::Result;
 use std::path::PathBuf;
@@ -18,7 +17,7 @@ fn main() {
             return;
         }
     };
-    support::scanning::scan_summarize(
+    founder::scanning::scan_summarize(
         &path,
         process,
         (),

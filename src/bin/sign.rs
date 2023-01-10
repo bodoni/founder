@@ -1,9 +1,8 @@
 extern crate arguments;
 extern crate font;
+extern crate founder;
 extern crate svg;
 extern crate walkdir;
-
-mod support;
 
 use std::io::Result;
 use std::path::{Path, PathBuf};
@@ -31,7 +30,7 @@ fn main() {
         Some(output) => Some(output.into()),
         _ => None,
     };
-    support::scanning::scan_summarize(
+    founder::scanning::scan_summarize(
         &path,
         process,
         (characters, output),
@@ -45,7 +44,7 @@ fn process(
     (characters, output): (Vec<char>, Option<PathBuf>),
 ) -> (PathBuf, Result<Option<()>>) {
     const DOCUMENT_SIZE: f32 = 512.0;
-    let group = match draw(&path, &characters, DOCUMENT_SIZE) {
+    let group = match subprocess(&path, &characters, DOCUMENT_SIZE) {
         Ok(None) => {
             println!("[missing] {:?}", path);
             return (path, Ok(None));
@@ -82,7 +81,11 @@ fn process(
     }
 }
 
-fn draw(path: &Path, characters: &[char], document_size: f32) -> Result<Option<element::Group>> {
+fn subprocess(
+    path: &Path,
+    characters: &[char],
+    document_size: f32,
+) -> Result<Option<element::Group>> {
     let mut group = element::Group::new();
     let File { mut fonts } = File::open(path)?;
     let metrics = fonts[0].metrics()?;
@@ -105,7 +108,7 @@ fn draw(path: &Path, characters: &[char], document_size: f32) -> Result<Option<e
             (glyph_size - glyph.advance_width) / 2.0,
             metrics.ascender,
         );
-        let mut glyph = support::drawing::draw(&glyph);
+        let mut glyph = founder::drawing::draw(&glyph);
         glyph.assign("transform", transform);
         group.append(glyph);
     }
