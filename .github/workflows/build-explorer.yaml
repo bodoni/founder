@@ -1,0 +1,26 @@
+name: build-explorer
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ format('build-explorer-{0}', github.head_ref || 'main') }}
+  cancel-in-progress: true
+
+jobs:
+  agnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with: {python-version: 3.9}
+      - run: pip install -r explorer/requirements-dev.txt
+        shell: bash
+      - run: make -C explorer
+        shell: bash
