@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - founder/**
   pull_request:
     branches:
       - main
@@ -14,19 +16,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  configuration:
-    runs-on: ubuntu-latest
-    outputs:
-      changed: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-    steps:
-      - uses: actions/checkout@v3
-      - id: changed-files
-        uses: tj-actions/changed-files@v35
-        with: {files_ignore: explorer/**}
-
   macos:
-    needs: configuration
-    if: needs.configuration.outputs.changed
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -40,8 +30,6 @@ jobs:
       - run: make -C founder tests-sign
 
   ubuntu:
-    needs: configuration
-    if: needs.configuration.outputs.changed
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
