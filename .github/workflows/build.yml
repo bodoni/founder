@@ -17,7 +17,7 @@ jobs:
   configuration:
     runs-on: ubuntu-latest
     outputs:
-      changed: steps.changed-files.outputs.any_changed == 'true'
+      changed: ${{ steps.changed-files.outputs.any_changed == 'true' }}
     steps:
       - uses: actions/checkout@v3
       - id: changed-files
@@ -26,7 +26,7 @@ jobs:
 
   agnostic:
     needs: configuration
-    if: needs.configuration.changed
+    if: ${{ needs.configuration.changed }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
 
   macos:
     needs: configuration
-    if: needs.configuration.changed
+    if: ${{ needs.configuration.changed }}
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -44,13 +44,11 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
       - run: make configure
-        shell: bash
       - run: cargo test
-        shell: bash
 
   ubuntu:
     needs: configuration
-    if: needs.configuration.changed
+    if: ${{ needs.configuration.changed }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -58,6 +56,4 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
       - run: make configure
-        shell: bash
       - run: cargo test
-        shell: bash
