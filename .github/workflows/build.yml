@@ -26,7 +26,7 @@ jobs:
 
   agnostic:
     needs: configuration
-    if: needs.configuration.outputs.changed
+    if: needs.configuration.outputs.changed == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
