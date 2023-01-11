@@ -17,7 +17,7 @@ jobs:
   configuration:
     runs-on: ubuntu-latest
     outputs:
-      changed: steps.changed-files.outputs.any_changed == 'true'
+      changed: steps.changed-files.outputs.any_changed
     steps:
       - uses: actions/checkout@v3
       - id: changed-files
@@ -26,7 +26,7 @@ jobs:
 
   agnostic:
     needs: configuration
-    if: ${{ needs.configuration.changed }}
+    if: needs.configuration.outputs.changed
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
 
   macos:
     needs: configuration
-    if: needs.configuration.outputs.changed
+    if: needs.configuration.outputs.changed == 'true'
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +48,7 @@ jobs:
 
   ubuntu:
     needs: configuration
-    if: needs.configuration.outputs.changed
+    if: needs.configuration.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
