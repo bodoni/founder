@@ -14,7 +14,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  configuration:
+    runs-on: ubuntu-latest
+    outputs:
+      changed: steps.changed-files.outputs.any_changed == 'true'
+    steps:
+      - uses: actions/checkout@v3
+        with: {fetch-depth: 0}
+      - id: changed-files
+        uses: tj-actions/changed-files@v35
+        with: {files_ignore: explorer/**}
+
   agnostic:
+    needs: configuration
+    if: needs.configuration.changed
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -23,6 +36,8 @@ jobs:
         with: {command: fmt, args: --all -- --check}
 
   macos:
+    needs: configuration
+    if: needs.configuration.changed
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -35,6 +50,8 @@ jobs:
         shell: bash
 
   ubuntu:
+    needs: configuration
+    if: needs.configuration.changed
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
