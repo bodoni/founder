@@ -8,7 +8,7 @@ tests: tests-scan tests-sign
 tests-draw-selected:
 	cargo run --bin founder-draw -- \
 		--path tests/fixtures \
-		--character a \
+		--characters anop \
 		--output assets/draw
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
