@@ -62,9 +62,13 @@ fn process(path: &Path, (characters, output): (String, Option<PathBuf>)) -> Resu
                 }
                 option = Some(());
             }
+            println!("[success] {:?}", path);
             Ok(option)
         }
-        Err(error) => Err(error),
+        Err(error) => {
+            println!("[failure] {:?}", path);
+            Err(error)
+        }
     }
 }
 
