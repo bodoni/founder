@@ -10,7 +10,7 @@ fn main() {
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            println!("Error: --path should be given.");
+            eprintln!("Error: --path should be given.");
             return;
         }
     };
@@ -40,7 +40,7 @@ fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {
                 Ok(Some(()))
             }
             _ => {
-                println!("{}", result);
+                eprintln!("{}", result);
                 Ok(Some(()))
             }
         },

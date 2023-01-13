@@ -14,14 +14,14 @@ fn main() {
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            println!("Error: --path should be given.");
+            eprintln!("Error: --path should be given.");
             return;
         }
     };
     let characters = match arguments.get::<String>("characters") {
         Some(characters) => characters.chars().collect(),
         _ => {
-            println!("Error: --characters should be given.");
+            eprintln!("Error: --characters should be given.");
             return;
         }
     };
@@ -58,15 +58,15 @@ fn process(path: &Path, (characters, output): (String, Option<PathBuf>)) -> Resu
                         let mut file = File::create(output)?;
                         write!(file, "{}", document)?;
                     }
-                    _ => println!("{}", document),
+                    _ => eprintln!("{}", document),
                 }
                 option = Some(());
             }
-            println!("[success] {:?}", path);
+            eprintln!("[success] {:?}", path);
             Ok(option)
         }
         Err(error) => {
-            println!("[failure] {:?}", path);
+            eprintln!("[failure] {:?}", path);
             Err(error)
         }
     }

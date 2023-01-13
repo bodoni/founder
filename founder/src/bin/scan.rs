@@ -13,7 +13,7 @@ fn main() {
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            println!("Error: --path should be given.");
+            eprintln!("Error: --path should be given.");
             return;
         }
     };
@@ -29,11 +29,11 @@ fn main() {
 fn process(path: &Path, _: ()) -> Result<Option<()>> {
     match File::open(&path) {
         Ok(_) => {
-            println!("[success] {:?}", path);
+            eprintln!("[success] {:?}", path);
             Ok(Some(()))
         }
         Err(error) => {
-            println!("[failure] {:?} ({:?})", path, error);
+            eprintln!("[failure] {:?} ({:?})", path, error);
             Err(error)
         }
     }
