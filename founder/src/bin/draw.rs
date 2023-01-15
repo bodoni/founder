@@ -93,15 +93,15 @@ fn subprocess(
                 continue;
             }
         };
-        let (left, bottom, right, top) = glyph.bounding_box;
-        let glyph_size = (right - left).max(top - bottom);
-        let scale = (document_size - 2.0 * margin_size) / glyph_size;
-        let transform = format!(
-            "scale({}) translate({}, {}) scale(1, -1)",
-            scale,
-            -left + (glyph_size - (right - left)) / 2.0 + margin_size,
-            top + (glyph_size - (top - bottom)) / 2.0 + margin_size,
-        );
+        let (glyph_size, scale, x, y);
+        {
+            let (left, bottom, right, top) = glyph.bounding_box;
+            glyph_size = (right - left).max(top - bottom);
+            scale = (document_size - 2.0 * margin_size) / glyph_size;
+            x = -left + (glyph_size - (right - left)) / 2.0 + margin_size;
+            y = top + (glyph_size - (top - bottom)) / 2.0 + margin_size;
+        }
+        let transform = format!("scale({}) translate({}, {}) scale(1, -1)", scale, x, y);
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
         let document = Document::new()

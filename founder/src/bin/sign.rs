@@ -41,7 +41,8 @@ fn main() {
 
 fn process(path: &Path, (characters, output): (Vec<char>, Option<PathBuf>)) -> Result<Option<()>> {
     const DOCUMENT_SIZE: f32 = 512.0;
-    let group = match subprocess(&path, &characters, DOCUMENT_SIZE) {
+    const MARGIN_SIZE: f32 = 8.0;
+    let group = match subprocess(&path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
         Ok(None) => {
             eprintln!("[missing] {:?}", path);
             return Ok(None);
@@ -82,28 +83,32 @@ fn subprocess(
     path: &Path,
     characters: &[char],
     document_size: f32,
+    margin_size: f32,
 ) -> Result<Option<element::Group>> {
     let mut group = element::Group::new();
     let File { mut fonts } = File::open(path)?;
-    let metrics = fonts[0].metrics()?;
-    let glyph_size = metrics.ascender - metrics.descender;
     let columns = (characters.len() as f32).sqrt().ceil() as usize;
-    let offset = document_size / columns as f32;
-    let scale = document_size / columns as f32 / glyph_size;
+    let step = document_size / columns as f32;
     for (index, character) in characters.iter().enumerate() {
         let glyph = match fonts[0].draw(*character)? {
             Some(glyph) => glyph,
             _ => return Ok(None),
         };
-        let x = index % columns;
-        let y = index / columns;
+        let (glyph_size, scale, x, y);
+        {
+            let (left, bottom, right, top) = glyph.bounding_box;
+            glyph_size = (right - left).max(top - bottom);
+            scale = (document_size - 2.0 * margin_size) / columns as f32 / glyph_size;
+            x = -left + (glyph_size - (right - left)) / 2.0 + margin_size;
+            y = top + (glyph_size - (top - bottom)) / 2.0 + margin_size;
+        }
         let transform = format!(
             "translate({}, {}) scale({}) translate({}, {}) scale(1, -1)",
-            x as f32 * offset,
-            y as f32 * offset,
+            (index % columns) as f32 * step,
+            (index / columns) as f32 * step,
             scale,
-            (glyph_size - glyph.advance_width) / 2.0,
-            metrics.ascender,
+            x,
+            y,
         );
         let mut glyph = founder::drawing::draw(&glyph);
         glyph.assign("transform", transform);
