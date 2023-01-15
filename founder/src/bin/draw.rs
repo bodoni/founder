@@ -52,9 +52,10 @@ fn process(path: &Path, (characters, output): (String, Option<PathBuf>)) -> Resu
             {
                 match output {
                     Some(ref output) => {
+                        let character = format!("{}-{:#x}", character, character as usize);
                         let output = output.join(path.file_stem().unwrap());
                         std::fs::create_dir_all(&output)?;
-                        let output = output.join(character.to_string()).with_extension("svg");
+                        let output = output.join(character).with_extension("svg");
                         let mut file = File::create(output)?;
                         write!(file, "{}", document)?;
                     }
