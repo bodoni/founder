@@ -78,6 +78,7 @@ fn subprocess(path: &Path, characters: &str) -> Result<Vec<(char, Option<element
 
     let File { mut fonts } = File::open(path)?;
     let metrics = fonts[0].metrics()?;
+    let glyph_size = metrics.ascender - metrics.descender;
     let mut results = vec![];
     for character in characters.chars() {
         let glyph = match fonts[0].draw(character)? {
@@ -87,16 +88,16 @@ fn subprocess(path: &Path, characters: &str) -> Result<Vec<(char, Option<element
                 continue;
             }
         };
-        let (width, height) = (
-            glyph.width() + 2.0 * glyph.side_bearings.0,
-            metrics.ascender - metrics.descender,
+        let transform = format!(
+            "translate({}, {}) scale(1, -1)",
+            (glyph_size - glyph.advance_width) / 2.0,
+            metrics.ascender,
         );
-        let transform = format!("translate(0, {}) scale(1, -1)", metrics.ascender);
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
         let document = Document::new()
-            .set("width", width)
-            .set("height", height)
+            .set("width", glyph_size)
+            .set("height", glyph_size)
             .add(style)
             .add(glyph);
         results.push((character, Some(document)));
