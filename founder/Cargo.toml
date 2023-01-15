@@ -1,6 +1,6 @@
 [package]
 name = "founder"
-version = "0.3.1"
+version = "0.4.0"
 edition = "2021"
 license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
@@ -32,6 +32,6 @@ path = "src/bin/sign.rs"
 
 [dependencies]
 arguments = "0.7"
-font = "0.10"
+font = "0.10.3"
 svg = "0.9"
 walkdir = "2.3"
