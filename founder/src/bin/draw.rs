@@ -43,7 +43,8 @@ fn process(path: &Path, (characters, output): (String, Option<PathBuf>)) -> Resu
     use std::io::Write;
 
     const DOCUMENT_SIZE: f32 = 512.0;
-    match subprocess(path, &characters, DOCUMENT_SIZE) {
+    const MARGIN_SIZE: f32 = 8.0;
+    match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
         Ok(results) => {
             let mut option = None;
             for (character, document) in results
@@ -78,13 +79,11 @@ fn subprocess(
     path: &Path,
     characters: &str,
     document_size: f32,
+    margin_size: f32,
 ) -> Result<Vec<(char, Option<element::SVG>)>> {
     use font::File;
 
     let File { mut fonts } = File::open(path)?;
-    let metrics = fonts[0].metrics()?;
-    let glyph_size = metrics.ascender - metrics.descender;
-    let scale = document_size / glyph_size;
     let mut results = vec![];
     for character in characters.chars() {
         let glyph = match fonts[0].draw(character)? {
@@ -94,11 +93,14 @@ fn subprocess(
                 continue;
             }
         };
+        let (left, bottom, right, top) = glyph.bounding_box;
+        let glyph_size = (right - left).max(top - bottom);
+        let scale = (document_size - 2.0 * margin_size) / glyph_size;
         let transform = format!(
             "scale({}) translate({}, {}) scale(1, -1)",
             scale,
-            (glyph_size - glyph.advance_width) / 2.0,
-            metrics.ascender,
+            -left + (glyph_size - (right - left)) / 2.0 + margin_size,
+            top + (glyph_size - (top - bottom)) / 2.0 + margin_size,
         );
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
