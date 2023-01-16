@@ -1,4 +1,4 @@
-use font::{Glyph, Offset, Segment};
+use font::{Glyph, Metrics, Number, Offset, Segment};
 use svg::node::element;
 use svg::node::Node;
 
@@ -34,4 +34,31 @@ pub fn draw(glyph: &Glyph) -> element::Group {
         group.append(element::Path::new().set("d", data));
     }
     group
+}
+
+pub fn transform(
+    glyph: &Glyph,
+    metrics: &Metrics,
+    document_size: Number,
+    mode: &str,
+) -> (Number, Number, Number) {
+    let (x, y, scale);
+    match mode {
+        "character" => {
+            let (left, bottom, right, top) = glyph.bounding_box;
+            let glyph_size = (right - left).max(top - bottom);
+            scale = document_size / glyph_size;
+            x = -left + (glyph_size - (right - left)) / 2.0;
+            y = top + (glyph_size - (top - bottom)) / 2.0;
+        }
+        "font" => {
+            let (left, _, right, _) = glyph.bounding_box;
+            let glyph_size = metrics.ascender - metrics.descender;
+            scale = document_size / glyph_size;
+            x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
+            y = metrics.ascender;
+        }
+        _ => unreachable!(),
+    }
+    (x, y, scale)
 }

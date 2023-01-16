@@ -25,6 +25,10 @@ fn main() {
             return;
         }
     };
+    let mode: String = match arguments.get::<String>("mode") {
+        Some(output) => output,
+        _ => "character".to_string(),
+    };
     let output: Option<PathBuf> = match arguments.get::<String>("output") {
         Some(output) => Some(output.into()),
         _ => None,
@@ -32,19 +36,22 @@ fn main() {
     founder::scanning::scan_summarize(
         &path,
         process,
-        (characters, output),
+        (characters, mode, output),
         arguments.get::<usize>("workers").unwrap_or(1),
         &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
     );
 }
 
-fn process(path: &Path, (characters, output): (String, Option<PathBuf>)) -> Result<Option<()>> {
+fn process(
+    path: &Path,
+    (characters, mode, output): (String, String, Option<PathBuf>),
+) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
     const DOCUMENT_SIZE: f32 = 512.0;
     const MARGIN_SIZE: f32 = 8.0;
-    match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
+    match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE, &mode) {
         Ok(results) => {
             let mut option = None;
             for (character, document) in results
@@ -80,10 +87,12 @@ fn subprocess(
     characters: &str,
     document_size: f32,
     margin_size: f32,
+    mode: &str,
 ) -> Result<Vec<(char, Option<element::SVG>)>> {
     use font::File;
 
     let File { mut fonts } = File::open(path)?;
+    let metrics = fonts[0].metrics()?;
     let mut results = vec![];
     for character in characters.chars() {
         let glyph = match fonts[0].draw(character)? {
@@ -93,14 +102,8 @@ fn subprocess(
                 continue;
             }
         };
-        let (glyph_size, scale, x, y);
-        {
-            let (left, bottom, right, top) = glyph.bounding_box;
-            glyph_size = (right - left).max(top - bottom);
-            scale = (document_size - 2.0 * margin_size) / glyph_size;
-            x = -left + (glyph_size - (right - left)) / 2.0;
-            y = top + (glyph_size - (top - bottom)) / 2.0;
-        }
+        let (x, y, scale) =
+            founder::drawing::transform(&glyph, &metrics, document_size - 2.0 * margin_size, mode);
         let transform = format!(
             "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
             margin_size, margin_size, scale, x, y,

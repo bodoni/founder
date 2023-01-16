@@ -19,12 +19,16 @@ fn main() {
             return;
         }
     };
-    let characters: Vec<_> = match arguments.get::<String>("characters") {
-        Some(characters) => characters.chars().collect(),
+    let characters = match arguments.get::<String>("characters") {
+        Some(characters) => characters,
         _ => {
             eprintln!("Error: --characters should be given.");
             return;
         }
+    };
+    let mode: String = match arguments.get::<String>("mode") {
+        Some(output) => output,
+        _ => "character".to_string(),
     };
     let output: Option<PathBuf> = match arguments.get::<String>("output") {
         Some(output) => Some(output.into()),
@@ -33,16 +37,19 @@ fn main() {
     founder::scanning::scan_summarize(
         &path,
         process,
-        (characters, output),
+        (characters, mode, output),
         arguments.get::<usize>("workers").unwrap_or(1),
         &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
     );
 }
 
-fn process(path: &Path, (characters, output): (Vec<char>, Option<PathBuf>)) -> Result<Option<()>> {
+fn process(
+    path: &Path,
+    (characters, mode, output): (String, String, Option<PathBuf>),
+) -> Result<Option<()>> {
     const DOCUMENT_SIZE: f32 = 512.0;
     const MARGIN_SIZE: f32 = 8.0;
-    let group = match subprocess(&path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
+    let group = match subprocess(&path, &characters, DOCUMENT_SIZE, MARGIN_SIZE, &mode) {
         Ok(None) => {
             eprintln!("[missing] {:?}", path);
             return Ok(None);
@@ -81,27 +88,27 @@ fn process(path: &Path, (characters, output): (Vec<char>, Option<PathBuf>)) -> R
 
 fn subprocess(
     path: &Path,
-    characters: &[char],
+    characters: &str,
     document_size: f32,
     margin_size: f32,
+    mode: &str,
 ) -> Result<Option<element::Group>> {
     let mut group = element::Group::new();
     let File { mut fonts } = File::open(path)?;
-    let columns = (characters.len() as f32).sqrt().ceil() as usize;
+    let metrics = fonts[0].metrics()?;
+    let columns = (characters.chars().count() as f32).sqrt().ceil() as usize;
     let step = document_size / columns as f32;
-    for (index, character) in characters.iter().enumerate() {
-        let glyph = match fonts[0].draw(*character)? {
+    for (index, character) in characters.chars().enumerate() {
+        let glyph = match fonts[0].draw(character)? {
             Some(glyph) => glyph,
             _ => return Ok(None),
         };
-        let (glyph_size, scale, x, y);
-        {
-            let (left, bottom, right, top) = glyph.bounding_box;
-            glyph_size = (right - left).max(top - bottom);
-            scale = (document_size - 2.0 * margin_size) / columns as f32 / glyph_size;
-            x = -left + (glyph_size - (right - left)) / 2.0;
-            y = top + (glyph_size - (top - bottom)) / 2.0;
-        }
+        let (x, y, scale) = founder::drawing::transform(
+            &glyph,
+            &metrics,
+            (document_size - 2.0 * margin_size) / columns as f32,
+            mode,
+        );
         let transform = format!(
             "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
             (index % columns) as f32 * step + margin_size,
