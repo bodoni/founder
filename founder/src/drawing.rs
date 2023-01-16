@@ -60,7 +60,7 @@ pub fn transform(
         }
         "global" => {
             const BASELINE: Number = 0.75;
-            const MULTIPLIER: Number = 1.5;
+            const MULTIPLIER: Number = 1.75;
             let (left, _, right, _) = glyph.bounding_box;
             let glyph_size = MULTIPLIER * metrics.cap_height;
             scale = document_size / glyph_size;
