@@ -44,14 +44,14 @@ pub fn transform(
 ) -> (Number, Number, Number) {
     let (x, y, scale);
     match mode {
-        "character" => {
+        "free" => {
             let (left, bottom, right, top) = glyph.bounding_box;
             let glyph_size = (right - left).max(top - bottom);
             scale = document_size / glyph_size;
             x = -left + (glyph_size - (right - left)) / 2.0;
             y = top + (glyph_size - (top - bottom)) / 2.0;
         }
-        "font" => {
+        "local" => {
             let (left, _, right, _) = glyph.bounding_box;
             let glyph_size = metrics.ascender - metrics.descender;
             scale = document_size / glyph_size;

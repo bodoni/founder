@@ -1,0 +1,11 @@
+<svg height="512" width="512" xmlns="http://www.w3.org/2000/svg">
+<style>
+path { fill: black; fill-rule: nonzero; }
+</style>
+<g>
+<g transform="translate(8 8) scale(0.248) translate(500 880) scale(1 -1)"/>
+<g transform="translate(264 8) scale(0.248) translate(500 880) scale(1 -1)"/>
+<g transform="translate(8 264) scale(0.248) translate(500 880) scale(1 -1)"/>
+<g transform="translate(264 264) scale(0.248) translate(500 880) scale(1 -1)"/>
+</g>
+</svg>

@@ -73,6 +73,7 @@ fn process(
         }
         Some(output) => output,
     };
+    std::fs::create_dir_all(&output)?;
     let output = output.join(path.file_stem().unwrap()).with_extension("svg");
     match svg::save(&output, &document) {
         Ok(_) => {
