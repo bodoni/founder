@@ -58,6 +58,15 @@ pub fn transform(
             x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
             y = metrics.ascender;
         }
+        "global" => {
+            const BASELINE: Number = 0.75;
+            const MULTIPLIER: Number = 1.5;
+            let (left, _, right, _) = glyph.bounding_box;
+            let glyph_size = MULTIPLIER * metrics.cap_height;
+            scale = document_size / glyph_size;
+            x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
+            y = BASELINE * glyph_size;
+        }
         _ => unreachable!(),
     }
     (x, y, scale)

@@ -28,7 +28,7 @@ fn main() {
     };
     let mode: String = match arguments.get::<String>("mode") {
         Some(output) => output,
-        _ => "character".to_string(),
+        _ => "global".to_string(),
     };
     let output: Option<PathBuf> = match arguments.get::<String>("output") {
         Some(output) => Some(output.into()),

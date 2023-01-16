@@ -16,6 +16,11 @@ tests-draw-selected:
 		--characters aiQW \
 		--mode local \
 		--output assets/draw/local
+	cargo run --bin founder-draw -- \
+		--path tests/fixtures \
+		--characters aiQW \
+		--mode global \
+		--output assets/draw/global
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
 tests-name-selected:
@@ -27,14 +32,19 @@ tests-name-selected:
 tests-sign-selected:
 	cargo run --bin founder-sign -- \
 		--path tests/fixtures \
-		--characters anop \
+		--characters aiQW \
 		--mode free \
 		--output assets/sign/free
 	cargo run --bin founder-sign -- \
 		--path tests/fixtures \
-		--characters anop \
+		--characters aiQW \
 		--mode local \
 		--output assets/sign/local
+	cargo run --bin founder-sign -- \
+		--path tests/fixtures \
+		--characters aiQW \
+		--mode global \
+		--output assets/sign/global
 	[ "$$(git diff assets/sign | wc -l | xargs)" = 0 ] || exit 1
 
 tests-scan:
