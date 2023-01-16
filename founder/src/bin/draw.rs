@@ -93,17 +93,23 @@ fn subprocess(
 
     let File { mut fonts } = File::open(path)?;
     let metrics = fonts[0].metrics()?;
+    let reference = fonts[0].draw('X')?;
     let mut results = vec![];
     for character in characters.chars() {
-        let glyph = match fonts[0].draw(character)? {
-            Some(glyph) => glyph,
+        let (reference, glyph) = match (reference.as_ref(), fonts[0].draw(character)?) {
+            (Some(reference), Some(glyph)) => (reference, glyph),
             _ => {
                 results.push((character, None));
                 continue;
             }
         };
-        let (x, y, scale) =
-            founder::drawing::transform(&glyph, &metrics, document_size - 2.0 * margin_size, mode);
+        let (x, y, scale) = founder::drawing::transform(
+            &glyph,
+            &metrics,
+            reference,
+            document_size - 2.0 * margin_size,
+            mode,
+        );
         let transform = format!(
             "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
             margin_size, margin_size, scale, x, y,

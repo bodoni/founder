@@ -97,16 +97,18 @@ fn subprocess(
     let mut group = element::Group::new();
     let File { mut fonts } = File::open(path)?;
     let metrics = fonts[0].metrics()?;
+    let reference = fonts[0].draw('X')?;
     let columns = (characters.chars().count() as f32).sqrt().ceil() as usize;
     let step = document_size / columns as f32;
     for (index, character) in characters.chars().enumerate() {
-        let glyph = match fonts[0].draw(character)? {
-            Some(glyph) => glyph,
+        let (reference, glyph) = match (reference.as_ref(), fonts[0].draw(character)?) {
+            (Some(reference), Some(glyph)) => (reference, glyph),
             _ => return Ok(None),
         };
         let (x, y, scale) = founder::drawing::transform(
             &glyph,
             &metrics,
+            reference,
             (document_size - 2.0 * margin_size) / columns as f32,
             mode,
         );
