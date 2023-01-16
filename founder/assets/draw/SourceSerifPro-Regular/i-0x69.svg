@@ -2,7 +2,7 @@
 <style>
 path { fill: black; fill-rule: nonzero; }
 </style>
-<g transform="scale(0.6831956) translate(223, 734) scale(1, -1)">
+<g transform="translate(8) scale(0.6831956) translate(215, 726) scale(1, -1)">
 <path d="M153,598 c37,0,67,27,67,64 c0,39,-30,64,-67,64 c-38,0,-67,-25,-67,-64 c0,-37,29,-64,67,-64 z M198,50 c-1,50,-2,116,-2,160 l0,135 l3,136 l-15,10 l-155,-61 l0,-35 l79,-9 c2,-40,3,-71,3,-126 l0,-50 c0,-45,-1,-110,-2,-160 l-74,-14 l0,-36 l232,0 l0,36 z"/>
 </g>
 </svg>

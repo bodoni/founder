@@ -98,10 +98,13 @@ fn subprocess(
             let (left, bottom, right, top) = glyph.bounding_box;
             glyph_size = (right - left).max(top - bottom);
             scale = (document_size - 2.0 * margin_size) / glyph_size;
-            x = -left + (glyph_size - (right - left)) / 2.0 + margin_size;
-            y = top + (glyph_size - (top - bottom)) / 2.0 + margin_size;
+            x = -left + (glyph_size - (right - left)) / 2.0;
+            y = top + (glyph_size - (top - bottom)) / 2.0;
         }
-        let transform = format!("scale({}) translate({}, {}) scale(1, -1)", scale, x, y);
+        let transform = format!(
+            "translate({}) scale({}) translate({}, {}) scale(1, -1)",
+            margin_size, scale, x, y,
+        );
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
         let document = Document::new()

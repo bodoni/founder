@@ -99,13 +99,13 @@ fn subprocess(
             let (left, bottom, right, top) = glyph.bounding_box;
             glyph_size = (right - left).max(top - bottom);
             scale = (document_size - 2.0 * margin_size) / columns as f32 / glyph_size;
-            x = -left + (glyph_size - (right - left)) / 2.0 + margin_size;
-            y = top + (glyph_size - (top - bottom)) / 2.0 + margin_size;
+            x = -left + (glyph_size - (right - left)) / 2.0;
+            y = top + (glyph_size - (top - bottom)) / 2.0;
         }
         let transform = format!(
             "translate({}, {}) scale({}) translate({}, {}) scale(1, -1)",
-            (index % columns) as f32 * step,
-            (index / columns) as f32 * step,
+            (index % columns) as f32 * step + margin_size,
+            (index / columns) as f32 * step + margin_size,
             scale,
             x,
             y,

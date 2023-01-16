@@ -3,9 +3,9 @@
 path { fill: black; fill-rule: nonzero; }
 </style>
 <g>
-<g transform="translate(0, 0) scale(inf) translate(8, 8) scale(1, -1)"/>
-<g transform="translate(256, 0) scale(inf) translate(8, 8) scale(1, -1)"/>
-<g transform="translate(0, 256) scale(inf) translate(8, 8) scale(1, -1)"/>
-<g transform="translate(256, 256) scale(inf) translate(8, 8) scale(1, -1)"/>
+<g transform="translate(8, 8) scale(inf) translate(0, 0) scale(1, -1)"/>
+<g transform="translate(264, 8) scale(inf) translate(0, 0) scale(1, -1)"/>
+<g transform="translate(8, 264) scale(inf) translate(0, 0) scale(1, -1)"/>
+<g transform="translate(264, 264) scale(inf) translate(0, 0) scale(1, -1)"/>
 </g>
 </svg>
