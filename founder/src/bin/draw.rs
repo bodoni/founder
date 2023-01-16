@@ -102,8 +102,8 @@ fn subprocess(
             y = top + (glyph_size - (top - bottom)) / 2.0;
         }
         let transform = format!(
-            "translate({}) scale({}) translate({}, {}) scale(1, -1)",
-            margin_size, scale, x, y,
+            "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
+            margin_size, margin_size, scale, x, y,
         );
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");

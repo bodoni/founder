@@ -2,5 +2,5 @@
 <style>
 path { fill: black; fill-rule: nonzero; }
 </style>
-<g transform="translate(8) scale(inf) translate(0, 0) scale(1, -1)"/>
+<g transform="translate(8 8) scale(inf) translate(0 0) scale(1 -1)"/>
 </svg>

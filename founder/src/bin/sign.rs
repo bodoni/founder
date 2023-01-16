@@ -103,7 +103,7 @@ fn subprocess(
             y = top + (glyph_size - (top - bottom)) / 2.0;
         }
         let transform = format!(
-            "translate({}, {}) scale({}) translate({}, {}) scale(1, -1)",
+            "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
             (index % columns) as f32 * step + margin_size,
             (index / columns) as f32 * step + margin_size,
             scale,
