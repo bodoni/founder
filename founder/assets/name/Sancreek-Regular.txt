@@ -1,0 +1,22 @@
+CopyrightNotice           en    Copyright (c) 2011 by vernon adams (vern@newtypogr…
+FontFamilyName            en    Sancreek
+FontSubfamilyName         en    Regular
+UniqueFontID              en    FontForge 2.0 : Sancreek Regular : 9-10-2011
+FullFontName              en    Sancreek Regular
+VersionString             en    Version 1.002
+PostScriptFontName        en    Sancreek-Regular
+Trademark                 en    Sancreek is a trademark of vernon adams.
+ManufacturerName          en    vernon adams
+DesignerName              en    vernon adams
+LicenseURL                en    http://scripts.sil.org/OFL
+CopyrightNotice           en    Copyright (c) 2011 by vernon adams (vern@newtypogr…
+FontFamilyName            en    Sancreek
+FontSubfamilyName         en    Regular
+UniqueFontID              en    FontForge 2.0 : Sancreek Regular : 9-10-2011
+FullFontName              en    Sancreek Regular
+VersionString             en    Version 1.002
+PostScriptFontName        en    Sancreek-Regular
+Trademark                 en    Sancreek is a trademark of vernon adams.
+ManufacturerName          en    vernon adams
+DesignerName              en    vernon adams
+LicenseURL                en    http://scripts.sil.org/OFL

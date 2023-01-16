@@ -63,11 +63,7 @@ pub fn transform(
             const BASELINE: Number = 0.75;
             const MULTIPLIER: Number = 1.75;
             let (left, _, right, _) = glyph.bounding_box;
-            let glyph_size = if metrics.cap_height.is_nan() {
-                MULTIPLIER * reference.bounding_box.3
-            } else {
-                MULTIPLIER * metrics.cap_height
-            };
+            let glyph_size = MULTIPLIER * reference.bounding_box.3;
             scale = document_size / glyph_size;
             x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
             y = BASELINE * glyph_size;
