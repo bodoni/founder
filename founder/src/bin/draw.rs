@@ -68,7 +68,7 @@ fn process(
                         let mut file = File::create(output)?;
                         write!(file, "{}", document)?;
                     }
-                    _ => eprintln!("{}", document),
+                    _ => println!("{}", document),
                 }
                 option = Some(());
             }
@@ -76,7 +76,7 @@ fn process(
             Ok(option)
         }
         Err(error) => {
-            eprintln!("[failure] {:?}", path);
+            eprintln!("[failure] {:?} ({:?})", path, error);
             Err(error)
         }
     }

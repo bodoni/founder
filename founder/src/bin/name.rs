@@ -32,19 +32,22 @@ fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {
     use std::io::Write;
 
     match subprocess(path) {
-        Ok(result) => match output {
-            Some(output) => {
-                let output = output.join(path.file_stem().unwrap()).with_extension("txt");
-                let mut file = File::create(output)?;
-                write!(file, "{}", result)?;
-                Ok(Some(()))
+        Ok(result) => {
+            match output {
+                Some(output) => {
+                    let output = output.join(path.file_stem().unwrap()).with_extension("txt");
+                    let mut file = File::create(output)?;
+                    write!(file, "{}", result)?;
+                }
+                _ => println!("{}", result),
             }
-            _ => {
-                eprintln!("{}", result);
-                Ok(Some(()))
-            }
-        },
-        Err(error) => Err(error),
+            eprintln!("[success] {:?}", path);
+            Ok(Some(()))
+        }
+        Err(error) => {
+            eprintln!("[failure] {:?} ({:?})", path, error);
+            Err(error)
+        }
     }
 }
 

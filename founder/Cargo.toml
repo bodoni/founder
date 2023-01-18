@@ -1,6 +1,6 @@
 [package]
 name = "founder"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2021"
 license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
@@ -21,14 +21,6 @@ path = "src/bin/draw.rs"
 [[bin]]
 name = "founder-name"
 path = "src/bin/name.rs"
-
-[[bin]]
-name = "founder-scan"
-path = "src/bin/scan.rs"
-
-[[bin]]
-name = "founder-sign"
-path = "src/bin/sign.rs"
 
 [dependencies]
 arguments = "0.7"

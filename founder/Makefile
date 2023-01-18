@@ -2,8 +2,29 @@ RUST_BACKTRACE := full
 
 all: tests
 
-tests: tests-draw-selected tests-name-selected tests-sign-selected
-tests: tests-scan tests-sign
+tests: tests-draw tests-draw-selected
+tests: tests-name tests-name-selected
+
+tests-draw:
+	# https://github.com/google/fonts/issues/5551
+	# https://github.com/google/fonts/issues/5553
+	# https://github.com/google/fonts/issues/5724
+	cargo run --bin founder-draw -- \
+		--path ../tests/fixtures \
+		--characters aiQW \
+		--ignore google-fonts/ofl/bungeecolor \
+		--ignore google-fonts/ofl/bungeespice \
+		--ignore google-fonts/ofl/gruppo \
+		--ignore google-fonts/ofl/iceland \
+		--ignore google-fonts/ofl/kaushanscript \
+		--ignore google-fonts/ufl/ubuntu \
+		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
+		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
+		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
+		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
+		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
+		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
+		--workers 4 > /dev/null
 
 tests-draw-selected:
 	cargo run --bin founder-draw -- \
@@ -23,58 +44,12 @@ tests-draw-selected:
 		--output assets/draw/global
 	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
 
-tests-name-selected:
+tests-name:
+	# https://github.com/google/fonts/issues/5551
+	# https://github.com/google/fonts/issues/5553
+	# https://github.com/google/fonts/issues/5724
 	cargo run --bin founder-name -- \
-		--path tests/fixtures \
-		--output assets/name
-	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
-
-tests-sign-selected:
-	cargo run --bin founder-sign -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode free \
-		--output assets/sign/free
-	cargo run --bin founder-sign -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode local \
-		--output assets/sign/local
-	cargo run --bin founder-sign -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode global \
-		--output assets/sign/global
-	[ "$$(git diff assets/sign | wc -l | xargs)" = 0 ] || exit 1
-
-tests-scan:
-	# https://github.com/google/fonts/issues/5551
-	# https://github.com/google/fonts/issues/5553
-	# https://github.com/google/fonts/issues/5724
-	cargo run --bin founder-scan -- \
 		--path ../tests/fixtures \
-		--ignore google-fonts/ofl/bungeecolor \
-		--ignore google-fonts/ofl/bungeespice \
-		--ignore google-fonts/ofl/gruppo \
-		--ignore google-fonts/ofl/iceland \
-		--ignore google-fonts/ofl/kaushanscript \
-		--ignore google-fonts/ufl/ubuntu \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
-		--workers 4
-
-tests-sign:
-	# https://github.com/google/fonts/issues/5551
-	# https://github.com/google/fonts/issues/5553
-	# https://github.com/google/fonts/issues/5724
-	cargo run --bin founder-sign -- \
-		--path ../tests/fixtures \
-		--output assets/sign \
-		--characters anop \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
 		--ignore google-fonts/ofl/gruppo \
@@ -90,8 +65,14 @@ tests-sign:
 		--ignore web-platform-tests/css/css-writing-modes/support/tcu-font \
 		--ignore web-platform-tests/fonts/adobe-fonts/CSSFWOrientationTest \
 		--ignore web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
-		--workers 4
+		--workers 4 > /dev/null
+
+tests-name-selected:
+	cargo run --bin founder-name -- \
+		--path tests/fixtures \
+		--output assets/name
+	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
 
 .PHONY: tests
-.PHONY: tests-draw-selected tests-name-selected tests-sign-selected
-.PHONY: tests-scan tests-sign
+.PHONY: tests-draw tests-draw-selected
+.PHONY: tests-name tests-name-selected
