@@ -8,6 +8,7 @@ use walkdir::WalkDir;
 
 pub fn scan<F, T, U>(
     path: &Path,
+    formats: &[&str],
     process: F,
     parameter: T,
     workers: usize,
@@ -47,7 +48,7 @@ where
                 .path()
                 .extension()
                 .and_then(|extension| extension.to_str())
-                .map(|extension| extension == "otf" || extension == "ttf")
+                .map(|extension| formats.contains(&extension))
                 .unwrap_or(false)
         })
     {
@@ -61,6 +62,7 @@ where
 
 pub fn scan_summarize<F, T, U>(
     path: &Path,
+    formats: &[&str],
     process: F,
     parameter: T,
     workers: usize,
@@ -70,7 +72,7 @@ pub fn scan_summarize<F, T, U>(
     T: Clone + Send + 'static,
     U: Send + 'static,
 {
-    let values = scan(path, process, parameter, workers);
+    let values = scan(path, formats, process, parameter, workers);
     let (positives, negatives): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (complete, incomplete): (Vec<_>, Vec<_>) = positives

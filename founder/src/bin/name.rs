@@ -19,6 +19,7 @@ fn main() {
     };
     founder::scanning::scan_summarize(
         &path,
+        &["otf", "ttf"],
         process,
         output,
         arguments.get::<usize>("workers").unwrap_or(1),

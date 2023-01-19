@@ -10,6 +10,9 @@ homepage = "https://github.com/bodoni/workbench/tree/main/founder"
 repository = "https://github.com/bodoni/workbench/tree/main/founder"
 exclude = ["tests/fixtures/*"]
 
+[features]
+convert = ["resvg"]
+
 [lib]
 name = "founder"
 path = "src/lib.rs"
@@ -22,8 +25,15 @@ path = "src/bin/draw.rs"
 name = "founder-name"
 path = "src/bin/name.rs"
 
+[[bin]]
+name = "founder-convert"
+path = "src/bin/convert.rs"
+required-features = ["convert"]
+
 [dependencies]
 arguments = "0.7"
 font = "0.10.3"
 svg = "0.9"
 walkdir = "2.3"
+
+resvg = { version = "0.28.0", optional = true }
