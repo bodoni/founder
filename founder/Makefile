@@ -51,10 +51,12 @@ tests-name:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
+	# https://github.com/google/fonts/issues/5805
 	cargo run --bin founder-name -- \
 		--path ../tests/fixtures \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
+		--ignore google-fonts/ofl/gentiumbookbasic \
 		--ignore google-fonts/ofl/gruppo \
 		--ignore google-fonts/ofl/iceland \
 		--ignore google-fonts/ofl/kaushanscript \
@@ -65,6 +67,9 @@ tests-name:
 		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
 		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
 		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
+		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-bold \
+		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-bolditalic \
+		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-regular \
 		--workers 4 > /dev/null
 
 tests-name-selected:
