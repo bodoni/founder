@@ -1,7 +1,5 @@
 extern crate arguments;
-extern crate font;
 extern crate founder;
-extern crate svg;
 
 use std::io::Result;
 use std::path::{Path, PathBuf};

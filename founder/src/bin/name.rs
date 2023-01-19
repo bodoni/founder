@@ -1,5 +1,4 @@
 extern crate arguments;
-extern crate font;
 extern crate founder;
 
 use std::io::Result;
