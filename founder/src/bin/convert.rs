@@ -18,13 +18,13 @@ fn main() {
         &path,
         &["svg"],
         process,
-        arguments.get::<usize>("document-size").unwrap_or(28),
+        arguments.get::<u32>("document-size").unwrap_or(28),
         arguments.get::<usize>("workers").unwrap_or(1),
         &vec![],
     );
 }
 
-fn process(path: &Path, document_size: usize) -> Result<Option<()>> {
+fn process(path: &Path, document_size: u32) -> Result<Option<()>> {
     match to_png(path, document_size) {
         Ok(_) => {
             eprintln!("[success] {:?}", path);
