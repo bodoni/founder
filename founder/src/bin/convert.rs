@@ -18,15 +18,14 @@ fn main() {
         &path,
         &["svg"],
         process,
-        (),
+        arguments.get::<usize>("document-size").unwrap_or(28),
         arguments.get::<usize>("workers").unwrap_or(1),
         &vec![],
     );
 }
 
-fn process(path: &Path, _: ()) -> Result<Option<()>> {
-    const DOCUMENT_SIZE: u32 = 28;
-    match to_png(path, DOCUMENT_SIZE) {
+fn process(path: &Path, document_size: usize) -> Result<Option<()>> {
+    match to_png(path, document_size) {
         Ok(_) => {
             eprintln!("[success] {:?}", path);
             Ok(Some(()))
