@@ -25,7 +25,7 @@ fn main() {
 }
 
 fn process(path: &Path, _: ()) -> Result<Option<()>> {
-    const DOCUMENT_SIZE: u32 = 64;
+    const DOCUMENT_SIZE: u32 = 28;
     match to_png(path, DOCUMENT_SIZE) {
         Ok(_) => {
             eprintln!("[success] {:?}", path);
