@@ -27,6 +27,7 @@ jobs:
       - run: make -C founder tests-name-selected
       - run: make -C founder tests-draw
       - run: make -C founder tests-name
+      - run: make -C founder tests-convert-selected
 
   ubuntu:
     runs-on: ubuntu-latest
@@ -39,3 +40,4 @@ jobs:
       - run: make -C founder tests-name-selected
       - run: make -C founder tests-draw
       - run: make -C founder tests-name
+      - run: make -C founder tests-convert-selected

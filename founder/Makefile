@@ -78,6 +78,11 @@ tests-name-selected:
 		--output assets/name
 	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
 
+tests-convert-selected:
+	cargo run --bin founder-convert --features convert -- \
+		--path assets/draw
+
 .PHONY: tests
 .PHONY: tests-draw tests-draw-selected
 .PHONY: tests-name tests-name-selected
+.PHONY: tests-convert-selected
