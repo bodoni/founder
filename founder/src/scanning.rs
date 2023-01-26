@@ -6,15 +6,16 @@ use std::thread;
 
 use walkdir::WalkDir;
 
-pub fn scan<F, T, U>(
+pub fn scan<F1, F2, T, U>(
     path: &Path,
-    formats: &[&str],
-    process: F,
+    filter: F1,
+    process: F2,
     parameter: T,
     workers: usize,
 ) -> Vec<(PathBuf, Result<U>)>
 where
-    F: Fn(&Path, T) -> Result<U> + Copy + Send + 'static,
+    F1: Fn(&Path) -> bool,
+    F2: Fn(&Path, T) -> Result<U> + Copy + Send + 'static,
     T: Clone + Send + 'static,
     U: Send + 'static,
 {
@@ -43,14 +44,7 @@ where
         .into_iter()
         .map(|entry| entry.unwrap())
         .filter(|entry| !entry.file_type().is_dir())
-        .filter(|entry| {
-            entry
-                .path()
-                .extension()
-                .and_then(|extension| extension.to_str())
-                .map(|extension| formats.contains(&extension))
-                .unwrap_or(false)
-        })
+        .filter(|entry| filter(entry.path()))
     {
         forward_sender.send(entry.path().into()).unwrap();
         count += 1;
@@ -60,19 +54,20 @@ where
         .collect();
 }
 
-pub fn scan_summarize<F, T, U>(
+pub fn scan_summarize<F1, F2, T, U>(
     path: &Path,
-    formats: &[&str],
-    process: F,
+    filter: F1,
+    process: F2,
     parameter: T,
     workers: usize,
     ignores: &[String],
 ) where
-    F: Fn(&Path, T) -> Result<Option<U>> + Copy + Send + 'static,
+    F1: Fn(&Path) -> bool,
+    F2: Fn(&Path, T) -> Result<Option<U>> + Copy + Send + 'static,
     T: Clone + Send + 'static,
     U: Send + 'static,
 {
-    let values = scan(path, formats, process, parameter, workers);
+    let values = scan(path, filter, process, parameter, workers);
     let (positives, negatives): (Vec<_>, Vec<_>) =
         values.into_iter().partition(|(_, result)| result.is_ok());
     let (complete, incomplete): (Vec<_>, Vec<_>) = positives

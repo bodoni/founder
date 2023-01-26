@@ -19,12 +19,19 @@ fn main() {
     };
     founder::scanning::scan_summarize(
         &path,
-        &["otf", "ttf"],
+        filter,
         process,
         output,
         arguments.get::<usize>("workers").unwrap_or(1),
         &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
     );
+}
+
+fn filter(path: &Path) -> bool {
+    path.extension()
+        .and_then(|extension| extension.to_str())
+        .map(|extension| ["otf", "ttf"].contains(&extension))
+        .unwrap_or(false)
 }
 
 fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {

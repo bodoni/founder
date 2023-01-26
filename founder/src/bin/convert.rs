@@ -14,14 +14,25 @@ fn main() {
             return;
         }
     };
+    let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
     founder::scanning::scan_summarize(
         &path,
-        &["svg"],
+        |path| filter(path, &ignores),
         process,
         arguments.get::<u32>("document-size").unwrap_or(28),
         arguments.get::<usize>("workers").unwrap_or(1),
         &vec![],
     );
+}
+
+fn filter(path: &Path, ignores: &[String]) -> bool {
+    path.extension()
+        .and_then(|extension| extension.to_str())
+        .map(|extension| ["svg"].contains(&extension))
+        .unwrap_or(false)
+        && !ignores
+            .iter()
+            .any(|name| path.to_str().unwrap().contains(name))
 }
 
 fn process(path: &Path, document_size: u32) -> Result<Option<()>> {

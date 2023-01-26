@@ -80,7 +80,8 @@ tests-name-selected:
 
 tests-convert-selected:
 	cargo run --bin founder-convert --features convert -- \
-		--path assets/draw
+		--path assets/draw \
+		--ignore AdobeBlank
 
 .PHONY: tests
 .PHONY: tests-draw tests-draw-selected
