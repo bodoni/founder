@@ -97,9 +97,16 @@ fn subprocess(
 ) -> Result<Vec<(char, Option<element::SVG>)>> {
     use font::File;
 
+    const REFERENCES: &[char; 2] = &['X', '0'];
     let File { mut fonts } = File::open(path)?;
     let metrics = fonts[0].metrics()?;
-    let reference = fonts[0].draw('X')?;
+    let mut reference = None;
+    for character in REFERENCES.iter() {
+        reference = fonts[0].draw(*character)?;
+        if reference.is_some() {
+            break;
+        }
+    }
     let mut results = vec![];
     for character in characters.chars() {
         let (reference, glyph) = match (reference.as_ref(), fonts[0].draw(character)?) {
