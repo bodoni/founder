@@ -49,9 +49,9 @@ where
         forward_sender.send(entry.path().into()).unwrap();
         count += 1;
     }
-    return (0..count)
+    (0..count)
         .map(|_| backward_receiver.recv().unwrap())
-        .collect();
+        .collect()
 }
 
 pub fn scan_summarize<F1, F2, T, U>(
@@ -80,7 +80,7 @@ pub fn scan_summarize<F1, F2, T, U>(
     eprintln!("Complete: {}", complete.len());
     eprintln!("Incomplete: {}", incomplete.len());
     for (path, _) in incomplete.iter() {
-        eprintln!("{:?}", path);
+        eprintln!("{path:?}");
     }
     eprintln!("Ignored: {}", ignored.len());
     for (path, result) in ignored.iter() {

@@ -10,17 +10,17 @@ pub fn draw(glyph: &Glyph) -> element::Group {
         a += contour.offset;
         data = data.move_to(vec![a.0, a.1]);
         for segment in contour.iter() {
-            match segment {
-                &Segment::Linear(b) => {
+            match *segment {
+                Segment::Linear(b) => {
                     a += b;
                     data = data.line_by(vec![b.0, b.1]);
                 }
-                &Segment::Quadratic(b, mut c) => {
+                Segment::Quadratic(b, mut c) => {
                     c += b;
                     a += c;
                     data = data.quadratic_curve_by(vec![b.0, b.1, c.0, c.1]);
                 }
-                &Segment::Cubic(b, mut c, mut d) => {
+                Segment::Cubic(b, mut c, mut d) => {
                     c += b;
                     d += c;
                     a += d;

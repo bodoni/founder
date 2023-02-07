@@ -16,29 +16,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  agnostic:
+  check:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-        with: {submodules: true}
-      - uses: actions-rs/cargo@v1
-        with: {command: fmt, args: --all -- --check}
-
-  macos:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v3
-        with: {submodules: true}
       - uses: actions-rs/toolchain@v1
-        with: {toolchain: stable}
-      - run: make configure
-      - run: cargo test
+        with: {toolchain: stable, components: clippy, rustfmt}
+      - run: cargo clippy -- -D warnings
+      - run: cargo fmt --all -- --check
 
-  ubuntu:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
-        with: {submodules: true}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
       - run: make configure

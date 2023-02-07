@@ -86,24 +86,24 @@ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
 name = "font"
-version = "0.10.8"
+version = "0.10.9"
 dependencies = [
- "opentype 0.24.8 (registry+https://github.com/rust-lang/crates.io-index)",
- "postscript 0.17.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.41.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.24.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "truetype 0.41.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "font"
-version = "0.10.8"
+version = "0.10.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd8908cacce51c17f076f236c192e79a6d375b9b0e6f6397f92b96b5f5ad6889"
+checksum = "d96b6bbd7e55c0c1b299f3152fee3be5e11edb0f25574bbf34b6df50e866fdeb"
 dependencies = [
- "opentype 0.24.8 (registry+https://github.com/rust-lang/crates.io-index)",
- "postscript 0.17.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.41.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.24.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "truetype 0.41.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -111,7 +111,7 @@ name = "founder"
 version = "0.5.6"
 dependencies = [
  "arguments",
- "font 0.10.8 (registry+https://github.com/rust-lang/crates.io-index)",
+ "font 0.10.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "resvg",
  "svg",
  "walkdir",
@@ -152,22 +152,22 @@ dependencies = [
 
 [[package]]
 name = "opentype"
-version = "0.24.8"
+version = "0.24.9"
 dependencies = [
- "postscript 0.17.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.41.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "truetype 0.41.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "opentype"
-version = "0.24.8"
+version = "0.24.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db97b0bc7aea162fa98ecbf128b08705c8273d3db5d7bec4790b2fa208c02e5b"
+checksum = "36fb4e69ca77c866719620af84aaa62b74e788f5e5df31b1aad7e6a705b97e4e"
 dependencies = [
- "postscript 0.17.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.41.0 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "truetype 0.41.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -196,19 +196,19 @@ dependencies = [
 
 [[package]]
 name = "postscript"
-version = "0.17.2"
+version = "0.17.3"
 dependencies = [
  "random",
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "postscript"
-version = "0.17.2"
+version = "0.17.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1f3a029ccad948ff637aad8429e7c357f56fa6a39a4c7e44a2f245eed52a5336"
+checksum = "67eb2e5785f269312631cd17b25b3031f8327fa11d31890ffabf2dfa3e67cbf8"
 dependencies = [
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -239,9 +239,9 @@ dependencies = [
 
 [[package]]
 name = "rgb"
-version = "0.8.34"
+version = "0.8.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3603b7d71ca82644f79b5a06d1220e9a58ede60bd32255f698cb1af8838b8db3"
+checksum = "7495acf66551cdb696b7711408144bcd3194fc78e32f3a09e809bfe7dd4a7ce3"
 dependencies = [
  "bytemuck",
 ]
@@ -305,9 +305,9 @@ dependencies = [
 
 [[package]]
 name = "tiny-skia"
-version = "0.8.2"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0ae12c22601b6853f4d93abb178e13bf0e1cc8e2454100c85d4d3a59ac71b3f7"
+checksum = "bfef3412c6975196fdfac41ef232f910be2bb37b9dd3313a49a1a6bc815a5bdb"
 dependencies = [
  "arrayref",
  "arrayvec",
@@ -319,9 +319,9 @@ dependencies = [
 
 [[package]]
 name = "tiny-skia-path"
-version = "0.8.2"
+version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bd665853ce64402daabef6edda442dbb4f8ee93ea80957b66ba1af419f11a104"
+checksum = "a4b5edac058fc98f51c935daea4d805b695b38e2f151241cad125ade2a2ac20d"
 dependencies = [
  "arrayref",
  "bytemuck",
@@ -330,29 +330,29 @@ dependencies = [
 
 [[package]]
 name = "truetype"
-version = "0.41.0"
+version = "0.41.1"
 dependencies = [
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "truetype"
-version = "0.41.0"
+version = "0.41.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9521ea8331f5500d3f43d5064a339e658250e05d7043a5cd1db9252d43e80ee5"
+checksum = "18e49aa4a0690a3b081753046463d37ec4b968df9ab2f3a8e343c93cce63a7a9"
 dependencies = [
- "typeface 0.2.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.2.7 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "typeface"
-version = "0.2.4"
+version = "0.2.7"
 
 [[package]]
 name = "typeface"
-version = "0.2.4"
+version = "0.2.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e7a2a118ba7ed56649f662b7c4e9d57c7cf7178895514b57ff1d511566af5a7"
+checksum = "bf610e8cc23b65075cc984c5b3dd40ea77849189f395b2604e059c00558b719b"
 
 [[package]]
 name = "usvg"

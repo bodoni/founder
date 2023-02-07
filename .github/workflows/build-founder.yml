@@ -16,28 +16,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  macos:
-    runs-on: macos-latest
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
         with: {submodules: recursive}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
-      - run: make -C founder tests-draw-selected
-      - run: make -C founder tests-name-selected
-      - run: make -C founder tests-draw
-      - run: make -C founder tests-name
-      - run: make -C founder tests-convert-selected
-
-  ubuntu:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with: {submodules: recursive}
-      - uses: actions-rs/toolchain@v1
-        with: {toolchain: stable}
-      - run: make -C founder tests-draw-selected
-      - run: make -C founder tests-name-selected
-      - run: make -C founder tests-draw
-      - run: make -C founder tests-name
-      - run: make -C founder tests-convert-selected
+      - run: make -C founder test-draw-selected
+      - run: make -C founder test-name-selected
+      - run: make -C founder test-draw
+      - run: make -C founder test-name
+      - run: make -C founder test-convert-selected

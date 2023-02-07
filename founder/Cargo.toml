@@ -32,7 +32,7 @@ required-features = ["convert"]
 
 [dependencies]
 arguments = "0.7"
-font = "0.10.8"
+font = "0.10.9"
 svg = "0.9"
 walkdir = "2.3"
 

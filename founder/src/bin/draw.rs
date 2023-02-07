@@ -27,10 +27,9 @@ fn main() {
         Some(output) => output,
         _ => "global".to_string(),
     };
-    let output: Option<PathBuf> = match arguments.get::<String>("output") {
-        Some(output) => Some(output.into()),
-        _ => None,
-    };
+    let output: Option<PathBuf> = arguments
+        .get::<String>("output")
+        .map(|output| output.into());
     founder::scanning::scan_summarize(
         &path,
         filter,
@@ -72,17 +71,17 @@ fn process(
                         std::fs::create_dir_all(&output)?;
                         let output = output.join(character).with_extension("svg");
                         let mut file = File::create(output)?;
-                        write!(file, "{}", document)?;
+                        write!(file, "{document}")?;
                     }
-                    _ => println!("{}", document),
+                    _ => println!("{document}"),
                 }
                 option = Some(());
             }
-            eprintln!("[success] {:?}", path);
+            eprintln!("[success] {path:?}");
             Ok(option)
         }
         Err(error) => {
-            eprintln!("[failure] {:?} ({:?})", path, error);
+            eprintln!("[failure] {path:?} ({error:?})");
             Err(error)
         }
     }
@@ -124,8 +123,7 @@ fn subprocess(
             mode,
         );
         let transform = format!(
-            "translate({} {}) scale({}) translate({} {}) scale(1 -1)",
-            margin_size, margin_size, scale, x, y,
+            "translate({margin_size} {margin_size}) scale({scale}) translate({x} {y}) scale(1 -1)",
         );
         let glyph = founder::drawing::draw(&glyph).set("transform", transform);
         let style = element::Style::new("path { fill: black; fill-rule: nonzero; }");
