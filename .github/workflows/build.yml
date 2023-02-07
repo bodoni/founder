@@ -20,9 +20,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+        with: {submodules: true}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable, components: clippy, rustfmt}
-      - run: make configure
       - run: cargo clippy -- -D warnings
       - run: cargo fmt --all -- --check
 
@@ -33,6 +33,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
+        with: {submodules: true}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
       - run: make configure
