@@ -86,7 +86,7 @@ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
 name = "font"
-version = "0.10.9"
+version = "0.10.10"
 dependencies = [
  "opentype 0.24.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -96,9 +96,9 @@ dependencies = [
 
 [[package]]
 name = "font"
-version = "0.10.9"
+version = "0.10.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d96b6bbd7e55c0c1b299f3152fee3be5e11edb0f25574bbf34b6df50e866fdeb"
+checksum = "0a0877b5cc863d9cc022b25a8741932e0151a0aeac1d86789a2b8390925ae09e"
 dependencies = [
  "opentype 0.24.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "postscript 0.17.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -111,7 +111,7 @@ name = "founder"
 version = "0.6.0"
 dependencies = [
  "arguments",
- "font 0.10.9 (registry+https://github.com/rust-lang/crates.io-index)",
+ "font 0.10.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "resvg",
  "svg",
  "walkdir",

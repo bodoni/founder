@@ -16,12 +16,15 @@ fn main() {
     let output: Option<PathBuf> = arguments
         .get::<String>("output")
         .map(|output| output.into());
-    founder::scanning::scan_summarize(
+    let values = founder::scanning::scan(
         &path,
         filter,
         process,
         output,
         arguments.get::<usize>("workers").unwrap_or(1),
+    );
+    founder::support::summarize(
+        &values,
         &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
     );
 }

@@ -54,45 +54,6 @@ where
         .collect()
 }
 
-pub fn scan_summarize<F1, F2, T, U>(
-    path: &Path,
-    filter: F1,
-    process: F2,
-    parameter: T,
-    workers: usize,
-    ignores: &[String],
-) where
-    F1: Fn(&Path) -> bool,
-    F2: Fn(&Path, T) -> Result<Option<U>> + Copy + Send + 'static,
-    T: Clone + Send + 'static,
-    U: Send + 'static,
-{
-    let values = scan(path, filter, process, parameter, workers);
-    let (positives, negatives): (Vec<_>, Vec<_>) =
-        values.into_iter().partition(|(_, result)| result.is_ok());
-    let (complete, incomplete): (Vec<_>, Vec<_>) = positives
-        .into_iter()
-        .partition(|(_, result)| result.as_ref().unwrap().is_some());
-    let (ignored, failed): (Vec<_>, Vec<_>) = negatives.into_iter().partition(|(path, _)| {
-        let path = path.to_str().unwrap();
-        ignores.iter().any(|name| path.contains(name))
-    });
-    eprintln!("Complete: {}", complete.len());
-    eprintln!("Incomplete: {}", incomplete.len());
-    for (path, _) in incomplete.iter() {
-        eprintln!("{path:?}");
-    }
-    eprintln!("Ignored: {}", ignored.len());
-    for (path, result) in ignored.iter() {
-        eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    eprintln!("Failed: {}", failed.len());
-    for (path, result) in failed.iter() {
-        eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
-    }
-    assert_eq!(failed.len(), 0);
-}
-
 fn wrap<F, T, U>(path: PathBuf, process: F, parameter: T) -> (PathBuf, Result<U>)
 where
     F: Fn(&Path, T) -> Result<U> + Copy + Send + 'static,
