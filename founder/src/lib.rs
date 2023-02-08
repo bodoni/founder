@@ -1,7 +1,6 @@
 //! A font toolbox.
 
 pub extern crate font;
-
 #[cfg(feature = "draw")]
 pub extern crate svg;
 
