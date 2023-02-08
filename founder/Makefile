@@ -5,11 +5,16 @@ all: test
 test: test-draw test-draw-selected
 test: test-name test-name-selected
 
+test-convert-selected:
+	cargo run --bin founder-convert --features convert -- \
+		--path assets/draw \
+		--ignore AdobeBlank
+
 test-draw:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
-	cargo run --bin founder-draw -- \
+	cargo run --bin founder-draw --features draw -- \
 		--path ../tests/fixtures \
 		--characters aiQW \
 		--ignore google-fonts/ofl/bungeecolor \
@@ -31,17 +36,17 @@ test-draw:
 		--workers 4 > /dev/null
 
 test-draw-selected:
-	cargo run --bin founder-draw -- \
+	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode free \
 		--output assets/draw/free
-	cargo run --bin founder-draw -- \
+	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode local \
 		--output assets/draw/local
-	cargo run --bin founder-draw -- \
+	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode global \
@@ -53,7 +58,7 @@ test-name:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	# https://github.com/google/fonts/issues/5805
-	cargo run --bin founder-name -- \
+	cargo run --bin founder-name --features name -- \
 		--path ../tests/fixtures \
 		--ignore google-fonts/ofl/bungeecolor \
 		--ignore google-fonts/ofl/bungeespice \
@@ -74,17 +79,12 @@ test-name:
 		--workers 4 > /dev/null
 
 test-name-selected:
-	cargo run --bin founder-name -- \
+	cargo run --bin founder-name --features name -- \
 		--path tests/fixtures \
 		--output assets/name
 	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
 
-test-convert-selected:
-	cargo run --bin founder-convert --features convert -- \
-		--path assets/draw \
-		--ignore AdobeBlank
-
 .PHONY: test
+.PHONY: test-convert-selected
 .PHONY: test-draw test-draw-selected
 .PHONY: test-name test-name-selected
-.PHONY: test-convert-selected

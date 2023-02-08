@@ -108,7 +108,7 @@ dependencies = [
 
 [[package]]
 name = "founder"
-version = "0.5.6"
+version = "0.6.0"
 dependencies = [
  "arguments",
  "font 0.10.9 (registry+https://github.com/rust-lang/crates.io-index)",

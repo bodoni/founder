@@ -1,6 +1,6 @@
 [package]
 name = "founder"
-version = "0.5.7"
+version = "0.6.0"
 edition = "2021"
 license = "Apache-2.0/MIT"
 authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
@@ -11,29 +11,30 @@ repository = "https://github.com/bodoni/workbench/tree/main/founder"
 exclude = ["tests/fixtures/*"]
 
 [features]
-convert = ["resvg"]
-
-[lib]
-name = "founder"
-path = "src/lib.rs"
-
-[[bin]]
-name = "founder-draw"
-path = "src/bin/draw.rs"
-
-[[bin]]
-name = "founder-name"
-path = "src/bin/name.rs"
+bin = ["arguments"]
+draw = ["bin", "svg"]
+convert = ["bin", "resvg"]
+name = ["bin"]
 
 [[bin]]
 name = "founder-convert"
 path = "src/bin/convert.rs"
 required-features = ["convert"]
 
+[[bin]]
+name = "founder-draw"
+path = "src/bin/draw.rs"
+required-features = ["draw"]
+
+[[bin]]
+name = "founder-name"
+path = "src/bin/name.rs"
+required-features = ["name"]
+
 [dependencies]
-arguments = "0.7"
 font = "0.10.9"
-svg = "0.9"
 walkdir = "2.3"
 
+arguments = { version = "0.7", optional = true }
 resvg = { version = "0.28.0", default-features = false, optional = true }
+svg = { version = "0.9", optional = true }
