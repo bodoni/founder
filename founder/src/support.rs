@@ -6,7 +6,7 @@ where
     T: Send + 'static,
 {
     let (positives, negatives): (Vec<_>, Vec<_>) =
-        values.into_iter().partition(|(_, result)| result.is_ok());
+        values.iter().partition(|(_, result)| result.is_ok());
     let (complete, incomplete): (Vec<_>, Vec<_>) = positives
         .into_iter()
         .partition(|(_, result)| result.as_ref().unwrap().is_some());
