@@ -1,4 +1,5 @@
 extern crate arguments;
+extern crate folder;
 extern crate founder;
 extern crate resvg;
 
@@ -15,7 +16,7 @@ fn main() {
         }
     };
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let values = founder::scanning::scan(
+    let values = folder::scan(
         &path,
         |path| filter(path, &ignores),
         process,

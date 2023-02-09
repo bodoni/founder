@@ -85,6 +85,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
+name = "folder"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f86bd4e59e5f52872dbc7c51a9ac8813f13c179716c863e2fa96ffa16b047df1"
+dependencies = [
+ "walkdir",
+]
+
+[[package]]
 name = "font"
 version = "0.10.10"
 dependencies = [
@@ -108,13 +117,13 @@ dependencies = [
 
 [[package]]
 name = "founder"
-version = "0.6.0"
+version = "0.7.0"
 dependencies = [
  "arguments",
+ "folder",
  "font 0.10.10 (registry+https://github.com/rust-lang/crates.io-index)",
  "resvg",
  "svg",
- "walkdir",
 ]
 
 [[package]]

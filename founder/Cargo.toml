@@ -32,8 +32,8 @@ path = "src/bin/name.rs"
 required-features = ["name"]
 
 [dependencies]
+folder = "0.1"
 font = "0.10.10"
-walkdir = "2.3"
 
 arguments = { version = "0.7", optional = true }
 resvg = { version = "0.28.0", default-features = false, optional = true }

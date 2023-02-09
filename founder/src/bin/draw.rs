@@ -1,4 +1,5 @@
 extern crate arguments;
+extern crate folder;
 extern crate founder;
 
 use std::io::Result;
@@ -30,7 +31,7 @@ fn main() {
     let output: Option<PathBuf> = arguments
         .get::<String>("output")
         .map(|output| output.into());
-    let values = founder::scanning::scan(
+    let values = folder::scan(
         &path,
         filter,
         process,
