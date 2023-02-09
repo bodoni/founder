@@ -1,6 +1,8 @@
 use std::io::Result;
 use std::path::PathBuf;
 
+use colored::Colorize;
+
 pub fn summarize<T>(values: &[(PathBuf, Result<Option<T>>)], ignores: &[String])
 where
     T: Send + 'static,
@@ -14,18 +16,18 @@ where
         let path = path.to_str().unwrap();
         ignores.iter().any(|name| path.contains(name))
     });
-    eprintln!("Complete: {}", complete.len());
-    eprintln!("Incomplete: {}", incomplete.len());
+    eprintln!("{} Found {} complete.", "[success]".green(), complete.len());
+    eprintln!("{} Found {} incomplete.", "[success]".green(), incomplete.len());
     for (path, _) in incomplete.iter() {
         eprintln!("{path:?}");
     }
-    eprintln!("Ignored: {}", ignored.len());
+    eprintln!("{} Found {} ignored.", "[success]".green(), ignored.len());
     for (path, result) in ignored.iter() {
         eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
-    eprintln!("Failed: {}", failed.len());
+    eprintln!("{} Found {} failed.", "[failure]".red(), failed.len());
     for (path, result) in failed.iter() {
         eprintln!("{:?}: {}", path, result.as_ref().err().unwrap());
     }
-    assert_eq!(failed.len(), 0);
+    std::process::exit(i32::from(!failed.is_empty()));
 }

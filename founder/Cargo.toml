@@ -32,6 +32,7 @@ path = "src/bin/name.rs"
 required-features = ["name"]
 
 [dependencies]
+colored = "2"
 folder = "0.1"
 font = "0.10.10"
 

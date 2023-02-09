@@ -1,16 +1,19 @@
 extern crate arguments;
+extern crate colored;
 extern crate folder;
 extern crate founder;
 
 use std::io::Result;
 use std::path::{Path, PathBuf};
 
+use colored::Colorize;
+
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            eprintln!("Error: --path should be given.");
+            eprintln!("{} --path should be given.", "[error  ]".red());
             return;
         }
     };
@@ -51,11 +54,11 @@ fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {
                 }
                 _ => println!("{result}"),
             }
-            eprintln!("[success] {path:?}");
+            eprintln!("{} {path:?}", "[success]".green());
             Ok(Some(()))
         }
         Err(error) => {
-            eprintln!("[failure] {path:?} ({error:?})");
+            eprintln!("{} {path:?} ({error:?})", "[failure]".red());
             Err(error)
         }
     }

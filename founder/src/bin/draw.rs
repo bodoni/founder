@@ -1,10 +1,12 @@
 extern crate arguments;
+extern crate colored;
 extern crate folder;
 extern crate founder;
 
 use std::io::Result;
 use std::path::{Path, PathBuf};
 
+use colored::Colorize;
 use svg::node::element;
 use svg::Document;
 
@@ -13,14 +15,14 @@ fn main() {
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            eprintln!("Error: --path should be given.");
+            eprintln!("{} --path should be given.", "[error  ]".red());
             return;
         }
     };
     let characters = match arguments.get::<String>("characters") {
         Some(characters) => characters.chars().collect(),
         _ => {
-            eprintln!("Error: --characters should be given.");
+            eprintln!("{} --characters should be given.", "[error  ]".red());
             return;
         }
     };
@@ -81,11 +83,11 @@ fn process(
                 }
                 option = Some(());
             }
-            eprintln!("[success] {path:?}");
+            eprintln!("{} {path:?}", "[success]".green());
             Ok(option)
         }
         Err(error) => {
-            eprintln!("[failure] {path:?} ({error:?})");
+            eprintln!("{} {path:?} ({error:?})", "[failure]".red());
             Err(error)
         }
     }

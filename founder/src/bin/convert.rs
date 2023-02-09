@@ -1,4 +1,5 @@
 extern crate arguments;
+extern crate colored;
 extern crate folder;
 extern crate founder;
 extern crate resvg;
@@ -6,12 +7,14 @@ extern crate resvg;
 use std::io::Result;
 use std::path::{Path, PathBuf};
 
+use colored::Colorize;
+
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
     let path: PathBuf = match arguments.get::<String>("path") {
         Some(path) => path.into(),
         _ => {
-            eprintln!("Error: --path should be given.");
+            eprintln!("{} --path should be given.", "[error  ]".red());
             return;
         }
     };
@@ -39,11 +42,11 @@ fn filter(path: &Path, ignores: &[String]) -> bool {
 fn process(path: &Path, document_size: u32) -> Result<Option<()>> {
     match to_png(path, document_size) {
         Ok(_) => {
-            eprintln!("[success] {:?}", path);
+            eprintln!("{} {path:?}", "[success]".green());
             Ok(Some(()))
         }
         Err(error) => {
-            eprintln!("[failure] {:?} ({:?})", path, error);
+            eprintln!("{} {path:?} ({error:?})", "[failure]".red());
             Err(error)
         }
     }
