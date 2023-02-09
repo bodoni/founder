@@ -17,7 +17,11 @@ where
         ignores.iter().any(|name| path.contains(name))
     });
     eprintln!("{} Found {} complete.", "[success]".green(), complete.len());
-    eprintln!("{} Found {} incomplete.", "[success]".green(), incomplete.len());
+    eprintln!(
+        "{} Found {} incomplete.",
+        "[success]".green(),
+        incomplete.len(),
+    );
     for (path, _) in incomplete.iter() {
         eprintln!("{path:?}");
     }
