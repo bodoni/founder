@@ -19,13 +19,14 @@ fn main() {
         }
     };
     let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let values = folder::scan(
+    let values: Vec<_> = folder::scan(
         &path,
         |path| filter(path, &ignores),
         process,
         arguments.get::<u32>("document-size").unwrap_or(28),
         arguments.get::<usize>("workers").unwrap_or(1),
-    );
+    )
+    .collect();
     founder::support::summarize(&values, &[]);
 }
 

@@ -108,9 +108,9 @@ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
 name = "folder"
-version = "0.1.0"
+version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f86bd4e59e5f52872dbc7c51a9ac8813f13c179716c863e2fa96ffa16b047df1"
+checksum = "c7b621ba86c1091252a99e62f4d65cd5b2f11c9d7906a976688c73bb41d188a0"
 dependencies = [
  "walkdir",
 ]
