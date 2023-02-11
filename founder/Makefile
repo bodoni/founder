@@ -7,7 +7,7 @@ test: test-name test-name-selected
 
 test-convert-selected:
 	cargo run --bin founder-convert --features convert -- \
-		--path assets/draw \
+		--path tests/fixtures/draw \
 		--ignore AdobeBlank
 
 test-draw:
@@ -40,18 +40,18 @@ test-draw-selected:
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode free \
-		--output assets/draw/free
+		--output tests/fixtures/draw/free
 	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode local \
-		--output assets/draw/local
+		--output tests/fixtures/draw/local
 	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
 		--characters aiQW \
 		--mode global \
-		--output assets/draw/global
-	[ "$$(git diff assets/draw | wc -l | xargs)" = 0 ] || exit 1
+		--output tests/fixtures/draw/global
+	[ "$$(git diff tests/fixtures/draw | wc -l | xargs)" = 0 ] || exit 1
 
 test-name:
 	# https://github.com/google/fonts/issues/5551
@@ -81,8 +81,8 @@ test-name:
 test-name-selected:
 	cargo run --bin founder-name --features name -- \
 		--path tests/fixtures \
-		--output assets/name
-	[ "$$(git diff assets/name | wc -l | xargs)" = 0 ] || exit 1
+		--output tests/fixtures/name
+	[ "$$(git diff tests/fixtures/name | wc -l | xargs)" = 0 ] || exit 1
 
 .PHONY: test
 .PHONY: test-convert-selected
