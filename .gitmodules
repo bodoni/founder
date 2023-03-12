@@ -21,3 +21,6 @@
 	path = tests/fixtures/web-platform-tests
 	url = https://github.com/web-platform-tests/wpt.git
 	shallow = true
+[submodule "webtype"]
+	path = webtype
+	url = https://github.com/bodoni/webtype.git
