@@ -3,7 +3,11 @@ crates := font founder opentype postscript truetype typeface webtype
 all:
 
 clean:
-	git submodule foreach git checkout .
+	for crate in ${crates}; do \
+		pushd $${crate} > /dev/null; \
+		git checkout .; \
+		popd > /dev/null; \
+	done
 
 configure:
 	for manifest in */Cargo.toml; do \
@@ -13,4 +17,11 @@ configure:
 		done \
 	done
 
-.PHONY: all clean configure
+update:
+	for crate in ${crates}; do \
+		pushd $${crate} > /dev/null; \
+		git checkout main && git pull; \
+		popd > /dev/null; \
+	done
+
+.PHONY: all clean configure update
