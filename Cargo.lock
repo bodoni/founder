@@ -19,9 +19,9 @@ dependencies = [
 
 [[package]]
 name = "arrayref"
-version = "0.3.6"
+version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4c527152e37cf757a3f78aae5a06fbeefdb07ccc535c980a3208ee3060dd544"
+checksum = "6b4930d2cb77ce62f89ee5d5289b4ac049559b1c45539271f5ed4fdc7db34545"
 
 [[package]]
 name = "arrayvec"
@@ -122,7 +122,7 @@ dependencies = [
  "opentype 0.24.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.42.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -134,7 +134,7 @@ dependencies = [
  "opentype 0.24.12 (registry+https://github.com/rust-lang/crates.io-index)",
  "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.42.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -181,9 +181,9 @@ checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
 
 [[package]]
 name = "libc"
-version = "0.2.139"
+version = "0.2.140"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "201de327520df007757c1f0adce6e827fe8562fbc28bfd9c15571c66ca1f5f79"
+checksum = "99227334921fae1a979cf0bfdfcc6b3e5ce376ef57e16fb6fb3ea2ed6095f80c"
 
 [[package]]
 name = "log"
@@ -209,7 +209,7 @@ version = "0.24.12"
 dependencies = [
  "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.42.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -220,7 +220,7 @@ checksum = "b809595e1a5ae82ecccb8e6c0b57bdd8269a6224bb990494e545f08267c21dbc"
 dependencies = [
  "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.42.1 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -252,7 +252,7 @@ name = "postscript"
 version = "0.17.4"
 dependencies = [
  "random",
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -261,7 +261,7 @@ version = "0.17.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bfdf1613eb7d91702016450da354b31c656f33cae9752f80abdb3e14d36d97b8"
 dependencies = [
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -343,9 +343,9 @@ dependencies = [
 
 [[package]]
 name = "svg"
-version = "0.9.3"
+version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1206d132b55a9c93e12b7e6f9044a27b563a8dea3a39d9bc1764d613a7dd3fa"
+checksum = "02d815ad337e8449d2374d4248448645edfe74e699343dd5719139d93fa87112"
 
 [[package]]
 name = "svgtypes"
@@ -385,7 +385,7 @@ dependencies = [
 name = "truetype"
 version = "0.42.1"
 dependencies = [
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -394,18 +394,18 @@ version = "0.42.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ea20fd814bddbbd30725b250d516069448323603aaafb57315775f383c630d2"
 dependencies = [
- "typeface 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "typeface"
-version = "0.3.0"
+version = "0.3.2"
 
 [[package]]
 name = "typeface"
-version = "0.3.0"
+version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "69e9aa9728936d5675ac55caf344b67a38f105e14dbe404403caca6dae53d1c5"
+checksum = "a76b2a3915a0e6087d55ba80341a88ddf432cc74029e232bd5aa0a5e6093bbd7"
 
 [[package]]
 name = "usvg"
@@ -429,12 +429,11 @@ dependencies = [
 
 [[package]]
 name = "walkdir"
-version = "2.3.2"
+version = "2.3.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "808cf2735cd4b6866113f648b791c6adc5714537bc222d9347bb203386ffda56"
+checksum = "36df944cda56c7d8d8b7496af378e6b16de9284591917d307c9b4d313c44e698"
 dependencies = [
  "same-file",
- "winapi",
  "winapi-util",
 ]
 
@@ -443,6 +442,7 @@ name = "webtype"
 version = "0.0.1"
 dependencies = [
  "opentype 0.24.12 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

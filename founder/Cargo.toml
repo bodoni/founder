@@ -38,4 +38,4 @@ font = "0.11.2"
 
 arguments = { version = "0.7", optional = true }
 resvg = { version = "0.28.0", default-features = false, optional = true }
-svg = { version = "0.9", optional = true }
+svg = { version = "0.13", optional = true }
