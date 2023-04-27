@@ -34,7 +34,7 @@ required-features = ["name"]
 [dependencies]
 colored = "2"
 folder = "0.2"
-font = "0.11.2"
+font = "0.15.0"
 
 arguments = { version = "0.7", optional = true }
 resvg = { version = "0.28.0", default-features = false, optional = true }
