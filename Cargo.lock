@@ -142,7 +142,7 @@ dependencies = [
 
 [[package]]
 name = "font"
-version = "0.15.0"
+version = "0.16.0"
 dependencies = [
  "opentype 0.24.14 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -151,9 +151,9 @@ dependencies = [
 
 [[package]]
 name = "font"
-version = "0.15.0"
+version = "0.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5dae7aac29050aa0070569caa6516fedce3ef27de401f62b5285a0b5a61b82aa"
+checksum = "a3ceb9f10a4bb1b87a48f0ec6365e690b5a2f498aed9f6344afdc9c4a9ef2bf2"
 dependencies = [
  "opentype 0.24.14 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -162,12 +162,12 @@ dependencies = [
 
 [[package]]
 name = "founder"
-version = "0.8.1"
+version = "0.8.2"
 dependencies = [
  "arguments",
  "colored",
  "folder",
- "font 0.15.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "font 0.16.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "resvg",
  "svg",
 ]
