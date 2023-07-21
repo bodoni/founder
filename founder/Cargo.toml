@@ -33,9 +33,9 @@ required-features = ["name"]
 
 [dependencies]
 colored = "2"
-folder = "0.2"
-font = "0.17.0"
+folder = "0.5"
+font = "0.21"
 
 arguments = { version = "0.7", optional = true }
-resvg = { version = "0.28.0", default-features = false, optional = true }
+resvg = { version = "0.28", default-features = false, optional = true }
 svg = { version = "0.13", optional = true }
