@@ -80,9 +80,12 @@ checksum = "17febce684fd15d89027105661fec94afb475cb995fbc59d2865198446ba2eea"
 
 [[package]]
 name = "cc"
-version = "1.0.79"
+version = "1.0.82"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50d30906286121d95be3d479533b458f87493b30a4b5f79a607db8f5d11aa91f"
+checksum = "305fe645edc1442a0fa8b6726ba61d422798d37a52e12eaecf4b022ebbb88f01"
+dependencies = [
+ "libc",
+]
 
 [[package]]
 name = "cfg-if"
@@ -118,9 +121,9 @@ checksum = "8d7439c3735f405729d52c3fbbe4de140eaf938a1fe47d227c27f8254d4302a5"
 
 [[package]]
 name = "errno"
-version = "0.3.1"
+version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4bcfec3a70f97c962c307b2d2c56e358cf1d00b558d74262b5f929ee8cc7e73a"
+checksum = "6b30f669a7961ef1631673d2766cc92f52d64f7ef354d4fe0ddfd30ed52f0f4f"
 dependencies = [
  "errno-dragonfly",
  "libc",
@@ -249,9 +252,9 @@ checksum = "b4668fb0ea861c1df094127ac5f1da3409a82116a4ba74fca2e58ef927159bb3"
 
 [[package]]
 name = "linux-raw-sys"
-version = "0.4.3"
+version = "0.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09fc20d2ca12cb9f044c93e3bd6d32d523e6e2ec3db4f7b2939cd99026ecd3f0"
+checksum = "57bcfdad1b858c2db7c38303a6d2ad4dfaf5eb53dfeb0910128b2c26d6158503"
 
 [[package]]
 name = "log"
@@ -273,7 +276,7 @@ dependencies = [
 name = "opentype"
 version = "0.26.0"
 dependencies = [
- "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.4",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -284,7 +287,7 @@ version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94fbbaa48181ad591f9c9cf1553ab2181e663036bd861b928b950d2422e803c4"
 dependencies = [
- "postscript 0.17.4 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript 0.17.4",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -317,17 +320,17 @@ dependencies = [
 [[package]]
 name = "postscript"
 version = "0.17.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bfdf1613eb7d91702016450da354b31c656f33cae9752f80abdb3e14d36d97b8"
 dependencies = [
- "random",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "postscript"
-version = "0.17.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bfdf1613eb7d91702016450da354b31c656f33cae9752f80abdb3e14d36d97b8"
+version = "0.17.5"
 dependencies = [
+ "random",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -377,9 +380,9 @@ dependencies = [
 
 [[package]]
 name = "rustix"
-version = "0.38.4"
+version = "0.38.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0a962918ea88d644592894bc6dc55acc6c0956488adcebbfb6e273506b7fd6e5"
+checksum = "172891ebdceb05aa0005f533a6cbfca599ddd7d966f6f5d4d9b2e70478e70399"
 dependencies = [
  "bitflags 2.3.3",
  "errno",
@@ -399,9 +402,9 @@ dependencies = [
 
 [[package]]
 name = "simd-adler32"
-version = "0.3.5"
+version = "0.3.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "238abfbb77c1915110ad968465608b68e869e0772622c9656714e73e5a1a522f"
+checksum = "d66dc143e6b11c1eddc06d5c423cfc97062865baf299914ab64caa38182078fe"
 
 [[package]]
 name = "simplecss"
