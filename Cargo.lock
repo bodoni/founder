@@ -276,7 +276,7 @@ dependencies = [
 name = "opentype"
 version = "0.26.0"
 dependencies = [
- "postscript 0.17.4",
+ "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -287,7 +287,7 @@ version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "94fbbaa48181ad591f9c9cf1553ab2181e663036bd861b928b950d2422e803c4"
 dependencies = [
- "postscript 0.17.4",
+ "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -319,18 +319,18 @@ dependencies = [
 
 [[package]]
 name = "postscript"
-version = "0.17.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bfdf1613eb7d91702016450da354b31c656f33cae9752f80abdb3e14d36d97b8"
+version = "0.17.5"
 dependencies = [
+ "random",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "postscript"
 version = "0.17.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ab0d65af5a70e9d4a2421562ca1e34fb8102f4f6dcb3bcc32d63b1fc8692bef2"
 dependencies = [
- "random",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
