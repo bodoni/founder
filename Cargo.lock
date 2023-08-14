@@ -58,9 +58,9 @@ checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
 name = "bitflags"
-version = "2.3.3"
+version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "630be753d4e58660abd17930c71b647fe46c27ea6b63cc59e1e3851406972e42"
+checksum = "b4682ae6287fcf752ecaabbfcc7b6f9b72aa33933dc23a554d853aea8eea8635"
 
 [[package]]
 name = "brotli-decompressor"
@@ -177,21 +177,21 @@ dependencies = [
 [[package]]
 name = "font"
 version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3d1ff490563a6ffa4486517432dce33c4577db12dc8f8c9547f805e1f90cda60"
 dependencies = [
- "opentype 0.26.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.26.0",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "webtype 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "webtype 0.4.0",
 ]
 
 [[package]]
 name = "font"
-version = "0.21.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d1ff490563a6ffa4486517432dce33c4577db12dc8f8c9547f805e1f90cda60"
+version = "0.22.0"
 dependencies = [
- "opentype 0.26.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.27.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "webtype 0.4.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "webtype 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
@@ -201,7 +201,7 @@ dependencies = [
  "arguments",
  "colored",
  "folder",
- "font 0.21.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "font 0.21.0",
  "resvg",
  "svg",
 ]
@@ -258,9 +258,9 @@ checksum = "57bcfdad1b858c2db7c38303a6d2ad4dfaf5eb53dfeb0910128b2c26d6158503"
 
 [[package]]
 name = "log"
-version = "0.4.19"
+version = "0.4.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b06a4cde4c0f271a446782e3eff8de789548ce57dbc8eca9292c27f4a42004b4"
+checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
 name = "miniz_oxide"
@@ -275,6 +275,8 @@ dependencies = [
 [[package]]
 name = "opentype"
 version = "0.26.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "94fbbaa48181ad591f9c9cf1553ab2181e663036bd861b928b950d2422e803c4"
 dependencies = [
  "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -283,9 +285,18 @@ dependencies = [
 
 [[package]]
 name = "opentype"
-version = "0.26.0"
+version = "0.27.0"
+dependencies = [
+ "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
+ "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "opentype"
+version = "0.27.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "94fbbaa48181ad591f9c9cf1553ab2181e663036bd861b928b950d2422e803c4"
+checksum = "c70213c269cb2c16fbb0684b8a5c0f4de217cfe0d0abfa63c154ae39b85f93ac"
 dependencies = [
  "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "truetype 0.43.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -380,11 +391,11 @@ dependencies = [
 
 [[package]]
 name = "rustix"
-version = "0.38.7"
+version = "0.38.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "172891ebdceb05aa0005f533a6cbfca599ddd7d966f6f5d4d9b2e70478e70399"
+checksum = "19ed4fa021d81c8392ce04db050a3da9a60299050b7ae1cf482d862b54a7218f"
 dependencies = [
- "bitflags 2.3.3",
+ "bitflags 2.4.0",
  "errno",
  "libc",
  "linux-raw-sys",
@@ -529,20 +540,31 @@ dependencies = [
 [[package]]
 name = "webtype"
 version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d73c8f2bfac9b3a2bf1c9f66fd03240b437edded7cb19e39b6a7d05a0b40e763"
 dependencies = [
  "brotli-decompressor",
- "opentype 0.26.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.26.0",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
 name = "webtype"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d73c8f2bfac9b3a2bf1c9f66fd03240b437edded7cb19e39b6a7d05a0b40e763"
+version = "0.5.0"
 dependencies = [
  "brotli-decompressor",
- "opentype 0.26.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype 0.27.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "webtype"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6346f6279bdda6f70f44462d1d84288c26b6273546a729c5d4af48578b6a33b"
+dependencies = [
+ "brotli-decompressor",
+ "opentype 0.27.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
