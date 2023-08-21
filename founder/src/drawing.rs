@@ -1,4 +1,5 @@
-use font::{Glyph, Metrics, Number, Offset, Segment};
+use font::glyph::{Glyph, Segment};
+use font::{Metrics, Number, Offset};
 use svg::node::element;
 use svg::node::Node;
 

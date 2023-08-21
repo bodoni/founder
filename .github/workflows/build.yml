@@ -36,5 +36,4 @@ jobs:
         with: {submodules: true}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
-      - run: make configure
       - run: cargo test
