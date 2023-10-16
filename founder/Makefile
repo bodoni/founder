@@ -1,15 +1,19 @@
 RUST_BACKTRACE := full
 
+.PHONY: all
 all: test
 
+.PHONY: test
 test: test-draw test-draw-selected
 test: test-name test-name-selected
 
+.PHONY: test-convert-selected
 test-convert-selected:
 	cargo run --bin founder-convert --features convert -- \
 		--path tests/fixtures/draw \
 		--ignore AdobeBlank
 
+.PHONY: test-draw
 test-draw:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
@@ -35,6 +39,7 @@ test-draw:
 		--ignore web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
 		--workers 4 > /dev/null
 
+.PHONY: test-draw-selected
 test-draw-selected:
 	cargo run --bin founder-draw --features draw -- \
 		--path tests/fixtures \
@@ -53,6 +58,7 @@ test-draw-selected:
 		--output tests/fixtures/draw/global
 	[ "$$(git diff tests/fixtures/draw | wc -l | xargs)" = 0 ] || exit 1
 
+.PHONY: test-name
 test-name:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
@@ -78,13 +84,9 @@ test-name:
 		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-regular \
 		--workers 4 > /dev/null
 
+.PHONY: test-name-selected
 test-name-selected:
 	cargo run --bin founder-name --features name -- \
 		--path tests/fixtures \
 		--output tests/fixtures/name
 	[ "$$(git diff tests/fixtures/name | wc -l | xargs)" = 0 ] || exit 1
-
-.PHONY: test
-.PHONY: test-convert-selected
-.PHONY: test-draw test-draw-selected
-.PHONY: test-name test-name-selected

@@ -1,7 +1,9 @@
 crates := font founder opentype postscript truetype typeface webtype
 
+.PHONY: all
 all:
 
+.PHONY: clean
 clean:
 	for crate in ${crates}; do \
 		pushd $${crate} > /dev/null; \
@@ -9,6 +11,7 @@ clean:
 		popd > /dev/null; \
 	done
 
+.PHONY: configure
 configure:
 	for manifest in */Cargo.toml; do \
 		for crate in ${crates}; do \
@@ -17,11 +20,10 @@ configure:
 		done \
 	done
 
+.PHONY: update
 update:
 	for crate in ${crates}; do \
 		pushd $${crate} > /dev/null; \
 		git checkout main && git pull; \
 		popd > /dev/null; \
 	done
-
-.PHONY: all clean configure update
