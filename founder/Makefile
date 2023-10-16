@@ -11,7 +11,7 @@ test: test-name test-name-selected
 test-convert-selected:
 	cargo run --bin founder-convert --features convert -- \
 		--path tests/fixtures/draw \
-		--ignore AdobeBlank
+		--exclude AdobeBlank
 
 .PHONY: test-draw
 test-draw:
@@ -19,43 +19,40 @@ test-draw:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	cargo run --bin founder-draw --features draw -- \
-		--path ../tests/fixtures \
-		--characters aiQW \
-		--ignore google-fonts/ofl/bungeecolor \
-		--ignore google-fonts/ofl/bungeespice \
-		--ignore google-fonts/ofl/gruppo \
-		--ignore google-fonts/ofl/iceland \
-		--ignore google-fonts/ofl/kaushanscript \
-		--ignore google-fonts/ufl/ubuntu \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
-		--ignore web-platform-tests/css/css-writing-modes/support/WidthTest-Regular \
-		--ignore web-platform-tests/css/css-writing-modes/support/tcu-font \
-		--ignore web-platform-tests/fonts/adobe-fonts/CSSFWOrientationTest \
-		--ignore web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
-		--workers 4 > /dev/null
+		--path ../tests/fixtures/fonts \
+		--exclude google-fonts/ofl/bungeecolor \
+		--exclude google-fonts/ofl/bungeespice \
+		--exclude google-fonts/ofl/gruppo \
+		--exclude google-fonts/ofl/iceland \
+		--exclude google-fonts/ofl/kaushanscript \
+		--exclude google-fonts/ufl/ubuntu \
+		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
+		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
+		--exclude web-platform-tests/css/css-writing-modes/support/WidthTest-Regular \
+		--exclude web-platform-tests/css/css-writing-modes/support/tcu-font \
+		--exclude web-platform-tests/fonts/adobe-fonts/CSSFWOrientationTest \
+		--exclude web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
+		--workers "$((4 * $(nproc --all)))" \
+		> /dev/null
 
 .PHONY: test-draw-selected
 test-draw-selected:
 	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode free \
-		--output tests/fixtures/draw/free
+		--path tests/fixtures/fonts \
+		--mode free
+	rm -rf tests/fixtures/draw/free/*
 	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode local \
-		--output tests/fixtures/draw/local
+		--path tests/fixtures/fonts \
+		--mode local
+	rm -rf tests/fixtures/draw/local/*
 	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures \
-		--characters aiQW \
-		--mode global \
-		--output tests/fixtures/draw/global
+		--path tests/fixtures/fonts \
+		--mode global
+	rm -rf tests/fixtures/draw/global/*
 	[ "$$(git diff tests/fixtures/draw | wc -l | xargs)" = 0 ] || exit 1
 
 .PHONY: test-name
@@ -65,28 +62,30 @@ test-name:
 	# https://github.com/google/fonts/issues/5724
 	# https://github.com/google/fonts/issues/5805
 	cargo run --bin founder-name --features name -- \
-		--path ../tests/fixtures \
-		--ignore google-fonts/ofl/bungeecolor \
-		--ignore google-fonts/ofl/bungeespice \
-		--ignore google-fonts/ofl/gentiumbookbasic \
-		--ignore google-fonts/ofl/gruppo \
-		--ignore google-fonts/ofl/iceland \
-		--ignore google-fonts/ofl/kaushanscript \
-		--ignore google-fonts/ufl/ubuntu \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
-		--ignore web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
-		--ignore web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
-		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-bold \
-		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-bolditalic \
-		--ignore web-platform-tests/fonts/CSSTest/csstest-basic-regular \
-		--workers 4 > /dev/null
+		--path ../tests/fixtures/fonts \
+		--exclude google-fonts/ofl/bungeecolor \
+		--exclude google-fonts/ofl/bungeespice \
+		--exclude google-fonts/ofl/gentiumbookbasic \
+		--exclude google-fonts/ofl/gruppo \
+		--exclude google-fonts/ofl/iceland \
+		--exclude google-fonts/ofl/kaushanscript \
+		--exclude google-fonts/ufl/ubuntu \
+		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
+		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/FontWithFancyFeatures \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/FontWithFeatures2 \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup1 \
+		--exclude web-platform-tests/css/css-fonts/support/fonts/gsubtest-lookup3 \
+		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-bold \
+		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-bolditalic \
+		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-regular \
+		--workers "$((4 * $(nproc --all)))" \
+		> /dev/null
 
 .PHONY: test-name-selected
 test-name-selected:
 	cargo run --bin founder-name --features name -- \
-		--path tests/fixtures \
-		--output tests/fixtures/name
+		--path tests/fixtures/fonts
+	rm -rf tests/fixtures/name/*
+	mv tests/fixtures/fonts/*.txt tests/fixtures/name
 	[ "$$(git diff tests/fixtures/name | wc -l | xargs)" = 0 ] || exit 1

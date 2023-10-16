@@ -9,5 +9,3 @@ extern crate colored;
 
 #[cfg(feature = "draw")]
 pub mod drawing;
-
-pub mod support;

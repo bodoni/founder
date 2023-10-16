@@ -1,3 +1,5 @@
+mod support;
+
 extern crate arguments;
 extern crate colored;
 extern crate folder;
@@ -12,52 +14,31 @@ use svg::Document;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let path: PathBuf = match arguments.get::<String>("path") {
-        Some(path) => path.into(),
-        _ => {
-            eprintln!("{} --path should be given.", "[error  ]".red());
-            return;
-        }
-    };
-    let characters = match arguments.get::<String>("characters") {
-        Some(characters) => characters.chars().collect(),
-        _ => {
-            eprintln!("{} --characters should be given.", "[error  ]".red());
-            return;
-        }
-    };
-    let mode: String = match arguments.get::<String>("mode") {
-        Some(output) => output,
-        _ => "global".to_string(),
-    };
-    let output: Option<PathBuf> = arguments
-        .get::<String>("output")
-        .map(|output| output.into());
-    let values: Vec<_> = folder::scan(
-        &path,
-        filter,
-        process,
-        (characters, mode, output),
-        arguments.get::<usize>("workers").unwrap_or(1),
-    )
-    .collect();
-    founder::support::summarize(
-        &values,
-        &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
+    let path: PathBuf = arguments
+        .get::<String>("path")
+        .unwrap_or_else(|| ".".to_string())
+        .into();
+    let characters = arguments
+        .get::<String>("characters")
+        .unwrap_or_else(|| "BESbswy".to_string());
+    let mode = arguments
+        .get::<String>("mode")
+        .unwrap_or_else(|| "global".to_string());
+    let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
+    let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
+    support::summarize(
+        &folder::scan(
+            &path,
+            |path| support::filter(path, &[".otf", ".ttf"], &excludes),
+            process,
+            (characters, mode),
+            arguments.get::<usize>("workers").unwrap_or(1),
+        )
+        .collect::<Vec<_>>(),
     );
 }
 
-fn filter(path: &Path) -> bool {
-    path.extension()
-        .and_then(|extension| extension.to_str())
-        .map(|extension| ["otf", "ttf"].contains(&extension))
-        .unwrap_or(false)
-}
-
-fn process(
-    path: &Path,
-    (characters, mode, output): (String, String, Option<PathBuf>),
-) -> Result<Option<()>> {
+fn process(path: &Path, (characters, mode): (String, String)) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
@@ -71,17 +52,12 @@ fn process(
                 .filter(|(_, option)| option.is_some())
                 .map(|(character, option)| (character, option.unwrap()))
             {
-                match output {
-                    Some(ref output) => {
-                        let character = format!("{}-{:#x}", character, character as usize);
-                        let output = output.join(path.file_stem().unwrap());
-                        std::fs::create_dir_all(&output)?;
-                        let output = output.join(character).with_extension("svg");
-                        let mut file = File::create(output)?;
-                        write!(file, "{document}")?;
-                    }
-                    _ => println!("{document}"),
-                }
+                let character = format!("{}-{:#x}", character, character as usize);
+                let path = path.parent().unwrap().join(path.file_stem().unwrap());
+                std::fs::create_dir_all(&path)?;
+                let path = path.join(character).with_extension("svg");
+                let mut file = File::create(path)?;
+                write!(file, "{document}")?;
                 option = Some(());
             }
             eprintln!("{} {path:?}", "[success]".green());

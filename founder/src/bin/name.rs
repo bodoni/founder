@@ -1,3 +1,5 @@
+mod support;
+
 extern crate arguments;
 extern crate colored;
 extern crate folder;
@@ -10,50 +12,38 @@ use colored::Colorize;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let path: PathBuf = match arguments.get::<String>("path") {
-        Some(path) => path.into(),
-        _ => {
-            eprintln!("{} --path should be given.", "[error  ]".red());
-            return;
-        }
-    };
-    let output: Option<PathBuf> = arguments
-        .get::<String>("output")
-        .map(|output| output.into());
-    let values: Vec<_> = folder::scan(
-        &path,
-        filter,
-        process,
-        output,
-        arguments.get::<usize>("workers").unwrap_or(1),
-    )
-    .collect();
-    founder::support::summarize(
-        &values,
-        &arguments.get_all::<String>("ignore").unwrap_or(vec![]),
+    let path: PathBuf = arguments
+        .get::<String>("path")
+        .unwrap_or_else(|| ".".to_string())
+        .into();
+    let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
+    let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
+    support::summarize(
+        &folder::scan(
+            &path,
+            |path| support::filter(path, &[".otf", ".ttf"], &excludes),
+            process,
+            (),
+            arguments.get::<usize>("workers").unwrap_or(1),
+        )
+        .collect::<Vec<_>>(),
     );
 }
 
-fn filter(path: &Path) -> bool {
-    path.extension()
-        .and_then(|extension| extension.to_str())
-        .map(|extension| ["otf", "ttf"].contains(&extension))
-        .unwrap_or(false)
-}
-
-fn process(path: &Path, output: Option<PathBuf>) -> Result<Option<()>> {
+fn process(path: &Path, _: ()) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
     match subprocess(path) {
         Ok(result) => {
-            match output {
-                Some(output) => {
-                    let output = output.join(path.file_stem().unwrap()).with_extension("txt");
-                    let mut file = File::create(output)?;
-                    write!(file, "{result}")?;
-                }
-                _ => println!("{result}"),
+            {
+                let path = path
+                    .parent()
+                    .unwrap()
+                    .join(path.file_stem().unwrap())
+                    .with_extension("txt");
+                let mut file = File::create(path)?;
+                write!(file, "{result}")?;
             }
             eprintln!("{} {path:?}", "[success]".green());
             Ok(Some(()))

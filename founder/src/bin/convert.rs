@@ -1,3 +1,5 @@
+mod support;
+
 extern crate arguments;
 extern crate colored;
 extern crate folder;
@@ -11,33 +13,22 @@ use colored::Colorize;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
-    let path: PathBuf = match arguments.get::<String>("path") {
-        Some(path) => path.into(),
-        _ => {
-            eprintln!("{} --path should be given.", "[error  ]".red());
-            return;
-        }
-    };
-    let ignores = arguments.get_all::<String>("ignore").unwrap_or(vec![]);
-    let values: Vec<_> = folder::scan(
-        &path,
-        |path| filter(path, &ignores),
-        process,
-        arguments.get::<u32>("document-size").unwrap_or(28),
-        arguments.get::<usize>("workers").unwrap_or(1),
-    )
-    .collect();
-    founder::support::summarize(&values, &[]);
-}
-
-fn filter(path: &Path, ignores: &[String]) -> bool {
-    path.extension()
-        .and_then(|extension| extension.to_str())
-        .map(|extension| ["svg"].contains(&extension))
-        .unwrap_or(false)
-        && !ignores
-            .iter()
-            .any(|name| path.to_str().unwrap().contains(name))
+    let path: PathBuf = arguments
+        .get::<String>("path")
+        .unwrap_or_else(|| ".".to_string())
+        .into();
+    let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
+    let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
+    support::summarize(
+        &folder::scan(
+            &path,
+            |path| support::filter(path, &[".svg"], &excludes),
+            process,
+            arguments.get::<u32>("document-size").unwrap_or(28),
+            arguments.get::<usize>("workers").unwrap_or(1),
+        )
+        .collect::<Vec<_>>(),
+    );
 }
 
 fn process(path: &Path, document_size: u32) -> Result<Option<()>> {
