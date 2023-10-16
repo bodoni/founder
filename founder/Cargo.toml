@@ -17,6 +17,10 @@ convert = ["bin", "resvg"]
 name = ["bin"]
 
 [[bin]]
+name = "founder"
+path = "src/bin/main.rs"
+
+[[bin]]
 name = "founder-convert"
 path = "src/bin/convert.rs"
 required-features = ["convert"]
