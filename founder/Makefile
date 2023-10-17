@@ -13,7 +13,7 @@ test-name:
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
 	# https://github.com/google/fonts/issues/5805
-	cargo run --bin founder-name --features name -- \
+	cargo run --bin founder-name -- \
 		--path ../tests/fixtures/fonts \
 		--exclude google-fonts/ofl/bungeecolor \
 		--exclude google-fonts/ofl/bungeespice \
@@ -37,7 +37,7 @@ test-name:
 .PHONY: test-name-selected
 test: test-name-selected
 test-name-selected:
-	cargo run --bin founder-name --features name -- \
+	cargo run --bin founder-name -- \
 		--path tests/fixtures/fonts
 	rm -rf tests/fixtures/name/*
 	mv tests/fixtures/fonts/*.txt tests/fixtures/name
@@ -46,7 +46,7 @@ test-name-selected:
 .PHONY: test-rasterize-selected
 test: test-rasterize-selected
 test-rasterize-selected:
-	cargo run --bin founder-rasterize --features rasterize -- \
+	cargo run --bin founder-rasterize -- \
 		--path tests/fixtures/vectorize \
 		--exclude AdobeBlank
 
@@ -56,7 +56,7 @@ test-vectorize:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
 	# https://github.com/google/fonts/issues/5724
-	cargo run --bin founder-vectorize --features vectorize -- \
+	cargo run --bin founder-vectorize -- \
 		--path ../tests/fixtures/fonts \
 		--exclude google-fonts/ofl/bungeecolor \
 		--exclude google-fonts/ofl/bungeespice \
@@ -82,7 +82,7 @@ test: test-vectorize-selected-free
 test-vectorize-selected-free:
 	rm -rf tests/fixtures/vectorize/free
 	cp -R tests/fixtures/fonts tests/fixtures/vectorize/free
-	cargo run --bin founder-vectorize --features vectorize -- --path tests/fixtures/vectorize/free --mode free
+	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/free --mode free
 	rm tests/fixtures/vectorize/free/*.{otf,ttf}
 	[ "$$(git diff tests/fixtures/vectorize/free | wc -l | xargs)" = 0 ] || exit 1
 
@@ -91,7 +91,7 @@ test: test-vectorize-selected-local
 test-vectorize-selected-local:
 	rm -rf tests/fixtures/vectorize/local
 	cp -R tests/fixtures/fonts tests/fixtures/vectorize/local
-	cargo run --bin founder-vectorize --features vectorize -- --path tests/fixtures/vectorize/local --mode local
+	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/local --mode local
 	rm tests/fixtures/vectorize/local/*.{otf,ttf}
 	[ "$$(git diff tests/fixtures/vectorize/local | wc -l | xargs)" = 0 ] || exit 1
 
@@ -100,6 +100,6 @@ test: test-vectorize-selected-global
 test-vectorize-selected-global:
 	rm -rf tests/fixtures/vectorize/global
 	cp -R tests/fixtures/fonts tests/fixtures/vectorize/global
-	cargo run --bin founder-vectorize --features vectorize -- --path tests/fixtures/vectorize/global --mode global
+	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/global --mode global
 	rm tests/fixtures/vectorize/global/*.{otf,ttf}
 	[ "$$(git diff tests/fixtures/vectorize/global | wc -l | xargs)" = 0 ] || exit 1
