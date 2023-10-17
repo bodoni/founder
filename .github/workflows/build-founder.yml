@@ -26,8 +26,8 @@ jobs:
         with: {submodules: recursive}
       - uses: actions-rs/toolchain@v1
         with: {toolchain: stable}
-      - run: make -C founder test-draw-selected
+      - run: make -C founder test-vectorize-selected
       - run: make -C founder test-name-selected
-      - run: make -C founder test-draw
+      - run: make -C founder test-vectorize
       - run: make -C founder test-name
-      - run: make -C founder test-convert-selected
+      - run: make -C founder test-rasterize-selected
