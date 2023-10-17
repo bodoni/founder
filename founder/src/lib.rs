@@ -1,11 +1,7 @@
 //! A font toolbox.
 
-pub extern crate font;
-
-#[cfg(feature = "draw")]
+#[cfg(feature = "vectorize")]
 pub extern crate svg;
 
-extern crate colored;
-
-#[cfg(feature = "draw")]
+#[cfg(feature = "vectorize")]
 pub mod drawing;

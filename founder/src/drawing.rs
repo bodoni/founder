@@ -1,7 +1,6 @@
 use font::glyph::{Glyph, Segment};
 use font::{Metrics, Number, Offset};
-use svg::node::element;
-use svg::node::Node;
+use svg::node::{element, Node};
 
 pub fn draw(glyph: &Glyph) -> element::Group {
     let mut group = element::Group::new();

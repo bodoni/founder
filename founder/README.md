@@ -7,8 +7,8 @@ The package provides a font toolbox.
 ```
 cargo install founder
 
-founder-draw --path <path> --characters <string> --output <path>
-founder-name --path <path> --output <path>
+founder vectorize --path <path> --characters <string>
+founder rasterize --path <path>
 ```
 
 ## Contribution

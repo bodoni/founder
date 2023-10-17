@@ -12,8 +12,8 @@ exclude = ["tests/fixtures/*"]
 
 [features]
 bin = ["arguments"]
-draw = ["bin", "svg"]
-convert = ["bin", "resvg"]
+rasterize = ["bin", "resvg"]
+vectorize = ["bin", "svg"]
 name = ["bin"]
 
 [[bin]]
@@ -21,14 +21,14 @@ name = "founder"
 path = "src/bin/main.rs"
 
 [[bin]]
-name = "founder-convert"
-path = "src/bin/convert.rs"
-required-features = ["convert"]
+name = "founder-rasterize"
+path = "src/bin/rasterize.rs"
+required-features = ["rasterize"]
 
 [[bin]]
-name = "founder-draw"
-path = "src/bin/draw.rs"
-required-features = ["draw"]
+name = "founder-vectorize"
+path = "src/bin/vectorize.rs"
+required-features = ["vectorize"]
 
 [[bin]]
 name = "founder-name"
