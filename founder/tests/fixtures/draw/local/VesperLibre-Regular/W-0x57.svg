@@ -1,8 +1,0 @@
-<svg height="512" width="512" xmlns="http://www.w3.org/2000/svg">
-<style>
-path { fill: black; fill-rule: nonzero; }
-</style>
-<g transform="translate(8 8) scale(0.12783505) translate(940.5 2330) scale(1 -1)">
-<path d="M2008,1384 l-17,-95 l-127,-37 l-426,-1252 l-141,-35 l-304,956 l-306,-921 l-144,-35 l-410,1286 l-142,37 l18,96 l517,0 l-16,-93 l-158,-41 l301,-1015 l290,843 l-56,177 l-139,38 l16,91 l541,0 l-16,-94 l-195,-42 l312,-1013 l319,1020 l-201,34 l19,95 l465,0 z"/>
-</g>
-</svg>

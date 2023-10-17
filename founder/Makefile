@@ -4,16 +4,17 @@ RUST_BACKTRACE := full
 all: test
 
 .PHONY: test
-test: test-draw test-draw-selected
-test: test-name test-name-selected
+test:
 
 .PHONY: test-convert-selected
+test: test-convert-selected
 test-convert-selected:
 	cargo run --bin founder-convert --features convert -- \
 		--path tests/fixtures/draw \
 		--exclude AdobeBlank
 
 .PHONY: test-draw
+test: test-draw
 test-draw:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
@@ -36,26 +37,38 @@ test-draw:
 		--exclude web-platform-tests/css/css-writing-modes/support/tcu-font \
 		--exclude web-platform-tests/fonts/adobe-fonts/CSSFWOrientationTest \
 		--exclude web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
-		--workers "$((4 * $(nproc --all)))" \
+		--workers "$$((4 * $$(nproc --all)))" \
 		> /dev/null
 
-.PHONY: test-draw-selected
-test-draw-selected:
-	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures/fonts \
-		--mode free
-	rm -rf tests/fixtures/draw/free/*
-	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures/fonts \
-		--mode local
-	rm -rf tests/fixtures/draw/local/*
-	cargo run --bin founder-draw --features draw -- \
-		--path tests/fixtures/fonts \
-		--mode global
-	rm -rf tests/fixtures/draw/global/*
-	[ "$$(git diff tests/fixtures/draw | wc -l | xargs)" = 0 ] || exit 1
+.PHONY: test-draw-selected-free
+test: test-draw-selected-free
+test-draw-selected-free:
+	rm -rf tests/fixtures/draw/free
+	cp -R tests/fixtures/fonts tests/fixtures/draw/free
+	cargo run --bin founder-draw --features draw -- --path tests/fixtures/draw/free --mode free
+	rm tests/fixtures/draw/free/*.{otf,ttf}
+	[ "$$(git diff tests/fixtures/draw/free | wc -l | xargs)" = 0 ] || exit 1
+
+.PHONY: test-draw-selected-local
+test: test-draw-selected-local
+test-draw-selected-local:
+	rm -rf tests/fixtures/draw/local
+	cp -R tests/fixtures/fonts tests/fixtures/draw/local
+	cargo run --bin founder-draw --features draw -- --path tests/fixtures/draw/local --mode local
+	rm tests/fixtures/draw/local/*.{otf,ttf}
+	[ "$$(git diff tests/fixtures/draw/local | wc -l | xargs)" = 0 ] || exit 1
+
+.PHONY: test-draw-selected-global
+test: test-draw-selected-global
+test-draw-selected-global:
+	rm -rf tests/fixtures/draw/global
+	cp -R tests/fixtures/fonts tests/fixtures/draw/global
+	cargo run --bin founder-draw --features draw -- --path tests/fixtures/draw/global --mode global
+	rm tests/fixtures/draw/global/*.{otf,ttf}
+	[ "$$(git diff tests/fixtures/draw/global | wc -l | xargs)" = 0 ] || exit 1
 
 .PHONY: test-name
+test: test-name
 test-name:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5553
@@ -79,10 +92,11 @@ test-name:
 		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-bold \
 		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-bolditalic \
 		--exclude web-platform-tests/fonts/CSSTest/csstest-basic-regular \
-		--workers "$((4 * $(nproc --all)))" \
+		--workers "$$((4 * $$(nproc --all)))" \
 		> /dev/null
 
 .PHONY: test-name-selected
+test: test-name-selected
 test-name-selected:
 	cargo run --bin founder-name --features name -- \
 		--path tests/fixtures/fonts
