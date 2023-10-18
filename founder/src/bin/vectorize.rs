@@ -21,9 +21,6 @@ fn main() {
     let characters = arguments
         .get::<String>("characters")
         .unwrap_or_else(|| "BESbswy".to_string());
-    let mode = arguments
-        .get::<String>("mode")
-        .unwrap_or_else(|| "global".to_string());
     let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
     let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
     support::summarize(
@@ -31,20 +28,20 @@ fn main() {
             &path,
             |path| support::filter(path, &[".otf", ".ttf"], &excludes),
             process,
-            (characters, mode),
+            characters,
             arguments.get::<usize>("workers").unwrap_or(1),
         )
         .collect::<Vec<_>>(),
     );
 }
 
-fn process(path: &Path, (characters, mode): (String, String)) -> Result<Option<()>> {
+fn process(path: &Path, characters: String) -> Result<Option<()>> {
     use std::fs::File;
     use std::io::Write;
 
     const DOCUMENT_SIZE: f32 = 512.0;
     const MARGIN_SIZE: f32 = 8.0;
-    match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE, &mode) {
+    match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
         Ok(results) => {
             let mut option = None;
             for (character, document) in results
@@ -75,7 +72,6 @@ fn subprocess(
     characters: &str,
     document_size: f32,
     margin_size: f32,
-    mode: &str,
 ) -> Result<Vec<(char, Option<element::SVG>)>> {
     use font::File;
 
@@ -103,7 +99,6 @@ fn subprocess(
             &metrics,
             reference,
             document_size - 2.0 * margin_size,
-            mode,
         );
         let transform = format!(
             "translate({margin_size} {margin_size}) scale({scale}) translate({x} {y}) scale(1 -1)",

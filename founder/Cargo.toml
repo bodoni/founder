@@ -11,8 +11,8 @@ repository = "https://github.com/bodoni/workbench/tree/main/founder"
 exclude = ["tests/fixtures/*"]
 
 [features]
-default = ["bin"]
-bin = ["arguments", "colored", "resvg"]
+default = ["binary"]
+binary = ["arguments", "colored", "resvg"]
 
 [[bin]]
 name = "founder"
@@ -21,17 +21,17 @@ path = "src/bin/main.rs"
 [[bin]]
 name = "founder-rasterize"
 path = "src/bin/rasterize.rs"
-required-features = ["bin"]
+required-features = ["binary"]
 
 [[bin]]
 name = "founder-vectorize"
 path = "src/bin/vectorize.rs"
-required-features = ["bin"]
+required-features = ["binary"]
 
 [[bin]]
 name = "founder-name"
 path = "src/bin/name.rs"
-required-features = ["bin"]
+required-features = ["binary"]
 
 [dependencies]
 folder = "0.5"

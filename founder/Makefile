@@ -77,29 +77,11 @@ test-vectorize:
 		--workers "$$((4 * $$(nproc --all)))" \
 		> /dev/null
 
-.PHONY: test-vectorize-selected-free
-test: test-vectorize-selected-free
-test-vectorize-selected-free:
-	rm -rf tests/fixtures/vectorize/free
-	cp -R tests/fixtures/fonts tests/fixtures/vectorize/free
-	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/free --mode free
-	rm tests/fixtures/vectorize/free/*.{otf,ttf}
-	[ "$$(git diff tests/fixtures/vectorize/free | wc -l | xargs)" = 0 ] || exit 1
-
-.PHONY: test-vectorize-selected-local
-test: test-vectorize-selected-local
-test-vectorize-selected-local:
-	rm -rf tests/fixtures/vectorize/local
-	cp -R tests/fixtures/fonts tests/fixtures/vectorize/local
-	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/local --mode local
-	rm tests/fixtures/vectorize/local/*.{otf,ttf}
-	[ "$$(git diff tests/fixtures/vectorize/local | wc -l | xargs)" = 0 ] || exit 1
-
-.PHONY: test-vectorize-selected-global
-test: test-vectorize-selected-global
-test-vectorize-selected-global:
-	rm -rf tests/fixtures/vectorize/global
-	cp -R tests/fixtures/fonts tests/fixtures/vectorize/global
-	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize/global --mode global
-	rm tests/fixtures/vectorize/global/*.{otf,ttf}
-	[ "$$(git diff tests/fixtures/vectorize/global | wc -l | xargs)" = 0 ] || exit 1
+.PHONY: test-vectorize-selected
+test: test-vectorize-selected
+test-vectorize-selected:
+	rm -rf tests/fixtures/vectorize
+	cp -R tests/fixtures/fonts tests/fixtures/vectorize
+	cargo run --bin founder-vectorize -- --path tests/fixtures/vectorize
+	rm tests/fixtures/vectorize/*.{otf,ttf}
+	[ "$$(git diff tests/fixtures/vectorize | wc -l | xargs)" = 0 ] || exit 1

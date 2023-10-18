@@ -38,37 +38,16 @@ pub fn draw(glyph: &Glyph) -> element::Group {
 
 pub fn transform(
     glyph: &Glyph,
-    metrics: &Metrics,
+    _: &Metrics,
     reference: &Glyph,
     document_size: Number,
-    mode: &str,
 ) -> (Number, Number, Number) {
-    let (x, y, scale);
-    match mode {
-        "free" => {
-            let (left, bottom, right, top) = glyph.bounding_box;
-            let glyph_size = (right - left).max(top - bottom);
-            scale = document_size / glyph_size;
-            x = -left + (glyph_size - (right - left)) / 2.0;
-            y = top + (glyph_size - (top - bottom)) / 2.0;
-        }
-        "local" => {
-            let (left, _, right, _) = glyph.bounding_box;
-            let glyph_size = metrics.ascender - metrics.descender;
-            scale = document_size / glyph_size;
-            x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
-            y = metrics.ascender;
-        }
-        "global" => {
-            const BASELINE: Number = 0.75;
-            const MULTIPLIER: Number = 1.75;
-            let (left, _, right, _) = glyph.bounding_box;
-            let glyph_size = MULTIPLIER * reference.bounding_box.3;
-            scale = document_size / glyph_size;
-            x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
-            y = BASELINE * glyph_size;
-        }
-        _ => unreachable!(),
-    }
+    const BASELINE: Number = 0.75;
+    const MULTIPLIER: Number = 1.75;
+    let (left, _, right, _) = glyph.bounding_box;
+    let glyph_size = MULTIPLIER * reference.bounding_box.3;
+    let scale = document_size / glyph_size;
+    let x = -glyph.side_bearings.0 + (glyph_size - (right - left)) / 2.0;
+    let y = BASELINE * glyph_size;
     (x, y, scale)
 }
