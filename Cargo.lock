@@ -57,16 +57,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bef38d45163c2f1dde094a7dfd33ccf595c92905c8f8f4fdc18d06fb1037718a"
 
 [[package]]
-name = "bitflags"
-version = "2.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "327762f6e5a765692301e5bb513e0d9fef63be86bbc14528052b1cd3e6f03e07"
-
-[[package]]
 name = "brotli-decompressor"
-version = "2.5.0"
+version = "2.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da74e2b81409b1b743f8f0c62cc6254afefb8b8e50bbfe3735550f7aeefa3448"
+checksum = "4e2e4afe60d7dd600fdd3de8d0f08c2b7ec039712e3b6137ff98b7004e82de4f"
 dependencies = [
  "alloc-no-stdlib",
  "alloc-stdlib",
@@ -74,9 +68,9 @@ dependencies = [
 
 [[package]]
 name = "bytemuck"
-version = "1.14.0"
+version = "1.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "374d28ec25809ee0e23827c2ab573d729e293f281dfe393500e7ad618baa61c6"
+checksum = "ed2490600f404f2b94c167e31d3ed1d5f3c225a0f3b80230053b3e0b7b962bd9"
 
 [[package]]
 name = "cfg-if"
@@ -86,11 +80,10 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "colored"
-version = "2.0.4"
+version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2674ec482fbc38012cf31e6c42ba0177b431a0cb6f15fe40efa5aab1bda516f6"
+checksum = "cbf2150cce219b664a8a70df7a1f933836724b503f8a413af9365b4dcc4d90b8"
 dependencies = [
- "is-terminal",
  "lazy_static",
  "windows-sys",
 ]
@@ -111,20 +104,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d7439c3735f405729d52c3fbbe4de140eaf938a1fe47d227c27f8254d4302a5"
 
 [[package]]
-name = "errno"
-version = "0.3.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ac3e13f66a2f95e32a39eaa81f6b95d42878ca0e1db0c7543723dfe12557e860"
-dependencies = [
- "libc",
- "windows-sys",
-]
-
-[[package]]
 name = "fdeflate"
-version = "0.3.0"
+version = "0.3.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d329bdeac514ee06249dabc27877490f17f5d371ec693360768b838e19f3ae10"
+checksum = "4f9bfee30e4dedf0ab8b422f03af778d9612b63f502710fc500a334ebe2de645"
 dependencies = [
  "simd-adler32",
 ]
@@ -147,31 +130,20 @@ checksum = "98de4bbd547a563b716d8dfa9aad1cb19bfab00f4fa09a6a4ed21dbcf44ce9c4"
 
 [[package]]
 name = "folder"
-version = "0.5.0"
+version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f54844233cf92991576b30d05040504885898f0de493cd6681b49ffb171c8ef3"
+checksum = "93889f30a8ba0d89b527bfbf65090fc5f9d74076e678febd4e20fd5cfb7ec6d9"
 dependencies = [
  "walkdir",
 ]
 
 [[package]]
 name = "font"
-version = "0.24.1"
+version = "0.28.1"
 dependencies = [
- "opentype 0.29.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "webtype 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "font"
-version = "0.24.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b51c9d7d05a4a33b412b20ce3297341861bfa0b36aaedba5fcdc9ec34a0eccfb"
-dependencies = [
- "opentype 0.29.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
- "webtype 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype",
+ "typeface",
+ "webtype",
 ]
 
 [[package]]
@@ -181,33 +153,16 @@ dependencies = [
  "arguments",
  "colored",
  "folder",
- "font 0.24.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "font",
  "resvg",
  "svg",
 ]
-
-[[package]]
-name = "hermit-abi"
-version = "0.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d77f7ec81a6d05a3abb01ab6eb7590f6083d08449fe5a1c8b1e620283546ccb7"
 
 [[package]]
 name = "imagesize"
 version = "0.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df19da1e92fbfec043ca97d622955381b1f3ee72a180ec999912df31b1ccd951"
-
-[[package]]
-name = "is-terminal"
-version = "0.4.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cb0889898416213fab133e1d33a0e5858a48177452750691bde3666d0fdbaf8b"
-dependencies = [
- "hermit-abi",
- "rustix",
- "windows-sys",
-]
 
 [[package]]
 name = "kurbo"
@@ -223,18 +178,6 @@ name = "lazy_static"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e2abad23fbc42b3700f2f279844dc832adb2b2eb069b2df918f455c4e18cc646"
-
-[[package]]
-name = "libc"
-version = "0.2.149"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a08173bc88b7955d1b3145aa561539096c421ac8debde8cbc3612ec635fee29b"
-
-[[package]]
-name = "linux-raw-sys"
-version = "0.4.10"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "da2479e8c062e40bf0066ffa0bc823de0a9368974af99c9f6df941d2c231e03f"
 
 [[package]]
 name = "log"
@@ -254,22 +197,11 @@ dependencies = [
 
 [[package]]
 name = "opentype"
-version = "0.29.2"
+version = "0.32.1"
 dependencies = [
- "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.43.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "opentype"
-version = "0.29.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6b5f6f5c099c826707806cd7ef5aec510ce22b2c1639031f8179ce2aea9b1339"
-dependencies = [
- "postscript 0.17.5 (registry+https://github.com/rust-lang/crates.io-index)",
- "truetype 0.43.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "postscript",
+ "truetype",
+ "typeface",
 ]
 
 [[package]]
@@ -286,11 +218,11 @@ checksum = "5be167a7af36ee22fe3115051bc51f6e6c7054c9348e28deb4f49bd6f705a315"
 
 [[package]]
 name = "png"
-version = "0.17.10"
+version = "0.17.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd75bf2d8dd3702b9707cdbc56a5b9ef42cec752eb8b3bafc01234558442aa64"
+checksum = "1f6c3c3e617595665b8ea2ff95a86066be38fb121ff920a9c0eb282abcd1da5a"
 dependencies = [
- "bitflags 1.3.2",
+ "bitflags",
  "crc32fast",
  "fdeflate",
  "flate2",
@@ -299,19 +231,10 @@ dependencies = [
 
 [[package]]
 name = "postscript"
-version = "0.17.5"
+version = "0.18.0"
 dependencies = [
  "random",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "postscript"
-version = "0.17.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab0d65af5a70e9d4a2421562ca1e34fb8102f4f6dcb3bcc32d63b1fc8692bef2"
-dependencies = [
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface",
 ]
 
 [[package]]
@@ -342,9 +265,9 @@ dependencies = [
 
 [[package]]
 name = "rgb"
-version = "0.8.36"
+version = "0.8.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "20ec2d3e3fc7a92ced357df9cebd5a10b6fb2aa1ee797bf7e9ce2f17dffc8f59"
+checksum = "05aaa8004b64fd573fc9d002f4e632d51ad4f026c2b5ba95fcb6c2f32c2c47d8"
 dependencies = [
  "bytemuck",
 ]
@@ -356,19 +279,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6b9de9831a129b122e7e61f242db509fa9d0838008bf0b29bb0624669edfe48a"
 dependencies = [
  "xmlparser",
-]
-
-[[package]]
-name = "rustix"
-version = "0.38.19"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "745ecfa778e66b2b63c88a61cb36e0eea109e803b0b86bf9879fbc77c70e86ed"
-dependencies = [
- "bitflags 2.4.1",
- "errno",
- "libc",
- "linux-raw-sys",
- "windows-sys",
 ]
 
 [[package]]
@@ -452,29 +362,14 @@ dependencies = [
 
 [[package]]
 name = "truetype"
-version = "0.43.2"
+version = "0.45.0"
 dependencies = [
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "truetype"
-version = "0.43.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "dd6a66078af22206d00ce8a8d547091e735edb95391f98fb07743e795e2404d6"
-dependencies = [
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "typeface",
 ]
 
 [[package]]
 name = "typeface"
-version = "0.3.3"
-
-[[package]]
-name = "typeface"
-version = "0.3.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d4adc8635ac402493688e3642381ac5c8224d5bec93a3c2c6b1d0c00210031a"
+version = "0.4.0"
 
 [[package]]
 name = "usvg"
@@ -508,22 +403,11 @@ dependencies = [
 
 [[package]]
 name = "webtype"
-version = "0.7.0"
+version = "0.10.1"
 dependencies = [
  "brotli-decompressor",
- "opentype 0.29.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "webtype"
-version = "0.7.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7a718268306d0b3e2c60e6c1adbfde035b7697214fdeff9fb4b83eb7a0f15569"
-dependencies = [
- "brotli-decompressor",
- "opentype 0.29.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "typeface 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "opentype",
+ "typeface",
 ]
 
 [[package]]
