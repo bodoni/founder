@@ -34,5 +34,5 @@ jobs:
       - run: make -C founder test-name-internal
       - run: make -C founder test-rasterize-internal
       - run: make -C founder test-vectorize-internal
-      - run: make -C founder test-name
-      - run: make -C founder test-vectorize
+      - run: make -C founder test-name-external
+      - run: make -C founder test-vectorize-external
