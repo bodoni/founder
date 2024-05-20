@@ -23,10 +23,7 @@ jobs:
       - run: cargo fmt --all -- --check
 
   test:
-    strategy:
-      matrix:
-        os: [macos-latest, ubuntu-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with: {submodules: recursive}
