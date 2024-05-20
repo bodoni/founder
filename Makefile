@@ -53,7 +53,8 @@ test-vectorize-internal:
 	rm -rf tests/fixtures/internal/vectorize
 	cp -R tests/fixtures/internal/fonts tests/fixtures/internal/vectorize
 	cargo run --bin founder-vectorize -- --path tests/fixtures/internal/vectorize
-	rm tests/fixtures/internal/vectorize/*.{otf,ttf}
+	rm tests/fixtures/internal/vectorize/*.otf
+	rm tests/fixtures/internal/vectorize/*.ttf
 	[ "$$(git diff tests/fixtures/internal/vectorize | wc -l | xargs)" = 0 ] || exit 1
 
 .PHONY: test-vectorize-external
