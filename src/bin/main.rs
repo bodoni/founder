@@ -17,7 +17,7 @@ macro_rules! some(
 
 fn main() {
     let arguments: Vec<_> = std::env::args().collect();
-    let prefix = PathBuf::from(some!(arguments.get(0)));
+    let prefix = PathBuf::from(some!(arguments.first()));
     let prefix = some!(some!(prefix.file_name()).to_str());
     if arguments.len() > 1 {
         let program = format!("{prefix}-{}", arguments[1]);

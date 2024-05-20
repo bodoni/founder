@@ -21,7 +21,7 @@ fn main() {
     let characters = arguments
         .get::<String>("characters")
         .unwrap_or_else(|| "BESbswy".to_string());
-    let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
+    let excludes = arguments.get_all::<String>("exclude").unwrap_or_default();
     let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
     support::summarize(
         &folder::scan(

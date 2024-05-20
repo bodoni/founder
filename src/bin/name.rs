@@ -16,7 +16,7 @@ fn main() {
         .get::<String>("path")
         .unwrap_or_else(|| ".".to_string())
         .into();
-    let excludes = arguments.get_all::<String>("exclude").unwrap_or(vec![]);
+    let excludes = arguments.get_all::<String>("exclude").unwrap_or_default();
     let excludes = excludes.iter().map(String::as_str).collect::<Vec<_>>();
     support::summarize(
         &folder::scan(
