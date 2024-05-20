@@ -26,9 +26,6 @@ test-name-external:
 		--exclude google-fonts/ofl/bungeecolor \
 		--exclude google-fonts/ofl/bungeespice \
 		--exclude google-fonts/ofl/gentiumbookbasic \
-		--exclude google-fonts/ofl/gruppo \
-		--exclude google-fonts/ofl/iceland \
-		--exclude google-fonts/ofl/kaushanscript \
 		--exclude google-fonts/ufl/ubuntu \
 		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
 		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \
@@ -65,12 +62,9 @@ test-vectorize-external:
 	# https://github.com/google/fonts/issues/5551
 	# https://github.com/google/fonts/issues/5724
 	cargo run --bin founder-vectorize -- \
-		--path ../tests/fixtures/external \
+		--path tests/fixtures/external \
 		--exclude google-fonts/ofl/bungeecolor \
 		--exclude google-fonts/ofl/bungeespice \
-		--exclude google-fonts/ofl/gruppo \
-		--exclude google-fonts/ofl/iceland \
-		--exclude google-fonts/ofl/kaushanscript \
 		--exclude google-fonts/ufl/ubuntu \
 		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Fallback \
 		--exclude web-platform-tests/css/WOFF2/support/SFNT-CFF-Reference \

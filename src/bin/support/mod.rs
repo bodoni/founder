@@ -3,7 +3,7 @@ use std::path::{Path, PathBuf};
 
 pub fn filter(path: &Path, includes: &[&str], excludes: &[&str]) -> bool {
     let path = path.to_str().unwrap();
-    includes.iter().any(|value| path.contains(value))
+    includes.iter().any(|value| path.ends_with(value))
         && !excludes.iter().any(|value| path.contains(value))
 }
 
