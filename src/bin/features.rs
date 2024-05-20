@@ -58,10 +58,10 @@ fn subprocess(path: &Path) -> Result<String> {
     for (feature, value) in fonts[0].features()? {
         let feature = Tag::from(feature);
         let feature = feature.as_str().unwrap_or("<none>");
-        for (script, value) in value.scripts {
+        for (script, value) in value {
             let script = Tag::from(script);
             let script = script.as_str().unwrap_or("<none>");
-            for language in value {
+            for (language, _) in value {
                 let language = language.map(Tag::from);
                 let language = language.as_ref().and_then(Tag::as_str).unwrap_or("<none>");
                 writeln!(string, "{feature: <10} {script: <10} {language}").unwrap();

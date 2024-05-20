@@ -42,6 +42,24 @@ test-internal-vectorize:
 	rm tests/fixtures/internal/vectorize/*.ttf
 	[ "$$(git diff tests/fixtures/internal/vectorize | wc -l | xargs)" = 0 ] || exit 1
 
+.PHONY: test-external-features
+test: test-external-features
+test-external-features:
+	# https://github.com/google/fonts/issues/6888
+	# https://github.com/google/fonts/issues/6894
+	cargo run --bin founder-features -- \
+		--path tests/fixtures/external \
+		--exclude google-fonts/ofl/federant \
+		--exclude google-fonts/ofl/liujianmaocao \
+		--exclude google-fonts/ofl/londrina \
+		--exclude google-fonts/ofl/longcang \
+		--exclude google-fonts/ofl/mashanzheng \
+		--exclude google-fonts/ofl/notosans \
+		--exclude google-fonts/ofl/zhimangxing \
+		--exclude web-platform-tests/css/css-fonts/matching/resources/variabletest \
+		--workers "$$((4 * $$(nproc --all)))" \
+		> /dev/null
+
 .PHONY: test-external-names
 test: test-external-names
 test-external-names:
