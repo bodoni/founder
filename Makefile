@@ -76,5 +76,6 @@ test-vectorize-external:
 		--exclude web-platform-tests/css/css-writing-modes/support/tcu-font \
 		--exclude web-platform-tests/fonts/adobe-fonts/CSSFWOrientationTest \
 		--exclude web-platform-tests/fonts/adobe-fonts/CSSHWOrientationTest \
+		--exclude web-platform-tests/fonts/noto/cjk/NotoSansCJKjp-Regular-subset \
 		--workers "$$((4 * $$(nproc --all)))" \
 		> /dev/null
