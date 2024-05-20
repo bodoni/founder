@@ -4,15 +4,13 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - explorer/**
   pull_request:
     branches:
       - main
   workflow_dispatch:
 
 concurrency:
-  group: ${{ format('build-{0}', github.head_ref || 'main') }}
+  group: ${{ format('build-founder-{0}', github.head_ref || 'main') }}
   cancel-in-progress: true
 
 jobs:
@@ -20,9 +18,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-        with: {submodules: true}
-      - uses: ructions/toolchain@v2
-        with: {toolchain: stable, components: "clippy, rustfmt"}
+      - run: rustup toolchain install stable --profile=minimal --component clippy --component rustfmt
       - run: cargo clippy -- -D warnings
       - run: cargo fmt --all -- --check
 
@@ -33,7 +29,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-        with: {submodules: true}
-      - uses: ructions/toolchain@v2
-        with: {toolchain: stable}
-      - run: cargo test
+        with: {submodules: recursive}
+      - run: rustup toolchain install stable --profile=minimal
+      - run: make -C founder test-name-internal
+      - run: make -C founder test-rasterize-internal
+      - run: make -C founder test-vectorize-internal
+      - run: make -C founder test-name
+      - run: make -C founder test-vectorize

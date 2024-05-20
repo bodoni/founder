@@ -1,11 +1,43 @@
-[workspace]
-members = [
-    "font",
-    "founder",
-    "opentype",
-    "postscript",
-    "truetype",
-    "typeface",
-    "webtype",
-]
-resolver = "2"
+[package]
+name = "founder"
+version = "0.11.0"
+edition = "2021"
+license = "Apache-2.0/MIT"
+authors = ["Ivan Ukhov <ivan.ukhov@gmail.com>"]
+description = "The package provides a font toolbox."
+documentation = "https://docs.rs/founder"
+homepage = "https://github.com/bodoni/founder"
+repository = "https://github.com/bodoni/founder"
+exclude = ["tests/fixtures/*"]
+
+[features]
+default = ["binary"]
+binary = ["arguments", "colored", "resvg"]
+
+[[bin]]
+name = "founder"
+path = "src/bin/main.rs"
+
+[[bin]]
+name = "founder-name"
+path = "src/bin/name.rs"
+required-features = ["binary"]
+
+[[bin]]
+name = "founder-rasterize"
+path = "src/bin/rasterize.rs"
+required-features = ["binary"]
+
+[[bin]]
+name = "founder-vectorize"
+path = "src/bin/vectorize.rs"
+required-features = ["binary"]
+
+[dependencies]
+folder = "0.6"
+font = "0.30"
+svg = "0.17"
+
+arguments = { version = "0.7", optional = true }
+colored = { version = "2", optional = true }
+resvg = { version = "0.41", default-features = false, optional = true }
