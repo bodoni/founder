@@ -24,7 +24,7 @@ fn main() {
             |path| support::filter(path, &[".otf", ".ttf"], &excludes),
             process,
             (),
-            arguments.get::<usize>("workers").unwrap_or(1),
+            arguments.get::<usize>("workers"),
         )
         .collect::<Vec<_>>(),
     );
@@ -61,9 +61,12 @@ fn subprocess(path: &Path) -> Result<String> {
 
     let File { mut fonts } = File::open(path)?;
     let mut string = String::new();
-    for ((name_id, language_tag), value) in fonts[0].names()?.iter() {
+    let table = fonts[0].names()?;
+    let table = table.borrow();
+    let language_tags = table.language_tags().collect::<Vec<_>>();
+    for ((_, _, language_id, name_id), value) in table.iter() {
         let name_id = format!("{name_id:?}");
-        let language_tag = language_tag.as_deref().unwrap_or("--");
+        let language_tag = language_id.tag(&language_tags).unwrap_or("--");
         let value = truncate(value.as_deref().unwrap_or("--"));
         writeln!(string, "{name_id: <25} {language_tag: <5} {value}").unwrap();
     }

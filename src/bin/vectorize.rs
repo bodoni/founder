@@ -29,7 +29,7 @@ fn main() {
             |path| support::filter(path, &[".otf", ".ttf"], &excludes),
             process,
             characters,
-            arguments.get::<usize>("workers").unwrap_or(1),
+            arguments.get::<usize>("workers"),
         )
         .collect::<Vec<_>>(),
     );
@@ -80,14 +80,14 @@ fn subprocess(
     let metrics = fonts[0].metrics()?;
     let mut reference = None;
     for character in REFERENCES.iter() {
-        reference = fonts[0].draw(*character)?;
+        reference = fonts[0].glyph(*character)?;
         if reference.is_some() {
             break;
         }
     }
     let mut results = vec![];
     for character in characters.chars() {
-        let (reference, glyph) = match (reference.as_ref(), fonts[0].draw(character)?) {
+        let (reference, glyph) = match (reference.as_ref(), fonts[0].glyph(character)?) {
             (Some(reference), Some(glyph)) => (reference, glyph),
             _ => {
                 results.push((character, None));

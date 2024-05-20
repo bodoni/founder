@@ -10,6 +10,8 @@ use std::io::Result;
 use std::path::{Path, PathBuf};
 
 use colored::Colorize;
+use resvg::tiny_skia::{Paint, Pixmap, Rect, Transform};
+use resvg::usvg::Tree;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
@@ -25,14 +27,14 @@ fn main() {
             |path| support::filter(path, &[".svg"], &excludes),
             process,
             arguments.get::<u32>("document-size").unwrap_or(28),
-            arguments.get::<usize>("workers").unwrap_or(1),
+            arguments.get::<usize>("workers"),
         )
         .collect::<Vec<_>>(),
     );
 }
 
 fn process(path: &Path, document_size: u32) -> Result<Option<()>> {
-    match to_png(path, document_size) {
+    match convert(path, document_size) {
         Ok(_) => {
             eprintln!("{} {path:?}", "[success]".green());
             Ok(Some(()))
@@ -44,43 +46,32 @@ fn process(path: &Path, document_size: u32) -> Result<Option<()>> {
     }
 }
 
-fn to_png(path: &Path, document_size: u32) -> Result<()> {
-    use std::io::{Error, ErrorKind};
-
+fn convert(path: &Path, document_size: u32) -> Result<()> {
     macro_rules! raise(
-        () => (return Err(Error::new(ErrorKind::Other, "failed to convert to png")))
+        () => (return Err(std::io::Error::new(
+            std::io::ErrorKind::Other,
+            "failed to convert to png",
+        )))
     );
 
-    let data = std::fs::read(path)?;
-    let options = resvg::usvg::Options::default();
-    let tree = match resvg::usvg::Tree::from_data(&data, &options) {
-        Ok(tree) => tree,
+    let mut canvas = match Pixmap::new(document_size, document_size) {
+        Some(value) => value,
         _ => raise!(),
     };
-    let mut map = match resvg::tiny_skia::Pixmap::new(document_size, document_size) {
-        Some(map) => map,
+    let content = match Tree::from_data(&std::fs::read(path)?, &Default::default()) {
+        Ok(value) => value,
         _ => raise!(),
     };
-    let mut paint = resvg::tiny_skia::Paint::default();
+    let mut paint = Paint::default();
     paint.set_color_rgba8(255, 255, 255, 255);
-    map.fill_rect(
-        resvg::tiny_skia::Rect::from_xywh(0.0, 0.0, document_size as f32, document_size as f32)
-            .unwrap(),
+    canvas.fill_rect(
+        Rect::from_xywh(0.0, 0.0, document_size as f32, document_size as f32).unwrap(),
         &paint,
-        resvg::tiny_skia::Transform::identity(),
+        Transform::identity(),
         None,
-    )
-    .unwrap();
-    match resvg::render(
-        &tree,
-        resvg::usvg::FitTo::Size(document_size, document_size),
-        resvg::tiny_skia::Transform::default(),
-        map.as_mut(),
-    ) {
-        Some(_) => {}
-        _ => raise!(),
-    }
-    match map.save_png(path.with_extension("png")) {
+    );
+    resvg::render(&content, Transform::default(), &mut canvas.as_mut());
+    match canvas.save_png(path.with_extension("png")) {
         Ok(_) => Ok(()),
         _ => raise!(),
     }
