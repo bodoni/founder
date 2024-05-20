@@ -48,12 +48,13 @@ test-rasterize-internal:
 	cargo run --bin founder-rasterize -- \
 		--path tests/fixtures/internal/vectorize \
 		--exclude AdobeBlank
+	rm tests/fixtures/internal/vectorize/**/*.png
 
 .PHONY: test-vectorize-internal
 test: test-vectorize-internal
 test-vectorize-internal:
 	rm -rf tests/fixtures/internal/vectorize
-	cp -R tests/fixtures/internal tests/fixtures/internal/vectorize
+	cp -R tests/fixtures/internal/fonts tests/fixtures/internal/vectorize
 	cargo run --bin founder-vectorize -- --path tests/fixtures/internal/vectorize
 	rm tests/fixtures/internal/vectorize/*.{otf,ttf}
 	[ "$$(git diff tests/fixtures/internal/vectorize | wc -l | xargs)" = 0 ] || exit 1
