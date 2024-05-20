@@ -4,6 +4,7 @@ use std::io::Result;
 use std::path::{Path, PathBuf};
 
 use colored::Colorize;
+use font::opentype::truetype::Tag;
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
@@ -54,27 +55,18 @@ fn subprocess(path: &Path) -> Result<String> {
 
     let font::File { mut fonts } = font::File::open(path)?;
     let mut string = String::new();
-    let table = fonts[0].names()?;
-    let table = table.borrow();
-    let language_tags = table.language_tags().collect::<Vec<_>>();
-    for ((_, _, language_id, name_id), value) in table.iter() {
-        let name_id = format!("{name_id:?}");
-        let language_tag = language_id.tag(&language_tags).unwrap_or("--");
-        let value = truncate(value.as_deref().unwrap_or("--"));
-        writeln!(string, "{name_id: <25} {language_tag: <5} {value}").unwrap();
+    for (feature, value) in fonts[0].features()? {
+        let feature = Tag::from(feature);
+        let feature = feature.as_str().unwrap_or("<none>");
+        for (script, value) in value.scripts {
+            let script = Tag::from(script);
+            let script = script.as_str().unwrap_or("<none>");
+            for language in value {
+                let language = language.map(Tag::from);
+                let language = language.as_ref().and_then(Tag::as_str).unwrap_or("<none>");
+                writeln!(string, "{feature: <10} {script: <10} {language}").unwrap();
+            }
+        }
     }
     Ok(string)
-}
-
-fn truncate(string: &str) -> String {
-    const MAX: usize = 50;
-    let count = string.chars().count();
-    let mut string = match string.char_indices().nth(MAX) {
-        None => string.to_owned(),
-        Some((index, _)) => string[..index].to_owned(),
-    };
-    if count > MAX {
-        string.push('…');
-    }
-    string
 }

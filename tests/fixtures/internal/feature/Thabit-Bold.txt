@@ -1,0 +1,7 @@
+fina       arab       <none>
+init       arab       <none>
+liga       arab       <none>
+liga       latn       <none>
+mark       arab       <none>
+medi       arab       <none>
+rlig       arab       <none>

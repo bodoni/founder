@@ -1,16 +1,15 @@
 mod support;
 
-extern crate arguments;
-extern crate colored;
-extern crate folder;
-extern crate founder;
-
 use std::io::Result;
 use std::path::{Path, PathBuf};
 
 use colored::Colorize;
 use svg::node::element;
 use svg::Document;
+
+const DOCUMENT_SIZE: f32 = 512.0;
+const MARGIN_SIZE: f32 = 8.0;
+const REFERENCES: &[char; 2] = &['X', '0'];
 
 fn main() {
     let arguments = arguments::parse(std::env::args()).unwrap();
@@ -36,11 +35,8 @@ fn main() {
 }
 
 fn process(path: &Path, characters: String) -> Result<Option<()>> {
-    use std::fs::File;
     use std::io::Write;
 
-    const DOCUMENT_SIZE: f32 = 512.0;
-    const MARGIN_SIZE: f32 = 8.0;
     match subprocess(path, &characters, DOCUMENT_SIZE, MARGIN_SIZE) {
         Ok(results) => {
             let mut option = None;
@@ -53,7 +49,7 @@ fn process(path: &Path, characters: String) -> Result<Option<()>> {
                 let path = path.parent().unwrap().join(path.file_stem().unwrap());
                 std::fs::create_dir_all(&path)?;
                 let path = path.join(character).with_extension("svg");
-                let mut file = File::create(path)?;
+                let mut file = std::fs::File::create(path)?;
                 write!(file, "{document}")?;
                 option = Some(());
             }
@@ -73,10 +69,7 @@ fn subprocess(
     document_size: f32,
     margin_size: f32,
 ) -> Result<Vec<(char, Option<element::SVG>)>> {
-    use font::File;
-
-    const REFERENCES: &[char; 2] = &['X', '0'];
-    let File { mut fonts } = File::open(path)?;
+    let font::File { mut fonts } = font::File::open(path)?;
     let metrics = fonts[0].metrics()?;
     let mut reference = None;
     for character in REFERENCES.iter() {

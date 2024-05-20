@@ -1,11 +1,5 @@
 mod support;
 
-extern crate arguments;
-extern crate colored;
-extern crate folder;
-extern crate founder;
-extern crate resvg;
-
 use std::io::Result;
 use std::path::{Path, PathBuf};
 

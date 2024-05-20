@@ -6,6 +6,15 @@ all: test
 .PHONY: test
 test:
 
+.PHONY: test-feature-internal
+test: test-feature-internal
+test-feature-internal:
+	cargo run --bin founder-feature -- \
+		--path tests/fixtures/internal
+	rm -rf tests/fixtures/internal/feature/*
+	mv tests/fixtures/internal/fonts/*.txt tests/fixtures/internal/feature
+	[ "$$(git diff tests/fixtures/internal/feature | wc -l | xargs)" = 0 ] || exit 1
+
 .PHONY: test-name-internal
 test: test-name-internal
 test-name-internal:
