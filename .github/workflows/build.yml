@@ -28,8 +28,10 @@ jobs:
       - uses: actions/checkout@v4
         with: {submodules: recursive}
       - run: rustup toolchain install stable --profile=minimal
-      - run: make test-name-internal
-      - run: make test-rasterize-internal
-      - run: make test-vectorize-internal
-      - run: make test-name-external
-      - run: make test-vectorize-external
+
+      - run: make test-internal-features
+      - run: make test-internal-names
+      - run: make test-internal-rasterize
+      - run: make test-internal-vectorize
+      - run: make test-external-names
+      - run: make test-external-vectorize

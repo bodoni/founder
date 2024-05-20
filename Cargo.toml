@@ -19,13 +19,13 @@ name = "founder"
 path = "src/bin/main.rs"
 
 [[bin]]
-name = "founder-feature"
-path = "src/bin/feature.rs"
+name = "founder-features"
+path = "src/bin/features.rs"
 required-features = ["binary"]
 
 [[bin]]
-name = "founder-name"
-path = "src/bin/name.rs"
+name = "founder-names"
+path = "src/bin/names.rs"
 required-features = ["binary"]
 
 [[bin]]
