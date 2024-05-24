@@ -1,2 +1,2 @@
-kern       DFLT       <none>
-kern       latn       <none>
+kern       DFLT       DFLT
+kern       latn       DFLT

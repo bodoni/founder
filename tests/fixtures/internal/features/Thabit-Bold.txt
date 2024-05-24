@@ -1,7 +1,7 @@
-fina       arab       <none>
-init       arab       <none>
-liga       arab       <none>
-liga       latn       <none>
-mark       arab       <none>
-medi       arab       <none>
-rlig       arab       <none>
+fina       arab       DFLT
+init       arab       DFLT
+liga       arab       DFLT
+liga       latn       DFLT
+mark       arab       DFLT
+medi       arab       DFLT
+rlig       arab       DFLT

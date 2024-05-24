@@ -40,7 +40,7 @@ required-features = ["binary"]
 
 [dependencies]
 folder = "0.6"
-font = { git = "https://github.com/bodoni/font.git" }
+font = "0.31"
 svg = "0.17"
 
 arguments = { version = "0.7", optional = true }
